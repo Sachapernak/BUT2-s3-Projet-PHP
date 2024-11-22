@@ -1,16 +1,21 @@
 .main-header {
-    margin-top: 0px;
+    position: sticky; /* Rend l'en-tête collant */
+    top: 0; /* Colle l'en-tête au sommet de la page */
+    z-index: 10;
+    margin-top: 0;
     width: 100%;
     height: 10vh; /* Hauteur */
-    background-color: #40607c; /* Couleur du fond */
+    background-color: #2c3e51; /* Couleur du fond */
     color: #f4f4f4; /* Couleur du text */
     font-family: 'Roboto Flex', sans-serif;
-    font-size: 2.5ex; /* a reflechir sur la taille */
+    font-size:  1.3vw; /* a reflechir sur la taille */
 }
 
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%; /* Assure que le corps prend toute la hauteur */
+    overflow: hidden;
 }
 
 .left-div {
@@ -33,4 +38,50 @@ html, body {
 .title-container h1 {
     margin: 0;
 
+}
+
+.main-div {
+    display: flex; /* Utilise flexbox pour gérer la mise en page verticale */
+    height: calc(100vh - 10vh); /* Hauteur restant après l'en-tête */
+}
+
+.sidenav {
+
+
+    border : 2px solid;
+    border-color: #111111;
+    height: 100%;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    background-color: #2c3e51;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 1.3vw;
+    display: block;
+    color: #f4f4f4; /* Couleur du text */
+    font-family: 'Roboto Flex', sans-serif;
+}
+
+.sidenav a:hover {
+    color: #e55c36; /* 4cc4ff : bleu  e55c36 : orange*/
+    font-size: 1.4vw;
+}
+
+.main {
+    flex-grow: 1; /* Prend tout l'espace restant à côté de la sidenav */
+    margin-left: 0;
+    font-size: 28px; /* Taille augmentée */
+    padding: 0 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
