@@ -14,7 +14,7 @@ $surname = "SurnameNotFound";
 <body>
     <header class="main-header">
         <div class="left-div">
-            <div block class="title-container">
+            <div class="title-container">
                 <h1>🏀 Handi-Team Manager Pro™</h1>
             </div>
         </div>
