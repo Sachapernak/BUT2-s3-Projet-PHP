@@ -108,7 +108,6 @@ html, body {
 .main {
     flex-grow: 1; /* Prend tout l'espace restant à côté de la sidenav */
     margin-left: 0;
-    font-size: 28px; /* Taille augmentée */
     padding: 0 10px;
     background-color: #40607c;
     color: #fdfdfd;
