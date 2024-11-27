@@ -1,4 +1,6 @@
 <?php
+$name = "NameNotFound";
+$surname = "SurnameNotFound";
 ?>
 
 <!doctype html>
@@ -16,9 +18,16 @@
                 <h1>🏀 Handi-Team Manager Pro™</h1>
             </div>
         </div>
+        <div class="right-div">
+            <a href="" target="_blank">
+                <span>Compte</span>
+            </a><a href="" target="_blank">
+                <img class="icon" src="./Images/account-avatar.svg" alt="Compte">
+            </a>
+        </div>
     </header>
     <!-- Side navigation -->
-    <div class="main-div">
+    <div class="side-div">
         <div class="sidenav">
             <a href="#">About</a>
             <a href="#">Services</a>
@@ -28,7 +37,8 @@
 
         <!-- Page content -->
         <div class="main">
-
+            <h2>Bienvenue sur Handi-Team Manager</h2>
+            <h3><?php echo($name . " " . $surname) ?></h3>
         </div>
     </div>
 </body>
