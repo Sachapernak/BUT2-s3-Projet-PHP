@@ -84,7 +84,8 @@ VALUES
     (20241003, 3, False, 3, 'Ailier Fort'),
     (20241009, 3, True, 2, 'Pivot');
 
-
+--Creation de l'utilisateur
+CREATE USER 'KTomatho'@'localhost' IDENTIFIED BY '$2y$10$rVjIJic0XnMSQLdvmjc1aelL2KZdFPdsi2oBz1COZZzI38GXy.kNO';
 
 
 
