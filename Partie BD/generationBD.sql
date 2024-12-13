@@ -57,12 +57,12 @@ VALUES
     (20241008, 'Rousseau', 'Maxime', '1996-05-12', 174, 73, 'Act'),
     (20241009, 'Dubois', 'Pierre', '1989-10-04', 176, 76, 'Act'),
     (20241010, 'Fournier', 'Arthur', '1994-01-20', 179, 77, 'Act');
-
+    
 INSERT INTO Match_basket (id_match,date_et_heure,adversaire,lieu,resultat)
 VALUES
-    (1, 2024-11-01 15:00, 'Tigers Lyon', 'dom', 'V'),
-    (2, 2024-11-05 18:30, 'Eagles Paris', 'ext', 'D'),
-    (3, 2024-11-10 14:00, 'Sharks Marseille', 'ext', 'N');
+    (1, '2024-11-01 15:00', 'Tigers Lyon', 'dom', 'V'),
+    (2, '2024-11-05 18:30', 'Eagles Paris', 'ext', 'D'),
+    (3, '2024-11-10 14:00', 'Sharks Marseille', 'ext', 'N');
 
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position) 
 VALUES
