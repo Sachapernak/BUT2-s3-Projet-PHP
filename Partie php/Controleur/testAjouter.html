@@ -1,0 +1,39 @@
+<!-- Page pour ajouter un joueur -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Joueur</title>
+</head>
+<body>
+    <h1>Ajouter un joueur</h1>
+    <form action="testAjouter.php" method="post">
+        <label for="n_licence">Numéro de licence :</label>
+        <input type="text" id="n_licence" name="n_licence" required><br><br>
+
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required><br><br>
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required><br><br>
+
+        <label for="date_de_naissance">Date de naissance :</label>
+        <input type="date" id="date_de_naissance" name="date_de_naissance" required><br><br>
+
+        <label for="taille">Taille (cm) :</label>
+        <input type="number" id="taille" name="taille" required><br><br>
+
+        <label for="poids">Poids (kg) :</label>
+        <input type="number" id="poids" name="poids" required><br><br>
+
+        <label for="statut">Statut :</label>
+        <select id="statut" name="statut" required>
+            <option value="actif">Actif</option>
+            <option value="inactif">Inactif</option>
+        </select><br><br>
+
+        <button type="submit">Créer le joueur</button>
+    </form>
+</body>
+</html>
