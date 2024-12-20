@@ -15,7 +15,6 @@
             $this->taille = $taille;
             $this->poids = $poids;
             $this->statut = $statut;
-        
 		} 
 		
 		public function executer(){
