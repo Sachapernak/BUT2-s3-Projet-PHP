@@ -12,8 +12,8 @@
 		} 
 		
 		public function executer():Joueur{
-            $requete = $this->pdo->prepare("SELECT * FROM joueurs WHERE n_licence = :n_licence");
-            $requete->execute([':n_licence' => $this->n_licence]);
+            $requete = $this->pdo->prepare('SELECT * FROM joueurs WHERE n_licence = :n_licence');
+            $requete->execute(array(':n_licence' => $this->n_licence));
             $res = $requete->fetch(PDO::FETCH_ASSOC);
             if ($res) {
                 return new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'],  $res['statut']);
