@@ -10,16 +10,24 @@
     <title>Connexion</title>
 </head>
 <body>
-    <div id=bloc-connexion>
-        <h2>Connexion</h2>
-        <form method="post" action="/login">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
+    <div class=flex-container>
+        <div id=bloc-connexion>
+            <div id='titre'> 
+                <h2>Connexion</h2>
+            </div>
+            <form method="post" action="/login">
+                <div class="form-group">
+                    <label for="login">Nom d'utilisateur :</label>
+                    <input type="login" id="login" name="login" class="champs-saisi" required>
+                </div>
 
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" name="password" required><br><br>
-    
-            <input type="submit" value="Se connecter">
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" class="champs-saisi" required>
+                </div>
+                <input type="submit" value="Se connecter" id=btn-submit>
+            </form>
+        </div>
     </div>
 </body>
 </html>
