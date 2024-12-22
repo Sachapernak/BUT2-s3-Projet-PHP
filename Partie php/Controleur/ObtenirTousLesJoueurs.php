@@ -2,17 +2,16 @@
 	class ObtenirTousLesJoueurs{ 
 
 		// définition des attributs 
-		private $pdo;
+		private $joueurDAO;
 		  
 		// définition des méthodes 
-		public function __construct($pdo) { 
-			$this->pdo = $pdo;
+		public function __construct() { 
+			$this->joueurDAO = new JoueurDAO();
 		} 
 		
-		public function executer(): array {
-            $requete = $this->pdo->prepare('SELECT * FROM joueur');
-            $requete->execute();
-            return $requete->fetchAll(PDO::FETCH_ASSOC);
+		public function executer() : array {
+            $joueurs = $this->joueurDAO->findAll();
+			return $joueurs;
         }
 	} 
 ?>
