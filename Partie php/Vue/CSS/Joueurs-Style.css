@@ -1,150 +1,51 @@
+
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%; /* Assure que le corps prend toute la hauteur */
-    overflow-y : scroll;
+    height: 100%;
     font-family: 'Roboto Flex', sans-serif;
-
-}
-
-.main-header {
-    display: flex; /* Flexbox pour aligner les enfants horizontalement */
-    justify-content: space-between; /* Espace entre les enfants */
-    align-items: center; /* Centrer les enfants verticalement */
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    margin-top: 0;
-    width: 100%;
-    height: 10vh;
-    background-color: #2c3e51;
     color: #f4f4f4;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: clamp(14px, 2vw, 24px);
-    min-height: 78px;
-    max-height: 120px;
-}
-
-.left-div {
-    width: 70%;
-}
-
-.right-div {
-    width: 30%;
-    display: flex;               /* Flexbox pour aligner les éléments */
-    justify-content: flex-end;   /* Aligne à droite */
-    align-items: center;         /* Centre verticalement dans le conteneur */
-    gap: 8px;                    /* Espacement entre les éléments */
-    padding-right: 2%;           /* Espace à droite */
-}
-
-.right-div a {
-    display: flex;               /* Permet à chaque lien de s'aligner correctement */
-    align-items: center;         /* Centre le contenu verticalement */
-    text-decoration: none;       /* Supprime les soulignements */
-    color: inherit;              /* Garde la couleur actuelle */
-}
-
-.right-div span {
-    padding-right: 1vw;          /* Ajoute de l'espace entre le texte et l'image */
-    font-size: clamp(18px, 1.3vw, 24px); /* Adapte la taille du texte */
-}
-
-.icon {
-    height: 100%;
-    max-width: 70px;        /* Taille maximale de l'image */
-    display: inline-block;  /* Conserve l'image en ligne avec le texte */
-}
-
-.title-container {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    align-items: center; /* Centre verticalement*/
-    justify-content: flex-start; /* Aligne a gauche */
-    padding-left: 10px; /* Ajout de padding a gauche*/
-}
-
-.title-container h1 {
-    margin: 0;
-
-}
-
-.side-div {
-    display: flex; /* Utilise flexbox pour gérer la mise en page verticale */
-    height: calc(100vh - 10vh); /* Hauteur restant après l'en-tête */
-}
-
-.sidenav {
-    border: 2px solid #111111;
-    height: 100%;
-    width: 12vw;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-    background-color: #2c3e51;
-    overflow-x: hidden;
-    padding-top: 20px;
-    min-width: 100px;
-}
-
-.sidenav a {
-    padding: 10px 8px 6px 16px;
-    text-decoration: none;
-    font-size: clamp(18px, 1.4vw, 28px);
-    display: block;
-    color: #f4f4f4; /* Couleur du text */
-    font-family: 'Roboto Flex', sans-serif;
-
-}
-
-.sidenav a:hover {
-    color: #e55c36; /* 4cc4ff : bleu  e55c36 : orange*/
-    font-size: clamp(20px, 1.5vw, 32px);
+    font-size: clamp(14px, 1.5vw, 24px);
+    background-color: #40607c; /* Couleur de fond */
 }
 
 .main {
-    flex-grow: 1; /* Prend tout l'espace restant à côté de la sidenav */
-    margin-left: 0;
-    padding: 0 10px 0 2vw;
-    background-color: #40607c;
-    color: #fdfdfd;
-    font-size: clamp(14px, 1.3vw, 24px);
+    margin-left: 200px; /* Décale le contenu pour éviter la barre latérale */
+    padding: 20px; /* Espace interne pour le contenu principal */
 }
 
 /*********************************
  * DESIGN PAGE
  *********************************/
 
- .recherche {
+.recherche {
     display: flex;
-    justify-content: left; 
-    align-items: center; 
-    /*margin: 20px;*/
+    justify-content: center;
+    align-items: center;
 }
 
 #search-bar {
-    width: 400px; 
-    height: 37px; 
-    border: 2px solid #ccc; 
-    border-radius: 25px 0 0 25px; 
-    padding: 0 15px; 
-    font-size: 16px; 
-    outline: none; 
-    border-right: none; 
-    background-color: #fff; 
+    width: 400px;
+    height: 37px;
+    border: 2px solid #ccc;
+    border-radius: 25px 0 0 25px;
+    padding: 0 15px;
+    font-size: 16px;
+    outline: none;
+    border-right: none;
+    background-color: #fff;
 }
 
 #search-button {
     height: 40px;
     width: 50px;
     border: 2px solid #ccc;
-    border-radius: 0 25px 25px 0; 
-    background-color: #fff; 
-    cursor: pointer; 
+    border-radius: 0 25px 25px 0;
+    background-color: #fff;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     border-left: none;
 }
 
@@ -152,20 +53,20 @@ html, body {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    align-content: space-evenly; 
-    gap: 0.1vw;
-    overflow: hidden;
+    justify-content: center; /* Centre horizontalement */
+    align-items: flex-start; /* Aligne les éléments en haut */
+    gap: 20px; /* Espacement entre les cartes */
 }
 
 
 .joueur {
     margin : 20px;
     min-width: 150px;
-    max-width: 23%; 
-    flex: 1 1 25%;  
+    max-width: 23%;
+    flex: 1 1 25%;
     background-color: #fdfdfd;
     color: #111111;
-    border-radius: 8px; 
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -174,7 +75,6 @@ html, body {
     margin-top: 1vh;
     margin-bottom: 1vh;
     overflow: hidden;
-
     display: flex; /* Utilise flexbox pour le centrage */
     flex-direction: column; /* Aligne les éléments verticalement */
 }
