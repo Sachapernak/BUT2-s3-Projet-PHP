@@ -1,5 +1,5 @@
 <?php 
-    class CreerUnJoueur { 
+    class CreerUnMatch { 
 
         private $matchDAO;
         private $date_et_heure;
