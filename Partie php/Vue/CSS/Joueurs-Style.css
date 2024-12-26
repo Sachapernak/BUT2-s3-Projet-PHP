@@ -10,13 +10,22 @@ html, body {
 }
 
 .main {
-    margin-left: 200px; /* Décale le contenu pour éviter la barre latérale */
-    padding: 20px; /* Espace interne pour le contenu principal */
+    margin-left: 190px;
+    padding: 20px; 
 }
 
 /*********************************
  * DESIGN PAGE
  *********************************/
+ .en-tete {
+    display: flex;
+    justify-content: center; /* Sépare les éléments avec de l'espace */
+    align-items: center; /* Aligne verticalement les éléments */
+    flex-wrap: wrap; /* Permet le retour à la ligne sur petits écrans */
+    gap: 10px; /* Ajoute un espace entre les éléments */
+    column-gap: 40px;
+    margin-bottom: 20px; /* Espace sous l'en-tête */
+}
 
 .recherche {
     display: flex;
@@ -91,4 +100,14 @@ html, body {
     display: inline-block;
     font-size: clamp(10px, 1.3vw, 35px);
     overflow: hidden;
+}
+
+#btn-ajouter-joueur{
+    padding: 10px 20px;
+    font-size: clamp(14px, 1vw, 18px);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: #e55c36;
 }
