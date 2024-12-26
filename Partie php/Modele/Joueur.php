@@ -12,7 +12,7 @@
 		public function __construct($n_licence, $nom, $prenom, $date_de_naissance, $taille, $poids, $statut) { 
 			$this->n_licence = $n_licence;
             $this->nom = $nom; 
-			$this->prenom = $pren; 
+			$this->prenom = $prenom; 
 			$this->date_de_naissance = $date_de_naissance; 
 			$this->taille = $taille; 
 			$this->poids = $poids; 
