@@ -5,7 +5,7 @@ html, body {
     height: 100%;
     font-family: 'Roboto Flex', sans-serif;
     color: #f4f4f4;
-    font-size: clamp(14px, 1.5vw, 24px);
+    font-size: clamp(12px, 1.2vw, 18px); 
     background-color: #40607c; /* Couleur de fond */
 }
 
@@ -14,15 +14,19 @@ html, body {
     padding: 20px; 
 }
 
+h2 {
+    padding-left: 5%;
+}
+
 /*********************************
  * DESIGN PAGE
  *********************************/
  .en-tete {
     display: flex;
-    justify-content: center; /* Sépare les éléments avec de l'espace */
-    align-items: center; /* Aligne verticalement les éléments */
-    flex-wrap: wrap; /* Permet le retour à la ligne sur petits écrans */
-    gap: 10px; /* Ajoute un espace entre les éléments */
+    justify-content: center;
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 10px;
     column-gap: 40px;
     margin-bottom: 20px; /* Espace sous l'en-tête */
 }
@@ -62,9 +66,9 @@ html, body {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centre horizontalement */
-    align-items: flex-start; /* Aligne les éléments en haut */
-    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 20px; 
 }
 
 
@@ -110,4 +114,8 @@ html, body {
     cursor: pointer;
     color: white;
     background-color: #e55c36;
+    
+}
+#btn-ajouter-joueur:hover {
+    background-color: #f09b62;
 }
