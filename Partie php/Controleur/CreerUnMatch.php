@@ -9,10 +9,10 @@
 
         public function __construct($match) { 
             $this->matchDAO = new MatchDAO();
-            $this->date_et_heure = $match.getDate_et_heure();
-            $this->adversaire = $match.getAdversaire();
-            $this->lieu = $match.getlieu();
-            $this->resultat = $match.getResultat();
+            $this->date_et_heure = $match->getDate_et_heure();
+            $this->adversaire = $match->getAdversaire();
+            $this->lieu = $match->getlieu();
+            $this->resultat = $match->getResultat();
         } 
 
         public function executer() {

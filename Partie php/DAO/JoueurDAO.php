@@ -49,13 +49,14 @@
         }
 
         public function findById($n_licence): Joueur  {
+            $joueur= null;
             $requete = $this->pdo->prepare('SELECT * FROM joueur WHERE n_licence = :n_licence');
             $requete->execute(array('n_licence' => $n_licence));
             $res = $requete->fetch(PDO::FETCH_ASSOC);
             if ($res) {
-                return new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'],  $res['statut']);
+                $joueur = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'],  $res['statut']);
             }
-            return null; 
+            return $joueur; 
         }
 
         public function findAll() : array {
