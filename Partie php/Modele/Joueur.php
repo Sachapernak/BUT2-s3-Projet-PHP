@@ -19,5 +19,55 @@
 			$this->statut = $statut;
 		} 
 
+		public function getN_licence() {
+			return $this->n_licence;
+        }
+		public function getNom() {
+			return $this->nom;
+		}
+
+		public function getPrenom() {
+			return $this->prenom;
+        }
+
+		public function getDate_de_naissance() {
+			return $this->date_de_naissance;
+        }
+
+		public function getTaille() {
+			return $this->taille;
+        }
+
+		public function getPoids() {
+			return $this->poids;
+        }
+
+		public function getStatut() {
+			return $this->statut;
+		}
+
+		public function setNom($nom) {
+			$this->nom = $nom;
+        }
+
+		public function setPrenom($prenom) {
+			$this->prenom = $prenom;
+        }
+
+		public function setDate_de_naissance($date_de_naissance) {
+            $this->date_de_naissance = $date_de_naissance;
+        }
+		public function setTaille($taille) {
+            $this->taille = $taille;
+        }
+
+		public function setPoids($poids) {
+			$this->poids = $poids;
+        }
+
+		public function setStatut($statut) {
+			$this->statut = $statut;
+        }
+
 	} 
 ?>

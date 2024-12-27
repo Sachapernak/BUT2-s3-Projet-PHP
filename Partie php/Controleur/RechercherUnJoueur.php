@@ -6,13 +6,13 @@
 		private $n_licence;
 		  
 		// définition des méthodes 
-		public function __construct($n_licence) { 
-			$this->joueurDAO = new JoueurDAO();
+		public function __construct(JoueurDAO $joueurDAO, $n_licence) { 
+			$this->joueurDAO = $joueurDAO;
 			$this->n_licence = $n_licence; 
 		} 
 		
 		public function executer():Joueur{
-            $this->joueurDAO->findById($this->n_licence);
+            return $this->joueurDAO->findById($this->n_licence);
         }
 	} 
 ?>

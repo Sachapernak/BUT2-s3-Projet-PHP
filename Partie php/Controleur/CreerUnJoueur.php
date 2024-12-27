@@ -10,15 +10,15 @@
         private $poids;
         private $statut;
 
-        public function __construct($n_licence, $nom, $prenom, $date_de_naissance, $taille, $poids, $statut) { 
-            $this->joueurDAO = new JoueurDAO();
-            $this->n_licence = $n_licence;
-            $this->nom = $nom; 
-            $this->prenom = $prenom; 
-            $this->date_de_naissance = $date_de_naissance; 
-            $this->taille = $taille; 
-            $this->poids = $poids; 
-            $this->statut = $statut;		
+        public function __construct(JoueurDAO $joueurDAO, Joueur $joueur) { 
+            $this->joueurDAO = $joueurDAO;
+            $this->n_licence = $joueur->getN_licence();
+            $this->nom = $joueur->getNom(); 
+            $this->prenom = $joueur->getPrenom(); 
+            $this->date_de_naissance = $joueur->getDate_de_naissance(); 
+            $this->taille = $joueur->getTaille(); 
+            $this->poids = $joueur->getPoids(); 
+            $this->statut = $joueur->getStatut();		
         } 
 
         public function executer() {

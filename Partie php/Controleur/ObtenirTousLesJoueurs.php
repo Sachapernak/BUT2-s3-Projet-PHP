@@ -5,8 +5,8 @@
 		private $joueurDAO;
 		  
 		// définition des méthodes 
-		public function __construct() { 
-			$this->joueurDAO = new JoueurDAO();
+		public function __construct(JoueurDAO $joueurDAO) { 
+			$this->joueurDAO = $joueurDAO;
 		} 
 		
 		public function executer() : array {

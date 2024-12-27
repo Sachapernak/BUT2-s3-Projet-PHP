@@ -7,13 +7,13 @@
 
 		  
 		// définition des méthodes 
-		public function __construct($n_licence) { 
-			$this->joueurDAO = new JoueurDAO();
+		public function __construct(JoueurDAO $joueurDAO, $n_licence) { 
+			$this->joueurDAO = $joueurDAO;
             $this->n_licence = $n_licence;    
 		} 
 		
-		public function executer(){
-            $requete = $this->joueurDAO->delete($this->n_licence);
+		public function executer(): bool{
+           return $this->joueurDAO->delete($this->n_licence);
         }
 	} 
 ?>
