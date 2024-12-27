@@ -27,6 +27,10 @@ class MatchDAO {
                 ':lieu' => $lieu,
                 ':resultat' => $resultat
             ]);
+
+            // Récupérer l'ID généré
+            $id_match = $this->pdo->lastInsertId();
+            return $id_match;
         } catch (Exception $e) {
             echo 'Erreur lors de l\'insertion : ' . $e->getMessage();
         }        
@@ -54,28 +58,33 @@ class MatchDAO {
         }
     }
 
-    public function delete($id_match) {
+    public function delete($id_match): bool {
+        $res =false;
         try {
             $requete = $this->pdo->prepare('DELETE FROM Match_basket WHERE Id_Matchs = :id_match');
             $requete->execute([':id_match' => $id_match]);
+
+            $res = $requete->rowCount() > 0;
+
         } catch (Exception $e) {
             echo 'Erreur lors de la suppression : ' . $e->getMessage();
         }
+        return $res;
     }
 
     public function findById($id_match) {
+        $match = null;
         try {
-            $match = null;
             $requete = $this->pdo->prepare('SELECT * FROM Match_basket WHERE Id_Matchs = :id_match');
             $requete->execute([':id_match' => $id_match]);
             $res = $requete->fetch(PDO::FETCH_ASSOC);
             if ($res) {
-                $match = new Match_basket($res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
+                $match = new Match_basket($res['Id_Matchs'], $res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
             }
-            return $match;
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
         }
+        return $match;
     }
 
     public function findAll() : array {
@@ -83,7 +92,7 @@ class MatchDAO {
         try {
             $requete = $this->pdo->query('SELECT * FROM Match_basket');
             while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
-                $matchs[] = new Match_basket($res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
+                $matchs[] = new Match_basket($res['Id_Matchs'], $res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();

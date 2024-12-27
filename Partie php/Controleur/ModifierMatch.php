@@ -11,12 +11,12 @@
 
 		  
 		// définition des méthodes 
-		public function __construct($match) { 
-			$this->matchDAO = new MatchDAO();
+		public function __construct(MatchDAO $matchDAO, $match) { 
+			$this->matchDAO = $matchDAO;
             $this->id_match = $match->getIdMatch();
             $this->date_et_heure = $match->getDate_et_heure();
             $this->adversaire = $match->getAdversaire();
-            $this->lieu = $match->getlieu();
+            $this->lieu = $match->getLieu();
             $this->resultat = $match->getResultat();
 		} 
 		

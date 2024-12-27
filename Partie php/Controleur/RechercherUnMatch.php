@@ -6,13 +6,13 @@
 		private $id_matchs;
 		  
 		// définition des méthodes 
-		public function __construct($id_matchs) { 
-			$this->macthDAO = new MatchDAO();
+		public function __construct(MatchDAO $matchDAO, $id_matchs) { 
+			$this->matchDAO = $matchDAO;
 			$this->id_matchs = $id_matchs; 
 		} 
 		
-		public function executer():Joueur{
-            $this->matchDAO->findById($this->id_matchs);
+		public function executer(): Match_Basket{
+            return $this->matchDAO->findById($this->id_matchs);
         }
 	} 
 ?>

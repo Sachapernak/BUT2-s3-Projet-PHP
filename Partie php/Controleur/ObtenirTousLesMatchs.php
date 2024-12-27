@@ -5,8 +5,8 @@
 		private $matchDAO;
 		  
 		// définition des méthodes 
-		public function __construct() { 
-			$this->matchDAO = new MatchDAO();
+		public function __construct(MatchDAO $matchDAO) { 
+			$this->matchDAO = $matchDAO;
 		} 
 		
 		public function executer() : array {

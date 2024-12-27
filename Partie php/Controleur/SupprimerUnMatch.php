@@ -7,13 +7,14 @@
 
 		  
 		// définition des méthodes 
-		public function __construct($pdo, $n_licence) { 
-			$this->matchDAO = new MatchDAO();
-            $this->n_licence = $n_licence;    
-		} 
+		public function __construct(MatchDAO $matchDAO, $id_matchs) { 
+			$this->matchDAO = $matchDAO;
+            $this->id_matchs = $id_matchs; 
+        }    
+
 		
-		public function executer(){
-            $requete = $this->matchDAO->delete($this->id_matchs);
+		public function executer(): bool{
+            return $this->matchDAO->delete($this->id_matchs);
             
         }
 	} 

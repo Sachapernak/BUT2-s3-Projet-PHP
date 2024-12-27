@@ -8,7 +8,8 @@
 		private $resultat;
 
 
-		public function __construct($date_et_heure, $adversaire, $lieu, $resultat=null) { 
+		public function __construct($id_match=null, $date_et_heure, $adversaire, $lieu, $resultat=null) { 
+            $this->id_match = $id_match;
             $this->date_et_heure = $date_et_heure;
             $this->adversaire = $adversaire;
             $this->lieu = $lieu;
@@ -27,7 +28,7 @@
             return $this->adversaire;
         }
 
-        public function getlieu(): string {
+        public function getLieu(): string {
             return $this->lieu;
         }
 
@@ -48,6 +49,10 @@
         }
         public function setlieu(string $lieu): void {
             $this->lieu = $lieu;
+        }
+
+        public function setIdMatch(int $id_match): void {
+            $this->id_match = $id_match;
         }
         
 
