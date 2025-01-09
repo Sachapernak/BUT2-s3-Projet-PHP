@@ -66,20 +66,25 @@ class JoueurDAO
 
     }
 
-    public function delete($n_licence)
+    public function delete($n_licence): bool
     {
         $res = false;
-        try {
-            $requete = $this->pdo->prepare('DELETE FROM joueur WHERE n_licence = :n_licence');
-            $requete->execute(array('n_licence' => $n_licence));
-            $res = $requete->rowCount() > 0;
+        try 
+        {
+            $requeteSupprCommentaires = $this->pdo->prepare('DELETE FROM Commentaires WHERE n_licence = :n_licence');
+            $requeteSupprCommentaires->execute(array('n_licence' => $n_licence));
+
+            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE n_licence = :n_licence');
+            $requeteSupprJouer->execute(array('n_licence' => $n_licence));
+            
+            $requeteSupprJoueur = $this->pdo->prepare('DELETE FROM Joueur WHERE n_licence = :n_licence');
+            $requeteSupprJoueur->execute(array('n_licence' => $n_licence));
+            $res = $requeteSupprJoueur->rowCount() > 0;
         } catch (Exception $e) {
             echo 'Erreur lors de la suppression : ' . $e->getMessage();
         }
 
         return $res;
-
-
     }
 
     public function findById($n_licence): Joueur

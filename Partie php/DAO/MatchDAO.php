@@ -61,6 +61,10 @@ class MatchDAO {
     public function delete($id_match): bool {
         $res =false;
         try {
+
+            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE Id_Matchs = :id_match');
+            $requeteSupprJouer->execute([':id_match' => $id_match]);
+
             $requete = $this->pdo->prepare('DELETE FROM Match_basket WHERE Id_Matchs = :id_match');
             $requete->execute([':id_match' => $id_match]);
 
