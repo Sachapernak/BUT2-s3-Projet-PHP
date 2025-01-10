@@ -4,17 +4,40 @@ namespace Controleur;
 
 use Controleur\ModifierJoueur;
 use DAO\JoueurDAO;
-use Modele\Joueur;
+use DAO\CommentaireDAO;
+use Controleur\ObtenirTousLesCommentaires;
+use Modele\Commentaire;
 
 class ControleurPageConsulterInfosJoueur 
 {
     private $joueurDAO;
+    private $commentaireDAO;
 
     public function __construct()
     {
         $this->joueurDAO = new JoueurDAO();
+        $this->commentaireDAO = new commentaireDAO();
 
     }
+
+    public function recupererCommentaires() {
+        $n_licence = $_GET['nLicence'];
+
+        $obtenirTousLesCommentaires = new ObtenirTousLesCommentaires($this->commentaireDAO, $n_licence);
+        return $obtenirTousLesCommentaires->executer();
+    }
+
+    public function ajouterCommentaire(){
+        $n_licence = $_GET['nLicence'];
+        $commentaireSaisi = $_POST['commentaire'];
+        $date = date('Y-m-d'); 
+
+        $commentaire = new Commentaire($n_licence, $date, $commentaireSaisi);
+
+        $creationCommentaire = new CreerUnCommentaire($this->commentaireDAO, $commentaire);
+        $creationCommentaire->executer();
+    }
+
 
     public function mettreAJourJoueur()
     {

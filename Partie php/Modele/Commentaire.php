@@ -25,7 +25,6 @@
             return $this->commentaire;
         }
 
-
         public function setIdJoueur($id_joueur) {
             $this->id_joueur = $id_joueur;
         }

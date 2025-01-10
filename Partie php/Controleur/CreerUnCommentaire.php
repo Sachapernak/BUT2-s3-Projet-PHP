@@ -3,6 +3,7 @@
 namespace Controleur;
 
 use DAO\CommentaireDAO;
+use Modele\Commentaire;
 class CreerUnCommentaire {
     
     private $commentaireDAO;
@@ -12,8 +13,8 @@ class CreerUnCommentaire {
 
     public function __construct(CommentaireDAO $commentaireDAO, Commentaire $commentaire) {
         $this->commentaireDAO = $commentaireDAO;
-        $this->n_licence = $commentaire->getN_licence();
-        $this->date_com = $commentaire->getDate_com();
+        $this->n_licence = $commentaire->getIdJoueur();
+        $this->date_com = $commentaire->getDate();
         $this->commentaire = $commentaire->getCommentaire();
     }
 

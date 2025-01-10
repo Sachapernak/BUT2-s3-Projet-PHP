@@ -3,6 +3,7 @@
 namespace DAO;
 use Modele\Database;
 use Modele\Match_Basket;
+use PDO;
 class MatchDAO { 
 
     // définition des attributs 
@@ -23,7 +24,7 @@ class MatchDAO {
         try {
             $requete = $this->pdo->prepare('
                 INSERT INTO Match_basket (date_et_heure, adversaire, lieu, resultat)
-                VALUES (STR_TO_DATE(:date_et_heure, "%d/%m/%Y %H:%i"), :adversaire, :lieu, :resultat)'
+                VALUES :date_et_heure, :adversaire, :lieu, :resultat)'
             );
             $requete->execute([
                 ':date_et_heure' => $date_et_heure,
@@ -44,7 +45,7 @@ class MatchDAO {
         try {
             $requete = $this->pdo->prepare('
                 UPDATE Match_basket SET 
-                    date_et_heure = STR_TO_DATE(:nvdate_et_heure, "%d/%m/%Y %H:%i"), 
+                    date_et_heure = :nvdate_et_heure, 
                     adversaire = :nvadversaire, 
                     lieu = :nvlieu, 
                     resultat = :nvresultat 
