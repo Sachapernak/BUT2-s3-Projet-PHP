@@ -1,4 +1,8 @@
 <?php 
+	namespace Controleur;
+
+	use DAO\JoueurDAO;
+	
 	class SupprimerUnJoueur { 
 
 		// définition des attributs 

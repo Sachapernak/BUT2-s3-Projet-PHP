@@ -1,4 +1,8 @@
 <?php
+
+namespace Controleur;
+
+use DAO\CommentaireDAO;
 class CreerUnCommentaire {
     
     private $commentaireDAO;

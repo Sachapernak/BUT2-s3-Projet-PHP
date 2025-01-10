@@ -1,4 +1,8 @@
 <?php
+
+namespace DAO;
+use Modele\Commentaire;
+use Modele\Database;
 class CommentaireDAO {
 
     // Définition des attributs
@@ -7,7 +11,7 @@ class CommentaireDAO {
     // Définition des méthodes
     public function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=ma_base', 'user', 'password');
+            $this->pdo = Database::getInstance();
         } catch (Exception $e) {
             die('Erreur de connexion à la BD : ' . $e->getMessage());
         }

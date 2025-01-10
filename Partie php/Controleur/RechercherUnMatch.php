@@ -1,4 +1,9 @@
 <?php 
+
+	namespace Controleur;
+
+	use DAO\MatchDAO;
+	use Modele\Match_Basket;
 	class RechercherUnMatch{ 
 
 		// définition des attributs 

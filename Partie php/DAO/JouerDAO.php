@@ -1,11 +1,17 @@
 <?php
+
+namespace DAO;
+
+use PDO;
+use Modele\Database;
+use Modele\Jouer;
 class JouerDAO {
 
     private $pdo;
 
     public function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=ma_base', 'user', 'password');
+            $this->pdo = Database::getInstance();
         } catch (Exception $e) {
             die('Erreur de connexion à la BD : ' . $e->getMessage());
         }
@@ -64,7 +70,7 @@ class JouerDAO {
         }
     }
 
-    public function findById($n_licence, $id_matchs) {
+    public function findById($n_licence, $id_matchs): Jouer|null {
         try {
             $requete = $this->pdo->prepare('
                 SELECT * FROM jouer WHERE N_Licence = :n_licence AND Id_Matchs = :id_matchs
@@ -140,6 +146,21 @@ class JouerDAO {
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
             return [];
+        }
+    }
+
+    public function moyenneNoteJoueur($n_licence): int{
+        try {
+            $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE N_Licence = :n_licence');
+            $requete->execute([ ':n_licence' => $n_licence]);
+            $result = $requete->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                return (int) $result['moyenne_note'];
+            }
+            return -1;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
         }
     }
 }

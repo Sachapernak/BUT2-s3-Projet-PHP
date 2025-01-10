@@ -1,4 +1,6 @@
 <?php 
+    namespace Controleur;
+    use DAO\JoueurDAO;
 	class ModifierJoueur { 
 
 		// définition des attributs 

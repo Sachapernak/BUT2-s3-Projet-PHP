@@ -1,4 +1,5 @@
 <?php 
+    namespace Modele;
 	class Commentaire{ 
         
         private $id_joueur;

@@ -1,4 +1,7 @@
 <?php
+namespace Controleur;
+
+use DAO\JouerDAO;
 class SupprimerJouer {
 
     private $jouerDAO;

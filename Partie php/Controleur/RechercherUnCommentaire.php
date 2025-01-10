@@ -1,4 +1,10 @@
 <?php
+
+namespace Controleur;
+
+use DAO\CommentaireDAO;
+use Modele\Commentaire;
+
 class RechercherUnCommentaire {
 
     private $commentaireDAO;

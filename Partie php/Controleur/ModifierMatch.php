@@ -1,4 +1,6 @@
 <?php 
+    namespace Controleur;
+    use DAO\MatchDAO;
 	class ModifierMatch { 
 
 		// définition des attributs 

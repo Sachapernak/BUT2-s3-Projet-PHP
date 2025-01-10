@@ -4,29 +4,33 @@ require_once 'autoload.php';
 use Controleur\ControleurPageJoueurs;
 
 $controleur = new ControleurPageJoueurs();
-$listeJoueurs = $controleur->getJoueurs();
 
-$joueurs = ""; // Chaîne pour accumuler le HTML
+if (isset($_POST['searchbar']) && !empty($_POST['searchbar'])) {
+    $recherche = $_POST['searchbar']; 
+    $listeJoueurs = $controleur->resultatRecherche($recherche);
+} else {
+    $listeJoueurs = $controleur->getJoueurs();
+}
+
+$joueurs = ""; 
 
 foreach ($listeJoueurs as $joueur) {
-    // Extraction des informations du joueur
-    $nom = htmlspecialchars($joueur['nom']);
-    $prenom = htmlspecialchars($joueur['prenom']);
-    $nLicence = htmlspecialchars($joueur['N_Licence']);
-    $statut = htmlspecialchars($joueur['statut']);
+    $nom = $joueur->getNom();
+    $prenom = $joueur->getPrenom();
+    $nLicence = $joueur->getN_licence();
+    $statut = $joueur->getStatut();
+    $noteMoyenne = $controleur->afficherEtoiles($nLicence);
     
-    // Construction du HTML pour chaque joueur
     $joueurs .= '
     <div class="joueur">
         <div>
             <h5>' . $nom . ' ' . $prenom . '</h5>
             <h6> N° de licence : ' . $nLicence . '</h6>
             <h6> Statut : ' . $statut . '</h6>
-            <span>★★★☆☆</span> <!-- Vous pouvez ajuster les étoiles dynamiquement si nécessaire -->
+            <span> '. $noteMoyenne  .' </span> 
         </div>
     </div>';
 }
-
 ?>
 
 <!doctype html>
@@ -43,26 +47,24 @@ foreach ($listeJoueurs as $joueur) {
 
     <?php include "barre-navigation.html" ?>
 
-
-    <!-- Page content -->
     <div class="main">
         <h2>Vos joueurs</h2>
 
         <div class="en-tete">
-            <div class="recherche">
+            <form class="recherche" method="POST" action ="">
                 <input type="text" id="search-bar" name="searchbar" placeholder="Rechercher un joueur...">
-                <button id="search-button">🔍</button>
-            </div>
+                <button type="submit" id="search-button">🔍</button>
+            </form>
 
             <div class="boutons-ajout">
                 <button id="btn-ajouter-joueur" onclick="window.location.href='Ajouter-Joueur.php'"> Nouveau Joueur</button>
             </div>
-
-            <div class="flexContainer">
-                <?php echo $joueurs; ?>
-            </div>
-
         </div>
+
+        <div class="flexContainer">
+            <?php echo $joueurs; ?>
+        </div>
+
     </div>
 </body>
 

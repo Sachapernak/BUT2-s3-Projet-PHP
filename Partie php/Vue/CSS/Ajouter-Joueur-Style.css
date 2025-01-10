@@ -40,6 +40,9 @@ label {
     font-size: clamp(14px, 1vw, 18px);
 }
 
+/* Input */
+
+
 /* Inputs standards */
 input[type="text"],
 select {
@@ -53,7 +56,7 @@ select {
 }
 
 /* Inputs pour Taille et Poids */
-input[type="number"] {
+input[type="number"], input[type="date"]  {
     width: calc(50% - 10px); /* Taille plus petite */
     padding: 8px;
     margin-bottom: 15px;

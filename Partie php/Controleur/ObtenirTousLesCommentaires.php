@@ -1,4 +1,7 @@
 <?php
+
+namespace Controleur;
+use DAO\CommentaireDAO;
 class ObtenirTousLesCommentaires {
 
     private $commentaireDAO;

@@ -1,4 +1,8 @@
 <?php 
+
+	namespace Controleur;
+
+	use DAO\MatchDAO;
 	class SupprimerUnMatch { 
 
 		// définition des attributs 

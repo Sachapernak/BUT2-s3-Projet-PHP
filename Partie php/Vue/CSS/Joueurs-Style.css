@@ -5,8 +5,7 @@ html, body {
     height: 100%;
     font-family: 'Roboto Flex', sans-serif;
     color: #f4f4f4;
-    font-size: clamp(12px, 1.2vw, 18px); 
-    background-color: #40607c; /* Couleur de fond */
+    background-color: #40607c;
 }
 
 .main {
@@ -62,6 +61,10 @@ h2 {
     border-left: none;
 }
 
+#cartesJoueur {
+    position: relative;
+}
+
 .flexContainer {
     margin-top: 20px;
     display: flex;
@@ -70,7 +73,6 @@ h2 {
     align-items: flex-start; 
     gap: 20px; 
 }
-
 
 .joueur {
     margin : 20px;

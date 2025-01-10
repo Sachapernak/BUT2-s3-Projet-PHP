@@ -1,4 +1,5 @@
 <?php 
+    namespace Modele;
 	class Match_Basket { 
         
         private $id_match;

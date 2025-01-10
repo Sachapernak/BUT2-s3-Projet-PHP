@@ -1,4 +1,8 @@
 <?php
+
+namespace DAO;
+use Modele\Database;
+use Modele\Match_Basket;
 class MatchDAO { 
 
     // définition des attributs 
@@ -7,7 +11,7 @@ class MatchDAO {
     // définition des méthodes 
     public function __construct() { 
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=ma_base', 'user', 'password');
+            $this->pdo = Database::getInstance();;
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (Exception $e) {

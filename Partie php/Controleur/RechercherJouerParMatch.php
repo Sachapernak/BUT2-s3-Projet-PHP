@@ -1,4 +1,7 @@
 <?php
+
+use DAO\JouerDAO;
+
 class RechercherJouerParMatch {
 
     // Définition des attributs

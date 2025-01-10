@@ -1,4 +1,7 @@
 <?php 
+    namespace Controleur;
+	use DAO\JoueurDAO;
+    use Modele\Joueur;
     class CreerUnJoueur { 
 
         private $joueurDAO;
