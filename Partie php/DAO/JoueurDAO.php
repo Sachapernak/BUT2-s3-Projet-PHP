@@ -51,7 +51,7 @@ class JoueurDAO
                                             taille = :nvtaille , 
                                             poids = :nvpoids , 
                                             statut = :nvstatut, 
-                                            date_de_naissance = STR_TO_DATE(:nvdate_naissance, "%d/%m/%Y")
+                                            date_de_naissance = :nvdate_naissance
                                             WHERE n_licence = :n_licence');
 
             $requete->execute(array(
@@ -60,7 +60,7 @@ class JoueurDAO
                 'nvtaille' => $taille,
                 'nvpoids' => $poids,
                 'nvstatut' => $statut,
-                'nvdate_de_naissance' => $date_de_naissance,
+                'nvdate_naissance' => $date_de_naissance,
                 'n_licence' => $n_licence
             ));
 

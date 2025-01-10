@@ -6,7 +6,7 @@ use DAO\JoueurDAO;
 use DAO\JouerDAO;
 
 use Controleur\ObtenirTousLesJoueurs;
-use Controleur\RechercherUnJoueur;
+use Controleur\RechercherParAttributsJoueurs;
 use Controleur\ObtenirMoyenneNoteJoueur;
 
 class ControleurPageJoueurs

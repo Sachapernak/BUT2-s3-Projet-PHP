@@ -18,11 +18,11 @@ class ControleurPageAjouterJoueur
 
     public function ajouterJoueur()
     {
-        
         $n_licence = $_POST['licence'];
         $nom = $_POST['nom'];
         $prenom = $_POST['prenom'];
-        $statut = $_POST['statut'];
+        $statutComplet = $_POST['statut'];
+        $statut = substr($statutComplet, 0, 3);
         $date_naissance = $_POST['date_naissance'];
         $taille = $_POST['taille'];
         $poids = $_POST['poids'];

@@ -44,6 +44,10 @@
         }
 
 		public function getStatut() {
+			return $this->statut;
+		}
+
+		public function getIntituleStatut(){
 			$intituleStatut = "";
 			switch($this->statut){
 				case "Act":

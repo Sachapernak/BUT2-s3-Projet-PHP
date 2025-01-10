@@ -18,18 +18,20 @@ foreach ($listeJoueurs as $joueur) {
     $nom = $joueur->getNom();
     $prenom = $joueur->getPrenom();
     $nLicence = $joueur->getN_licence();
-    $statut = $joueur->getStatut();
+    $statut = $joueur->getIntituleStatut();
     $noteMoyenne = $controleur->afficherEtoiles($nLicence);
     
     $joueurs .= '
-    <div class="joueur">
-        <div>
-            <h5>' . $nom . ' ' . $prenom . '</h5>
-            <h6> N° de licence : ' . $nLicence . '</h6>
-            <h6> Statut : ' . $statut . '</h6>
-            <span> '. $noteMoyenne  .' </span> 
+    <a class="divCliquable" href=".\Consulter-Infos-Joueur.php?nLicence=' . urlencode($nLicence) . '">
+        <div class="joueur">
+            <div>
+                <h5>' . $nom . ' ' . $prenom . '</h5>
+                <h6> N° de licence : ' . $nLicence . '</h6>
+                <h6> Statut : ' . $statut . '</h6>
+                <span> '. $noteMoyenne  .' </span> 
+            </div>
         </div>
-    </div>';
+    </a>';
 }
 ?>
 
