@@ -13,7 +13,7 @@ CREATE TABLE Entraineur(
    identifiant VARCHAR(15) ,
    nom VARCHAR(50) ,
    prenom VARCHAR(50) ,
-   mot_de_passe VARCHAR(50) ,
+   mot_de_passe VARCHAR(255) ,
    PRIMARY KEY(identifiant)
 );
 

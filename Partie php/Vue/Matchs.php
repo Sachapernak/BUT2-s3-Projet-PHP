@@ -73,60 +73,60 @@ foreach ($joueursArray as $joueur) {
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+<?php include "barre-navigation.html" ?>
 
 
-    <!-- Page content -->
-    <div class="main">
-        <h2> Les matchs à venir </h2>
+<!-- Page content -->
+<div class="main">
+    <h2> Les matchs à venir </h2>
 
-        <div class="table-container">
-            <form action="matchs.php" method="post">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Heure</th>
-                            <th>Adversaire</th>
-                            <th>Lieu</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Générer les lignes du tableau
-                        foreach ($matchs as $index => $match) {
-                            echo '<tr class="clickable-row">';
-                            echo '<form method="POST" action="process.php">';
-                            echo '<input type="hidden" name="index" value="' . $index . '">';
-                            echo '<td><button type="submit" class="invisible-btn"></button>' . $match['date'] . '</td>';
-                            echo '<td><button type="submit" class="invisible-btn"></button>' . $match['heure'] . '</td>';
-                            echo '<td><button type="submit" class="invisible-btn"></button>' . $match['adversaire'] . '</td>';
-                            echo '<td><button type="submit" class="invisible-btn"></button>' . $match['lieu'] . '</td>';
-                            echo '</form>';
-                            echo '</tr>';
-                        }
-                        ?>
-                    </tbody>
+    <div class="table-container">
+        <form action="matchs.php" method="post">
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>Adversaire</th>
+                    <th>Lieu</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                // Générer les lignes du tableau
+                foreach ($matchs as $index => $match) {
+                    echo '<tr class="clickable-row">';
+                    echo '<form method="POST" action="process.php">';
+                    echo '<input type="hidden" name="index" value="' . $index . '">';
+                    echo '<td><button type="submit" class="invisible-btn"></button>' . $match['date'] . '</td>';
+                    echo '<td><button type="submit" class="invisible-btn"></button>' . $match['heure'] . '</td>';
+                    echo '<td><button type="submit" class="invisible-btn"></button>' . $match['adversaire'] . '</td>';
+                    echo '<td><button type="submit" class="invisible-btn"></button>' . $match['lieu'] . '</td>';
+                    echo '</form>';
+                    echo '</tr>';
+                }
+                ?>
+                </tbody>
 
-                </table>
-            </form>
-        </div>
-
-        <div class="btn-container">
-            <button class="btn">Ajouter un match</button>
-            <button class="btn">Annuler le match</button>
-        </div>
-
-        <h3>Joueurs participants :</h3>
-
-
-
-        <div class="flexContainer">
-            <?php echo $joueurs; ?>
-        </div>
-        <?php echo $index; ?>
+            </table>
+        </form>
     </div>
+
+    <div class="btn-container">
+        <button class="btn">Ajouter un match</button>
+        <button class="btn">Annuler le match</button>
+    </div>
+
+    <h3>Joueurs participants :</h3>
+
+
+
+    <div class="flexContainer">
+        <?php echo $joueurs; ?>
+    </div>
+    <?php echo $index; ?>
+</div>
 </body>
 
 </html>
