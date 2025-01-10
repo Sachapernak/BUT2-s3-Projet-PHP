@@ -1,6 +1,5 @@
 <?php
 
-// TODO : faire une sorte de "header" avec l'autoload, la session etc
 require_once 'autoload.php';
 use Controleur\ControleurPageAccueil;
 

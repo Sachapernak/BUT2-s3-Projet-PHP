@@ -18,7 +18,7 @@ class ControleurPageAccueil
         if ($entraineur == null){
             $res = "";
         } else {
-            $res = $entraineur->getNom() . " " . $entraineur->getPrenom();
+            $res =  $entraineur->getPrenom() ." ". $entraineur->getNom() ;
         }
         return $res;
     }
