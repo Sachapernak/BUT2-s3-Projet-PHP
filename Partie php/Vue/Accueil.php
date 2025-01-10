@@ -1,8 +1,15 @@
 <?php
 
-// Les variables:
-$name = 'Thomato';
-$lastname = 'Kètchûp';
+require_once 'autoload.php';
+use Controleur\ControleurPageAccueil;
+
+$idManager = $_POST["idmanager"] ?? " ";
+
+$idManager = "KTomato";
+
+$controleur = new ControleurPageAccueil();
+
+$infoManager = $controleur->infoPageAccueil($idManager);
 
 // Plus tard, remplacer tout cet html par une récupération des deux derniers
 // matchs, avec une methode qui récupère les infos du match (getters) pour
@@ -123,7 +130,7 @@ foreach ($joueursArray as $joueur) {
         <!-- Page content -->
         <div class="main">
             <h2>Bienvenue sur Handi-Team Manager,</h2>
-            <h3><?php echo($name . " " . $lastname) ?></h3>
+            <h3><?php echo($infoManager) ?></h3>
 
             <!-- Matchs -->
             <div class="MatchRecentTitre"><h3>Matchs récents :</h3></div>
