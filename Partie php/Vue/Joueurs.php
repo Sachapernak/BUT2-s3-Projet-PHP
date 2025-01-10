@@ -1,58 +1,30 @@
 <?php
 
-$joueursArray = array(
-    '<div class="joueur">
-<div>
-    <h5>[Nom] [Prenom]</h5>
-    <h6> N° de licence : </h6>
-    <h6> Statut : </h6>
-    <span>★★★☆☆</span>
-</div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-);
-$joueurs = "";
-foreach ($joueursArray as $joueur) {
-    $joueurs .= $joueur;
+require_once 'autoload.php';
+use Controleur\ControleurPageJoueurs;
+
+$controleur = new ControleurPageJoueurs();
+$listeJoueurs = $controleur->getJoueurs();
+
+$joueurs = ""; // Chaîne pour accumuler le HTML
+
+foreach ($listeJoueurs as $joueur) {
+    // Extraction des informations du joueur
+    $nom = htmlspecialchars($joueur['nom']);
+    $prenom = htmlspecialchars($joueur['prenom']);
+    $nLicence = htmlspecialchars($joueur['N_Licence']);
+    $statut = htmlspecialchars($joueur['statut']);
+    
+    // Construction du HTML pour chaque joueur
+    $joueurs .= '
+    <div class="joueur">
+        <div>
+            <h5>' . $nom . ' ' . $prenom . '</h5>
+            <h6> N° de licence : ' . $nLicence . '</h6>
+            <h6> Statut : ' . $statut . '</h6>
+            <span>★★★☆☆</span> <!-- Vous pouvez ajuster les étoiles dynamiquement si nécessaire -->
+        </div>
+    </div>';
 }
 
 ?>
