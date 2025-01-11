@@ -100,32 +100,11 @@ foreach ($joueursArray as $joueur) {
     <link rel="stylesheet" href="CSS/Accueil-Style.css">
     <title>Handi-Team Manager</title>
 </head>
-<body>
+    <body>
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="left-div">
-            <div class="title-container">
-                <h1>🏀<span class="titleText">Handi-Team</span> Manager<span class="titleText"> Pro™</span></h1>
-            </div>
-        </div>
-        <div class="right-div">
-            <a href="page-connexion.php">
-                <span id="compteButton">Compte</span>
-            </a><a href="page-connexion.php">
-                <img class="icon" src="Images/account-avatar.svg" alt="Compte">
-            </a>
-        </div>
-    </header>
 
-    <!-- Side navigation -->
-    <div class="side-div">
-        <div class="sidenav">
-            <a href="#">Matchs</a>
-            <a href="#">Joueurs</a>
-            <a href="#">Statistiques</a>
 
-        </div>
+        <?php include "barre-navigation.html" ?>
 
         <!-- Page content -->
         <div class="main">
@@ -147,6 +126,5 @@ foreach ($joueursArray as $joueur) {
             </div>
 
         </div>
-    </div>
-</body>
+    </body>
 </html>
