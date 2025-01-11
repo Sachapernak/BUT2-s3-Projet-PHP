@@ -19,6 +19,7 @@ foreach ($listeJoueurs as $joueur) {
     $noteMoyenne = $controleurJoueurs->afficherEtoiles($nLicence);
 
     $joueurs .= '
+    <a class="divCliquable" href="#">
         <div class="joueur">
             <div class="attributs">
                 <h5>' . $nom . ' ' . $prenom . '</h5>
@@ -31,8 +32,10 @@ foreach ($listeJoueurs as $joueur) {
             </div>
 
         </div>
-        ';
+    </a>';
 }
+
+
 
 
 ?>
@@ -51,9 +54,10 @@ foreach ($listeJoueurs as $joueur) {
 <body>
 
     <?php include "barre-navigation.html" ?>
+    <h2> Feuille de match </h2>
 
     <div class="main">
-        <h2> Feuille de match </h2>
+
 
         <div class="infos-match-container">
             <h3>Le match</h3>
@@ -74,6 +78,30 @@ foreach ($listeJoueurs as $joueur) {
                         <option value="ext">Extérieur</option>
                     </select>
                 </div>
+
+
+                <div class="infos-participation">
+                <form action="Feuille-De-Match.php" method="POST">
+                    <div class="participation-item">
+                        <label for="position">Position :</label>
+                        <select id="position" name="position">
+                            <option value="Meneur">Meneur</option>
+                            <option value="Ailier">Ailier</option>
+                            <option value="Pivot">Pivot</option>
+                        </select>
+                    </div>
+
+                    <div class="participation-item">
+                        <label for="lieu">Role :</label>
+                        <select id="remplacant" name="remplacant">
+                            <option value="False">Titulaire</option>
+                            <option value="True">Remplaçant</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-valider">Valider</button>
                     <button type="button" class="btn btn-annuler"
@@ -86,10 +114,10 @@ foreach ($listeJoueurs as $joueur) {
             <div class="liste-joueurs">
                 <?php echo $joueurs; ?>
             </div>
-            <div class="infos-participation">
-                pipi
-            </div>
+            
         </div>
+
+        
 
 
     </div>
