@@ -2,7 +2,7 @@
 
 namespace DAO;
 use Modele\Database;
-use Modele\Match_Basket;
+use Modele\MatchBasket;
 use PDO;
 class MatchDAO { 
 
@@ -49,7 +49,7 @@ class MatchDAO {
                     adversaire = :nvadversaire, 
                     lieu = :nvlieu, 
                     resultat = :nvresultat 
-                WHERE Id_Matchs = :id_match'
+                WHERE id_match = :id_match'
             );
             $requete->execute([
                 ':nvdate_et_heure' => $date_et_heure,
@@ -67,10 +67,10 @@ class MatchDAO {
         $res =false;
         try {
 
-            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE Id_Matchs = :id_match');
+            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE id_match = :id_match');
             $requeteSupprJouer->execute([':id_match' => $id_match]);
 
-            $requete = $this->pdo->prepare('DELETE FROM Match_basket WHERE Id_Matchs = :id_match');
+            $requete = $this->pdo->prepare('DELETE FROM Match_basket WHERE id_match = :id_match');
             $requete->execute([':id_match' => $id_match]);
 
             $res = $requete->rowCount() > 0;
@@ -84,11 +84,11 @@ class MatchDAO {
     public function findById($id_match) {
         $match = null;
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM Match_basket WHERE Id_Matchs = :id_match');
+            $requete = $this->pdo->prepare('SELECT * FROM Match_basket WHERE id_match = :id_match');
             $requete->execute([':id_match' => $id_match]);
-            $res = $requete->fetch(PDO::FETCH_ASSOC);
+            $res = $requete->fetch();
             if ($res) {
-                $match = new Match_basket($res['Id_Matchs'], $res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
+                $match = new Match_basket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -96,12 +96,41 @@ class MatchDAO {
         return $match;
     }
 
+    public function findComingMatch($dateMatch) {
+        $matchs = [];
+        try {
+            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) > :dateMatch');
+            $requete->execute([':dateMatch' => $dateMatch]);
+            while ($res = $requete->fetch()) {
+                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $matchs;
+    }
+
+    public function findOldMatch($dateMatch) {
+        $matchs = [];
+        try {
+            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) < :dateMatch');
+            $requete->execute([':dateMatch' => $dateMatch]);
+            while ($res = $requete->fetch()) {
+                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $matchs;
+    }
+    
+
     public function findAll() : array {
         $matchs = [];
         try {
             $requete = $this->pdo->query('SELECT * FROM Match_basket');
-            while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
-                $matchs[] = new Match_basket($res['Id_Matchs'], $res['Date_et_heure'], $res['Adversaire'], $res['Lieu'], $res['resultat']);
+            while ($res = $requete->fetch()) {
+                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();

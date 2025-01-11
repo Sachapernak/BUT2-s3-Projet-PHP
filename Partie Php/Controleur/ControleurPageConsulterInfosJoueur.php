@@ -7,17 +7,30 @@ use DAO\JoueurDAO;
 use DAO\CommentaireDAO;
 use Controleur\ObtenirTousLesCommentaires;
 use Modele\Commentaire;
+use Modele\Joueur;
+use DAO\JouerDAO;
+use Controleur\RechercherJouerParJoueur;
+use Controleur\SupprimerUnJoueur;
 
 class ControleurPageConsulterInfosJoueur 
 {
     private $joueurDAO;
+
+    private $jouerDAO;
     private $commentaireDAO;
 
     public function __construct()
     {
         $this->joueurDAO = new JoueurDAO();
+        $this->jouerDAO = new JouerDAO();
         $this->commentaireDAO = new commentaireDAO();
 
+    }
+
+    public function recupererJoueur($n_licence): Joueur {
+        $rechercherUnJoueur = new RechercherUnJoueur($this->joueurDAO, $n_licence);
+        $joueur = $rechercherUnJoueur->executer();
+        return $joueur;
     }
 
     public function recupererCommentaires() {
@@ -64,7 +77,19 @@ class ControleurPageConsulterInfosJoueur
         $modifierJoueur->executer();
 
         return $this->joueurDAO->findById($n_licence);
-        }
+    }
+
+    public function peutEtreSupprime($n_licence){
+        $recherche = new RechercherJouerParJoueur($this->jouerDAO, $n_licence);
+        $res = $recherche->executer();
+        return empty($res);
+    }
+
+    public function supprimerJoueur($n_licence) {
+        $suppression = new SupprimerUnJoueur($this->joueurDAO, $n_licence);
+        $suppression->executer();
+        header('Location: Joueurs.php');
+    }
 }
 
 

@@ -1,14 +1,13 @@
 <?php
 require_once 'autoload.php';
-use Controleur\RechercherUnJoueur;
 use Controleur\ControleurPageConsulterInfosJoueur;
-use DAO\JoueurDAO;
+
+$controleur = new ControleurPageConsulterInfosJoueur();
 
 if (isset($_GET['nLicence'])) {
     $n_licence = $_GET['nLicence'];
-    $joueurDAO = new JoueurDAO();
-    $rechercherUnJoueur = new RechercherUnJoueur($joueurDAO, $n_licence);
-    $joueur = $rechercherUnJoueur->executer();
+
+    $joueur = $controleur->recupererJoueur($n_licence);
 
     if (!$joueur) {
         echo "Joueur introuvable.";
@@ -20,7 +19,7 @@ if (isset($_GET['nLicence'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $controleur = new ControleurPageConsulterInfosJoueur();
+    $n_licence = $_GET['nLicence'];
 
     $action = $_POST['action'] ?? '';
 
@@ -33,12 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controleur->ajouterCommentaire();
             break;
 
+        case 'supprimer':
+            $peutSuppr = $controleur->peutEtreSupprime($n_licence);
+            echo $peutSuppr;
+            if ($peutSuppr) {
+                $controleur->supprimerJoueur($n_licence);
+            } else {
+                $messageErreurSuppression = "<p>Erreur : Impossible de supprimer ce joueur car il a déjà participé à un match.</p>";
+            }
+            break;
+
         default:
             echo "Action non reconnue.";
             break;
     }
 }
-
 
 ?>
 
@@ -61,6 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <div class="main">
+
+        <label for="confirm-delete" id="toggle-supp">
+            <i class="fa-solid fa-trash" style="color: #d80e0e;"></i>
+        </label>
+        <input type="checkbox" id="confirm-delete" class="toggle-checkbox">
+
+        <div class="confirmation-container">
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="supprimer">
+                <p>Êtes-vous sûr de vouloir supprimer ce joueur ?</p>
+                <div class="confirmation-buttons">
+                    <button type="submit" class="btn-confirmer">Confirmer</button>
+                    <button type="button" class="btn-annuler" onclick="document.getElementById('confirm-delete').checked = false;">Annuler</button>
+                </div>
+            </form>
+        </div>
 
         <label for="toggle-checkbox" id="toggle-modif"><i class="fa-solid fa-pen-to-square"
                 style="color: #ffffff;"></i></label>
@@ -95,11 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-valider">Valider</button>
+                    <button type="button" class="btn-annuler" onclick="document.getElementById('confirm-delete').checked = false;">Annuler</button>
                 </div>
             </form>
         </div>
 
         <div class="infos-container">
+            <div id="messageErreur"> <?php if (isset($messageErreurSuppression)) echo $messageErreurSuppression; ?> </div> 
 
             <div>
                 <h2 class="licence">N° de licence : <?php echo $joueur->getN_licence() ?></h2>
@@ -126,17 +152,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <div class="info-item">
-                <label class="taille">Taille (cm) : </label>
-                <span class="taille"><?php echo $joueur->getTaille() ?></span>
+                <label class="taille">Taille : </label>
+                <span class="taille"><?php echo $joueur->getTaille() . " cm"; ?></span>
             </div>
 
             <div class="info-item">
-                <label class="poids">Poids (kg) : </label>
-                <span class="poids"><?php echo $joueur->getPoids() ?></span>
+                <label class="poids">Poids : </label>
+                <span class="poids"><?php echo $joueur->getPoids() . " kg"; ?></span>
             </div>
 
             <div class="commentaires-section">
-                <h2>Commentaires</h2>
+                <h3>Commentaires</h3>
                 <table class="commentaires-table">
                     <thead>
                         <tr>
@@ -173,7 +199,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
 
+
+
         </div>
+
     </div>
 </body>
 

@@ -1,6 +1,7 @@
 <?php 
     namespace Modele;
-	class Match_Basket { 
+    use DateTime;
+	class MatchBasket { 
         
         private $id_match;
 		private $date_et_heure;
@@ -9,7 +10,7 @@
 		private $resultat;
 
 
-		public function __construct($id_match=null, $date_et_heure, $adversaire, $lieu, $resultat=null) { 
+		public function __construct($id_match=null, $date_et_heure , $adversaire, $lieu, $resultat=null) { 
             $this->id_match = $id_match;
             $this->date_et_heure = $date_et_heure;
             $this->adversaire = $adversaire;
@@ -17,11 +18,11 @@
             $this->resultat = $resultat;
 		} 
 
-        public function getIdMatch() {
+        public function getIdMatch(): int {
             return $this->id_match;
         }
 
-        public function getDate_et_heure(): DateTime {
+        public function getDate_et_heure(): string {
             return $this->date_et_heure;
         }
 

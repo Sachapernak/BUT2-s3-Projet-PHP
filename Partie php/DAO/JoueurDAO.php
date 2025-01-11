@@ -76,12 +76,9 @@ class JoueurDAO
         $res = false;
         try 
         {
-            $requeteSupprCommentaires = $this->connexion->prepare('DELETE FROM Commentaires WHERE n_licence = :n_licence');
+            $requeteSupprCommentaires = $this->connexion->prepare('DELETE FROM Commentaire WHERE n_licence = :n_licence');
             $requeteSupprCommentaires->execute(array('n_licence' => $n_licence));
 
-            $requeteSupprJouer = $this->connexion->prepare('DELETE FROM Jouer WHERE n_licence = :n_licence');
-            $requeteSupprJouer->execute(array('n_licence' => $n_licence));
-            
             $requeteSupprJoueur = $this->connexion->prepare('DELETE FROM Joueur WHERE n_licence = :n_licence');
             $requeteSupprJoueur->execute(array('n_licence' => $n_licence));
             $res = $requeteSupprJoueur->rowCount() > 0;
@@ -98,7 +95,7 @@ class JoueurDAO
         try {
             $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE n_licence = :n_licence');
             $requete->execute(array('n_licence' => $n_licence));
-            $res = $requete->fetch(PDO::FETCH_ASSOC);
+            $res = $requete->fetch();
             if ($res) {
                 $joueur = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
             }
@@ -113,7 +110,7 @@ class JoueurDAO
             $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE n_licence LIKE :recherche1 OR nom LIKE :recherche2 OR prenom LIKE :recherche3');
             $requete->execute([':recherche1' => '%' . $recherche . '%', ':recherche2' => '%' . $recherche . '%', ':recherche3' => '%' . $recherche . '%']);
             $joueurs = [];
-            while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
+            while ($res = $requete->fetch()) {
                 $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
             }
 
@@ -124,12 +121,31 @@ class JoueurDAO
 
     }
 
+    public function findByStatut($statut): array{
+        try {
+            $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE statut = :statut');
+            $requete->execute([':statut' => $statut]);
+            $joueurs = [];
+            while ($res = $requete->fetch()) {
+                $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
+            }
+
+        } catch (Exception $e) {
+            echo 'Erreur lors de la recherche : ' . $e->getMessage();
+        }
+        return $joueurs;
+
+    }
+    
+
+
+
     public function findAll(): array
     {
         try {
             $requete = $this->connexion->query('SELECT * FROM joueur');
             $joueurs = [];
-            while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
+            while ($res = $requete->fetch()) {
                 $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
             }
 

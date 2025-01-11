@@ -1,0 +1,126 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto Flex', sans-serif;
+    color: #f4f4f4;
+    font-size: clamp(12px, 1.2vw, 18px); /* Réduction des tailles */
+    background-color: #40607c; /* Couleur de fond */
+}
+
+.main {
+    margin-left: 190px; /* Prend en compte la largeur de la barre de navigation */
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.infos-joueur, .infos-match-container {
+    background-color: #355973; /* Fond bleu */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre */
+    color: #f4f4f4;
+}
+
+.infos-joueur {
+    display: flex; 
+    justify-content: space-between; 
+    gap: 20px; 
+    padding: 10px; 
+}
+
+.liste-joueurs {
+    display: flex;
+    height: 250px;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
+    overflow-y: auto;
+    flex: 1; 
+}
+
+.joueur {
+    margin: 10px 0; 
+    padding: 10px;
+    background-color: white;
+    color: #40607c;
+    width: 60%; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    border-radius: 10px; 
+    box-sizing: border-box;
+}
+
+.checkbox {
+    margin-right: 30px;
+    transform: scale(2); 
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.attributs{
+    flex:1;
+    display: flex;
+    flex-direction: column; 
+    gap: 5px;
+}
+
+.joueur h5,
+.joueur h6,
+.joueur span {
+    margin: 0; 
+    line-height: 1.2;
+}
+
+.infos-participation {
+    background-color: yellow;
+    flex: 1;
+}
+
+
+/* CHAMPS DE SAISIE */
+/* Conteneur général pour tous les éléments sur la même ligne */
+.infos-match-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'espace est trop petit */
+    gap: 20px; /* Espace entre les éléments sur la même ligne */
+    align-items: center; /* Aligne tous les éléments au centre sur la ligne */
+}
+
+.match-item {
+    display: flex;
+    align-items: center; /* Centre verticalement les éléments */
+    gap: 10px; /* Espacement entre le label et le champ */
+}
+
+label {
+    margin: 0 0 5px 0; /* Réduit l'espace sous le label */
+    font-size: clamp(14px, 1vw, 18px);
+    display: inline-block;
+    width: auto; /* Laisse les labels s'adapter au contenu */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+    padding: 8px;
+    margin-bottom: 10px; /* Réduit l'espace sous les champs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: clamp(14px, 1vw, 18px);
+    outline: none;
+    margin-right: 20px; /* Espace entre les champs */
+    width: auto; /* Laisse les champs s'adapter à leur contenu */
+}
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px; /* Espace entre les boutons */
+}
+

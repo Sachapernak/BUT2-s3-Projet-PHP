@@ -1,5 +1,5 @@
 <?php
-
+namespace Controleur;
 use DAO\JouerDAO;
 
 class RechercherJouerParMatch {

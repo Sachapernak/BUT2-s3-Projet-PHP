@@ -113,7 +113,7 @@ select {
 /* Boutons */
 .form-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
@@ -150,7 +150,7 @@ button:hover {
     cursor: pointer;
     position: absolute;
     margin-top : 4%;
-    margin-left: 15%;
+    margin-left: 13%;
 }
 
 
@@ -164,7 +164,7 @@ button:hover {
     margin-bottom: 20px;
 }
 
-.commentaires-table th, .commentaires-table td {
+.commentaires-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -172,6 +172,10 @@ button:hover {
 
 .commentaires-table th {
     background-color: #f2f2f2;
+    color: #2c3e51;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
 }
 
 .ajouter-commentaire-form {
@@ -180,21 +184,104 @@ button:hover {
     gap: 10px;
 }
 
+.ajouter-commentaire-form .label-commentaire {
+    display: block;
+    white-space: nowrap;
+}
+
 .ajouter-commentaire-form textarea {
     resize: vertical;
     padding: 10px;
     font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 
 .btn-ajouter {
     align-self: flex-start;
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #e55c36;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
 .btn-ajouter:hover {
-    background-color: #0056b3;
+    background-color: #f09b62;
+}
+
+
+/* Styles pour le conteneur de confirmation */
+.confirmation-container {
+    position: fixed;
+    top: 50%;
+    left: 56%;
+    transform: translate(-50%, -50%);
+    background-color: #2c3e51;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+    display: none; /* Masqué par défaut */
+}
+
+/* Texte dans le conteneur */
+.confirmation-container p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Boutons de confirmation */
+.confirmation-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-confirmer {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-annuler {
+    background-color: #e55c36;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Visibilité de la confirmation lorsqu'on coche le toggle */
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-checkbox:checked + .confirmation-container {
+    display: block; /* Afficher la confirmation */
+}
+
+#toggle-supp{
+    cursor: pointer;
+    position: absolute;
+    margin-top : 4%;
+    margin-left: 16%;
+}
+
+
+#toggle-checkbox:checked ~ #trash-container {
+    margin-top: 1000px; 
+}
+
+#messageErreur {
+    margin-top :10px;
+    color: #f09b62;
+    margin-top: 10px;
+    font-size: 14px;
+
 }

@@ -17,51 +17,51 @@ class JouerDAO {
         }
     }
 
-    public function insert($n_licence, $id_matchs, $est_remplacant, $note, $role) {
+    public function insert($n_licence, $id_match, $est_remplacant, $note, $position) {
         try {
             $requete = $this->pdo->prepare('
-                INSERT INTO jouer (N_Licence, Id_Matchs, est_remplacant, note, role)
-                VALUES (:n_licence, :id_matchs, :est_remplacant, :note, :role)
+                INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
+                VALUES (:n_licence, :id_match, :est_remplacant, :note, :position)
             ');
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':id_matchs' => $id_matchs,
+                ':id_match' => $id_match,
                 ':est_remplacant' => $est_remplacant,
                 ':note' => $note,
-                ':role' => $role
+                ':position' => $position
             ]);
         } catch (Exception $e) {
             echo 'Erreur lors de l\'insertion : ' . $e->getMessage();
         }
     }
 
-    public function update($n_licence, $id_matchs, $est_remplacant, $note, $role) {
+    public function update($n_licence, $id_match, $est_remplacant, $note, $position) {
         try {
             $requete = $this->pdo->prepare('
                 UPDATE jouer
-                SET est_remplacant = :est_remplacant, note = :note, role = :role
-                WHERE N_Licence = :n_licence AND Id_Matchs = :id_matchs
+                SET est_remplacant = :est_remplacant, note = :note, position = :position
+                WHERE n_licence = :n_licence AND id_match = :id_match
             ');
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':id_matchs' => $id_matchs,
+                ':id_match' => $id_match,
                 ':est_remplacant' => $est_remplacant,
                 ':note' => $note,
-                ':role' => $role
+                ':position' => $position
             ]);
         } catch (Exception $e) {
             echo 'Erreur lors de la mise à jour : ' . $e->getMessage();
         }
     }
 
-    public function delete($n_licence, $id_matchs) {
+    public function delete($n_licence, $id_match) {
         try {
             $requete = $this->pdo->prepare('
-                DELETE FROM jouer WHERE N_Licence = :n_licence AND Id_Matchs = :id_matchs
+                DELETE FROM jouer WHERE n_licence = :n_licence AND id_match = :id_match
             ');
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':id_matchs' => $id_matchs
+                ':id_match' => $id_match
             ]);
             return $requete->rowCount() > 0;
         } catch (Exception $e) {
@@ -70,20 +70,21 @@ class JouerDAO {
         }
     }
 
-    public function findById($n_licence, $id_matchs): Jouer|null {
+    public function findById($n_licence, $id_match): Jouer|null {
         try {
             $requete = $this->pdo->prepare('
-                SELECT * FROM jouer WHERE N_Licence = :n_licence AND Id_Matchs = :id_matchs
+                SELECT * FROM jouer WHERE n_licence = :n_licence AND id_match = :id_match
             ');
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':id_matchs' => $id_matchs
+                ':id_match' => $id_match
             ]);
-            $result = $requete->fetch(PDO::FETCH_ASSOC);
+            $result = $requete->fetch();
             if ($result) {
-                return new Jouer($result['N_Licence'], $result['Id_Matchs'], $result['est_remplacant'], $result['note'], $result['role']);
+                return new Jouer($result['n_licence'], $result['id_match'], $result['est_remplacant'], $result['note'], $result['position']);
+            } else {
+                return null;
             }
-            return null;
         } catch (Exception $e) {
             echo 'Erreur lors de la recherche : ' . $e->getMessage();
             return null;
@@ -94,39 +95,39 @@ class JouerDAO {
     public function findByIdJoueur($n_licence): array {
         try {
             $requete = $this->pdo->prepare('
-                SELECT * FROM jouer WHERE N_Licence = :n_licence
+                SELECT * FROM jouer WHERE n_licence = :n_licence
             ');
             $requete->execute([
                 ':n_licence' => $n_licence
             ]);
-            $result = $requete->fetchAll(PDO::FETCH_ASSOC); 
+            $result = $requete->fetchAll(); 
             
             if ($result) {
                 $jouer = [];
                 foreach ($result as $row) {
-                    $jouer[] = new Jouer($row['N_Licence'], $row['Id_Matchs'], $row['est_remplacant'], $row['note'], $row['role']);
+                    $jouer[] = new Jouer($row['n_licence'], $row['id_match'], $row['est_remplacant'], $row['note'], $row['position']);
                 }
                 return $jouer; 
             }
             return [];
         } catch (Exception $e) {
             echo 'Erreur lors de la recherche : ' . $e->getMessage();
-            return []; // Retourner un tableau vide en cas d'erreur
+            return []; 
         }
     }
     
-    public function findByIdMatch($id_matchs): array {
+    public function findByIdMatch($id_match): array {
         try {
             $requete = $this->pdo->prepare('
-                SELECT * FROM jouer WHERE Id_Matchs = :id_matchs
+                SELECT * FROM jouer WHERE id_match = :id_match
             ');
             $requete->execute([
-                ':id_matchs' => $id_matchs
+                ':id_match' => $id_match
             ]);
-            $result = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $result = $requete->fetchAll();
             $jouer = [];
             foreach ($result as $row) {
-                $jouer[] = new Jouer($row['N_Licence'], $row['Id_Matchs'], $row['est_remplacant'], $row['note'], $row['role']);
+                $jouer[] = new Jouer($row['n_licence'], $row['id_match'], $row['est_remplacant'], $row['note'], $row['position']);
             }
             return $jouer;  
         } catch (Exception $e) {
@@ -139,8 +140,8 @@ class JouerDAO {
         try {
             $requete = $this->pdo->query('SELECT * FROM jouer');
             $jouer = [];
-            while ($result = $requete->fetch(PDO::FETCH_ASSOC)) {
-                $jouer[] = new Jouer($result['N_Licence'], $result['Id_Matchs'], $result['est_remplacant'], $result['note'], $result['role']);
+            while ($result = $requete->fetch()) {
+                $jouer[] = new Jouer($result['n_licence'], $result['id_match'], $result['est_remplacant'], $result['note'], $result['position']);
             }
             return $jouer;
         } catch (Exception $e) {
@@ -151,9 +152,9 @@ class JouerDAO {
 
     public function moyenneNoteJoueur($n_licence): int{
         try {
-            $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE N_Licence = :n_licence');
+            $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE n_licence = :n_licence');
             $requete->execute([ ':n_licence' => $n_licence]);
-            $result = $requete->fetch(PDO::FETCH_ASSOC);
+            $result = $requete->fetch();
             if ($result) {
                 return (int) $result['moyenne_note'];
             }
