@@ -29,7 +29,7 @@
         <a href="Accueil.php">Accueil</a>
         <a href="Matchs.php">Matchs</a>
         <a href="Joueurs.php">Joueurs</a>
-        <a href="#">Statistiques</a>
+        <a href="Statistiques.php">Statistiques</a>
       </div>
 </body>
 </html>
