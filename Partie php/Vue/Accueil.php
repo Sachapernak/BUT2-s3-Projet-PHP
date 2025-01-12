@@ -2,92 +2,68 @@
 
 require_once 'autoload.php';
 use Controleur\ControleurPageAccueil;
+use Controleur\ControleurPageJoueurs;
 
 $idManager = $_POST["idmanager"] ?? " ";
 
 $idManager = "KTomato";
 
 $controleur = new ControleurPageAccueil();
+$controleurJoueurs = new ControleurPageJoueurs();
+
 
 $infoManager = $controleur->infoPageAccueil($idManager);
 
-// Plus tard, remplacer tout cet html par une récupération des deux derniers
-// matchs, avec une methode qui récupère les infos du match (getters) pour
-// les mettre dans un string avec l'html
-//
-// Algo :
-//  String = "";
-//  Pour chaque matchs m :
-//      String += "html" . m.getValeur1 . "html" . m.getValeur2...
-//  Renvoyer le string qui contient l'html
 
-// Pareil pour les joueurs
+$listeMatchs = $controleur->getMatchsRecents();
+$matchs ="";
+foreach ($listeMatchs as $match) {
+    $id_match =$match->getIdMatch();
 
-$match1 = '<div class="match">
-                    <h4 class="matchTitle">[Victoire]</h4>
-                    <p class="matchText">[NotreEquipe] vs [EquipeAdverse] </p>
-                    <p class="matchText">Le [Date] à [Lieu] </p>
-                    <h4 class="matchTextMJ">Meilleur joueur :</h4>
-                    <div class="mj">
-                        <div>
-                            <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                            <p> Joueur extrêmement polyvalent, [Nom du joueur] démontre
-                                une excellente maîtrise du fauteuil.</p>
-                        </div>
-                    </div>
-            </div>';
+    $resultat = $controleur->afficherResultat($match->getResultat());
+    $adversaire = $match->getAdversaire();
+    $lieu = $controleur->afficherLieu($match->getLieu());
+    $date_heure = $match->getDate_et_heure();
+    $bestJoueur = $controleur->getMeilleurJoueur($id_match);
+    $n_licence =$bestJoueur->getN_licence();
 
-$match2 = '<div class="match">
-                    <h4 class="matchTitle">[Défaite]</h4>
-                    <p class="matchText">[NotreEquipe] vs [EquipeAdverse] </p>
-                    <p class="matchText">Le [Date] à [Lieu] </p>
-                    <h4 class="matchTextMJ">Meilleur joueur :</h4>
-                    <div class="mj">
-                        <div>
-                            <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                            <p> Joueur extrêmement polyvalent, [Nom du joueur] démontre
-                                une excellente maîtrise du fauteuil.</p>
-                        </div>
-                    </div>
-             </div>';
+    $commentaire = $controleur->getCommentaireJoueur($n_licence, $date_heure);
+    $participation = $controleur->getParticipation($n_licence, $id_match);
+    $note=$participation->getNote();
 
-$matchs = $match1 . " " . $match2;
+   
+    $matchs .= '
+    <div class="match">
+        <h4 class="matchTitle">' . $resultat . '</h4>
+        <p class="matchText">[Notre Equipe] vs ' . $adversaire . ' </p>
+        <p class="matchText">Le ' . $date_heure . '  ' . $lieu . '</p>
+        <h4 class="matchTextMJ">Meilleur joueur :</h4>
+        <div class="mj">
+            <div>
+                <h5>' . $bestJoueur->getNom() . ' ' . $bestJoueur->getPrenom() . '</h5> 
+                <span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span>
+                <p>' . $commentaire . '</p>
+            </div>
+        </div>
+    </div>';
+}
 
-$joueursArray = array(
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-                '<div class="joueur">
-                    <div>
-                        <h5>[Nom] [Prenom]</h5> <span>★★★</span><span>☆☆</span>
-                    </div>
-                </div>',
-);
+
+$listeJoueurs = $controleur->getJoueursActifs();
 $joueurs = "";
-foreach ($joueursArray as $joueur) {
-    $joueurs .= $joueur;
+
+foreach ($listeJoueurs as $joueur) {
+    $nom = $joueur->getNom();
+    $prenom = $joueur->getPrenom();
+    $note = $controleurJoueurs->getNoteMoyenneJoueur($joueur->getN_licence());
+
+    $joueurs .= '
+    <div class="joueur">
+        <div>
+            <h5>' . $nom . ' ' . $prenom . '</h5> 
+            <span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span> 
+        </div>
+    </div>';
 }
 
 ?>

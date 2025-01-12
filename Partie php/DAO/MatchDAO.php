@@ -113,7 +113,7 @@ class MatchDAO {
     public function findOldMatch($dateMatch) {
         $matchs = [];
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) < :dateMatch');
+            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) < :dateMatch ORDER BY date_et_heure DESC');
             $requete->execute([':dateMatch' => $dateMatch]);
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);

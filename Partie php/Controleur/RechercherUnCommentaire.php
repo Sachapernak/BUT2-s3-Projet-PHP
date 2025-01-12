@@ -17,7 +17,7 @@ class RechercherUnCommentaire {
         $this->date_com = $date_com;
     }
 
-    public function executer(): Commentaire {
+    public function executer(): Commentaire|null {
         return $this->commentaireDAO->findById($this->n_licence, $this->date_com);
     }
 }

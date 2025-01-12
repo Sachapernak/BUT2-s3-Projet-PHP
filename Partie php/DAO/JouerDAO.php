@@ -229,11 +229,26 @@ class JouerDAO {
 
     public function getNbVictoiresJoueur($n_licence){
         try  {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS nb_victoires FROM jouer j, match_basket m WHERE  j.id_match = m.id_match AND j.n_licence = :n_licence AND m.resultat = 'V';");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS nb_victoires FROM jouer j, match_basket m WHERE  j.id_match = m.id_match AND j.n_licence = :n_licence AND m.resultat = 'V'");
             $requete->execute([':n_licence' => $n_licence]);
             $result = $requete->fetch();
             if ($result) {
                 return (int) $result['nb_victoires'];
+            }
+            return 0;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
+        }
+    }
+
+    public function getMeilleurJoueurMatch($id_match){
+        try  {
+            $requete = $this->pdo->prepare("SELECT * FROM Jouer WHERE id_match= :id_match ORDER BY note DESC LIMIT 1");
+            $requete->execute([':id_match' => $id_match]);
+            $result = $requete->fetch();
+            if ($result) {
+                return  $result['n_licence'];
             }
             return 0;  
         } catch (Exception $e) {
