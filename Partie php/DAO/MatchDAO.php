@@ -137,6 +137,74 @@ class MatchDAO {
         }
         return $matchs;
     }
+
+    public function getTotalVictoires() : int {
+        $total = -1; 
+        try {
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_victoires FROM Match_basket WHERE resultat = 'V'");
+            $requete->execute();
+            $res = $requete->fetch(); 
+            
+            if ($res) {
+                return (int) $res['total_victoires'];
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $total;
+    }
+
+    public function getTotalDefaites() : int {
+        $total = -1; 
+        try {
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_defaites FROM Match_basket WHERE resultat = 'D'");
+            $requete->execute();
+            $res = $requete->fetch(); 
+            
+            if ($res) {
+                return (int) $res['total_defaites'];
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $total;
+    }
+
+    public function getTotalNuls() : int {
+        $total = -1; 
+        try {
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_nuls FROM Match_basket WHERE resultat = 'N'");
+            $requete->execute();
+            $res = $requete->fetch(); 
+            
+            if ($res) {
+                return (int) $res['total_nuls'];
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $total;
+    }
+
+    public function getTotalMatchs() : int {
+        $total = -1; 
+        try {
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM Match_basket");
+            $requete->execute();
+            $res = $requete->fetch(); 
+            
+            if ($res) {
+                return (int) $res['total'];
+            }
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération : ' . $e->getMessage();
+        }
+        return $total;
+    }
+
+
+    
+
 }
 
 

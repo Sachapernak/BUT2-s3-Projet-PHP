@@ -164,5 +164,67 @@ class JouerDAO {
             return -1;
         }
     }
+
+    public function getPositionFavoriteJoueur($n_licence): string {
+        try  {
+            $requete = $this->pdo->prepare('SELECT position FROM jouer WHERE n_licence = :n_licence GROUP BY position ORDER BY COUNT(*) DESC LIMIT 1');
+            $requete->execute([':n_licence' => $n_licence]);
+            $result = $requete->fetch();
+            if ($result) {
+                return (int) $result['position'];
+            }
+            return "";  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return "";
+        }
+    }
+
+    public function getTitularisationsJoueur($n_licence): int {
+        try  {
+            $requete = $this->pdo->prepare("SELECT n_licence, COUNT(*) AS nb_titularisations FROM jouer WHERE n_licence = :n_licence AND est_remplacant = 0 GROUP BY n_licence");
+            $requete->execute([ ':n_licence' => $n_licence]);
+            $result = $requete->fetch();
+            if ($result) {
+                return (int) $result['nb_titularisations'];
+            }
+            return 0;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
+        }
+    }
+
+    public function getRemplacementsJoueur($n_licence): int {
+        try  {
+            $requete = $this->pdo->prepare("SELECT n_licence, COUNT(*) AS nb_remplacements FROM jouer WHERE n_licence = :n_licence AND est_remplacant = 1 GROUP BY n_licence");
+            $requete->execute([ ':n_licence' => $n_licence]);
+            $result = $requete->fetch();
+            if ($result) {
+                return (int) $result['nb_remplacements'];
+            }
+            return 0;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
+        }
+    }
+
+    public function getNbMatchsConsecutifsJoueur($n_licence): int {
+        try  {
+            $requete = $this->pdo->prepare("SELECT j1.n_licence, COUNT(*) AS nb_matchs_consecutifs FROM jouer j1, jouer j2, match_basket m1, match_basket m2
+                                        WHERE j1.n_licence = j2.n_licence AND j1.id_match = m1.id_match AND j2.id_match = m2.id_match AND m1.id_match = m2.id_match - 1  
+                                        AND j1.n_licence = :n_licence GROUP BY j1.n_licence;");
+            $requete->execute([ ':n_licence' => $n_licence]);
+            $result = $requete->fetch();
+            if ($result) {
+                return (int) $result['nb_matchs_consecutifs'];
+            }
+            return 0;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
+        }
+    }
 }
 ?>

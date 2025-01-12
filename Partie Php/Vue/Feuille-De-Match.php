@@ -22,14 +22,33 @@ foreach ($listeJoueurs as $joueur) {
     <a class="divCliquable" href="#">
         <div class="joueur">
             <div class="attributs">
-                <h5>' . $nom . ' ' . $prenom . '</h5>
-                <h6> N° de licence : ' . $nLicence . '</h6>
-                <h6> Statut : ' . $statut . '</h6>
-                <span> ' . $noteMoyenne . ' </span> 
+                <h5>' . $nom . ' ' . $prenom . ' N° de licence : ' . $nLicence . '</h5>
             </div>
-            <div class="checkbox"> 
-                <input type="checkbox" name="joueursSelectionnes[]" value="' . $nLicence . '">
-            </div>
+
+            <!-- Formulaire de position et rôle  -->
+            <form action="Feuille-De-Match.php" method="POST">
+                <div class="participation-item">
+                    <label for="position_' . $nLicence . '">Position :</label>
+                    <select id="position_' . $nLicence . '" name="position[' . $nLicence . ']">
+                        <option value="Meneur">Meneur</option>
+                        <option value="Ailier">Ailier</option>
+                        <option value="Pivot">Pivot</option>
+                    </select>
+                </div>
+
+                <div class="participation-item">
+                    <label for="role_' . $nLicence . '">Rôle :</label>
+                    <select id="role_' . $nLicence . '" name="role[' . $nLicence . ']">
+                        <option value="False">Titulaire</option>
+                        <option value="True">Remplaçant</option>
+                    </select>
+                </div>
+
+                <!-- Case à cocher pour chaque joueur -->
+                <div class="checkbox">
+                    <input type="checkbox" name="joueursSelectionnes[]" value="' . $nLicence . '">
+                </div>
+            </form>
 
         </div>
     </a>';
@@ -80,26 +99,7 @@ foreach ($listeJoueurs as $joueur) {
                 </div>
 
 
-                <div class="infos-participation">
-                <form action="Feuille-De-Match.php" method="POST">
-                    <div class="participation-item">
-                        <label for="position">Position :</label>
-                        <select id="position" name="position">
-                            <option value="Meneur">Meneur</option>
-                            <option value="Ailier">Ailier</option>
-                            <option value="Pivot">Pivot</option>
-                        </select>
-                    </div>
-
-                    <div class="participation-item">
-                        <label for="lieu">Role :</label>
-                        <select id="remplacant" name="remplacant">
-                            <option value="False">Titulaire</option>
-                            <option value="True">Remplaçant</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+                
 
 
                 <div class="form-buttons">

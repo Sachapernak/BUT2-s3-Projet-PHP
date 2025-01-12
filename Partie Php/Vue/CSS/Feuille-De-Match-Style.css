@@ -62,21 +62,23 @@ h2 {
     color: #40607c;
 
     display: flex; 
-    align-items: center; 
-    gap: 5px; 
+    align-items: flex-start; /* Alignement des éléments au début */
+    justify-content: space-between; /* Espace entre les contenus principaux */
+    gap: 10px; 
     border-radius: 10px; 
     box-sizing: border-box;
+    position: relative;
 }
 
 .checkbox {
-    margin-right: 17px;
+    margin-left: auto; /* Pousse la checkbox vers la droite */
     transform: scale(1.6); 
     cursor: pointer;
-    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 
-.attributs{
-    flex:1;
+.attributs {
+    flex: 1;
     display: flex;
     flex-direction: column; 
     gap: 5px;
@@ -90,9 +92,19 @@ h2 {
 }
 
 .infos-participation {
-    width: 50%;
-    height : 20px;
-    flex: 1;
+    display: flex;
+    flex-direction: column; /* Aligner les champs en colonne */
+    gap: 10px; /* Espace entre les champs */
+    margin-top: 10px; /* Espace au-dessus des champs */
+}
+
+.infos-participation select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 
