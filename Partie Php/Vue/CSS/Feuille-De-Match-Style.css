@@ -4,8 +4,8 @@ html, body {
     height: 100%;
     font-family: 'Roboto Flex', sans-serif;
     color: #f4f4f4;
-    font-size: clamp(12px, 1.2vw, 18px); /* Réduction des tailles */
-    background-color: #40607c; /* Couleur de fond */
+    font-size: clamp(12px, 1.2vw, 18px); 
+    background-color: #40607c; 
 }
 
 .main {
@@ -26,9 +26,8 @@ h2 {
     background-color: #355973; 
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     color: #f4f4f4;
-    flex: 1;
 }
 
 .infos-joueur {
@@ -37,6 +36,7 @@ h2 {
     justify-content: space-between; 
     gap: 20px; 
     padding: 10px; 
+    flex: 2;
 }
 
 .liste-joueurs {
@@ -49,39 +49,48 @@ h2 {
     flex: 1; 
 }
 
-.divCliquable {
-    text-decoration: none; 
-    color: inherit; 
-    width: 60%;
-}
-
-.divCliquable .joueur {
+.joueur {
     margin: 10px 0; 
     padding: 10px;
+    width: 60%;
     background-color: white;
     color: #40607c;
-
     display: flex; 
-    align-items: flex-start; /* Alignement des éléments au début */
-    justify-content: space-between; /* Espace entre les contenus principaux */
+    align-items: flex-start; 
+    justify-content: space-between; 
+    flex-direction: column;
     gap: 10px; 
     border-radius: 10px; 
     box-sizing: border-box;
     position: relative;
 }
 
-.checkbox {
-    margin-left: auto; /* Pousse la checkbox vers la droite */
-    transform: scale(1.6); 
-    cursor: pointer;
-    flex-shrink: 0;
+.participation-item {
+    display: flex;
+    align-items: center; 
 }
+
+.checkbox {
+    margin-left: auto; 
+    transform: scale(2); 
+    cursor: pointer;
+    width: 20px;
+    margin-top: -60px; 
+    margin-right: 20px;
+    align-self: flex-start;
+
+}
+
 
 .attributs {
     flex: 1;
     display: flex;
     flex-direction: column; 
     gap: 5px;
+}
+
+#formulaireParticipation {
+    height: 70px;
 }
 
 .joueur h5,
@@ -93,9 +102,9 @@ h2 {
 
 .infos-participation {
     display: flex;
-    flex-direction: column; /* Aligner les champs en colonne */
-    gap: 10px; /* Espace entre les champs */
-    margin-top: 10px; /* Espace au-dessus des champs */
+    flex-direction: column; 
+    gap: 10px; 
+    margin-top: 10px;
 }
 
 .infos-participation select {
@@ -112,17 +121,19 @@ h2 {
 
 .infos-match-container {
     display: flex;
-    flex-direction: column; /* Tout aligné verticalement */
-    gap: 10px; /* Espacement entre les éléments, plus compact */
-    align-items: center; /* Aligne tout à gauche */
+    flex-direction: column; 
+    flex: 1;
+    gap: 10px; 
+    align-items: left;
+
 }
 
-/* Conteneur pour chaque ligne d'éléments */
+
 .match-item {
     display: flex;
-    flex-direction: column; /* Changer de row à column pour aligner verticalement */
-    gap: 5px; /* Espacement entre le label et le champ, plus compact */
-    width: 100%; /* S'assurer que chaque élément prend toute la largeur */
+    flex-direction: column; 
+    gap: 5px; 
+    width: 100%;
 }
 
 label {

@@ -15,7 +15,7 @@ class RechercherJouer {
         $this->id_match = $id_match;
     }
 
-    public function executer(): Jouer {
+    public function executer(): Jouer|null {
         return $this->jouerDAO->findById($this->n_licence, $this->id_match);
     }
 }

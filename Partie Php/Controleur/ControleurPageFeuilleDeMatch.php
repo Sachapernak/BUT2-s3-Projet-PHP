@@ -8,8 +8,9 @@ use DAO\JoueurDAO;
 use DAO\MatchDAO;
 use DAO\JouerDAO;
 use Modele\MatchBasket;
+use Modele\Jouer;
 use Controleur\RechercherJoueursActifs;
-use Controleur\RechercherJouerParMatch;
+
 
 class ControleurPageFeuilleDeMatch
 {
@@ -47,20 +48,56 @@ class ControleurPageFeuilleDeMatch
         /* ajouter jouer*/
 
         $creationMatch = new CreerUnMatch($this->matchDAO, $match);
-        $creationMatch->executer();
+        $idMatch = $creationMatch->executer();
+
+        return $idMatch;
+     
+
+    }
+
+    public function creerParticipation(array $joueursSelectionnes, $idMatch) {
+        foreach ($joueursSelectionnes as $joueurSelect) {
+            $n_licence = $joueurSelect['n_licence'];
+            $position = $joueurSelect['position'];
+            $estRemplacant = $joueurSelect['role'];
+
+            $jouer = new Jouer($n_licence,$idMatch,$estRemplacant);
+    
+            $creationMatch = new CreerJouer($this->jouerDAO, $jouer);
+            $creationMatch->executer();
+        }
+
+        
+
+       
      
         header('Location: Matchs.php');
     }
 
-    public function verifierPosition($id_match) {
-        $recherche = new RechercherJouerParMatch($this->matchDAO, $id_match);
-        $res = $recherche->executer();
+    public function verifierPosition(array $joueursSelectionnes): bool {
+        $positionMeneur = 'Meneur';
+        $positionAilier = 'Ailier';
+        $positionPivot = 'Pivot';
+        $countMeneur = 0;
+        $countAilier = 0;
+        $countPivot = 0;
 
-
+        foreach ($joueursSelectionnes as $jouer) {
+            if ($jouer['position'] === $positionMeneur) {
+                $countMeneur++;
+            }
+            if ($jouer['position'] === $positionAilier) {
+                $countAilier++;
+            }
+            if ($jouer['position'] === $positionPivot) {
+                $countPivot++;
+            }
+        }
+        return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >=2;
     }
 
-    public function ajouterJouer(){
-        
+    public function verifierTailleJoueursSelec(array $joueursSelectionnes): bool{
+        return count($joueursSelectionnes) > 5;
     }
 
 

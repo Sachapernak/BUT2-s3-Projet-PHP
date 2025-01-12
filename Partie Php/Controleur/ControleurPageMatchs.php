@@ -7,6 +7,7 @@ use DAO\MatchDAO;
 use DAO\JouerDAO;
 use Controleur\RechercherJouerParMatch;
 use Controleur\RechercherMatchsAVenir;
+use Controleur\SupprimerUnMatch;
 
 class ControleurPageMatchs
 {
@@ -53,6 +54,13 @@ class ControleurPageMatchs
         return $res;
     }
 
+    public function getMatchsPasses()
+    {
+        $recherche = new RechercherMatchsPasses($this->matchDAO, date('Y-m-d'));
+        $res = $recherche->executer();
+        return $res;
+    }
+
     public function afficherEtoiles($note): string
     {
         $etoile = "";
@@ -68,6 +76,8 @@ class ControleurPageMatchs
         return $etoile;
     }
 
+    
+
     public function afficherRemplacement($estRemplacant)
     {
         $resultat = "";
@@ -80,6 +90,12 @@ class ControleurPageMatchs
                 break;
         }
         return $resultat;
+    }
+
+    public function supprimerMatch($idMatch)
+    {
+        $suppression = new SupprimerUnMatch($this->matchDAO, $idMatch);
+        $suppression->executer();
     }
 
 }

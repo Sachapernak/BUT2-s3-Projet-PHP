@@ -24,7 +24,7 @@ class MatchDAO {
         try {
             $requete = $this->pdo->prepare('
                 INSERT INTO Match_basket (date_et_heure, adversaire, lieu, resultat)
-                VALUES :date_et_heure, :adversaire, :lieu, :resultat)'
+                VALUES (:date_et_heure, :adversaire, :lieu, :resultat)'
             );
             $requete->execute([
                 ':date_et_heure' => $date_et_heure,
@@ -88,7 +88,7 @@ class MatchDAO {
             $requete->execute([':id_match' => $id_match]);
             $res = $requete->fetch();
             if ($res) {
-                $match = new Match_basket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+                $match = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -102,7 +102,7 @@ class MatchDAO {
             $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) > :dateMatch');
             $requete->execute([':dateMatch' => $dateMatch]);
             while ($res = $requete->fetch()) {
-                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+                $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -116,7 +116,7 @@ class MatchDAO {
             $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) < :dateMatch');
             $requete->execute([':dateMatch' => $dateMatch]);
             while ($res = $requete->fetch()) {
-                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+                $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -130,7 +130,7 @@ class MatchDAO {
         try {
             $requete = $this->pdo->query('SELECT * FROM Match_basket');
             while ($res = $requete->fetch()) {
-                $matchs[] = new MatchBasket($res['id_match'], $res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['resultat']);
+                $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
