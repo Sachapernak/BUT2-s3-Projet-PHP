@@ -101,7 +101,7 @@ class ControleurPageStatistiques
         return $titularisation;
     }
 
-    public function getMoyenneEval(Joueur $joueur) {
+    public function getMoyenneEval(Joueur $joueur): float {
         $n_licence = $joueur->getN_licence();
         $moyenne = $this->jouerDAO->moyenneNoteJoueur($n_licence);
         return $moyenne;
@@ -111,6 +111,20 @@ class ControleurPageStatistiques
         $n_licence = $joueur->getN_licence();
         $titularisation = $this->jouerDAO->getNbMatchsConsecutifsJoueur($n_licence);
         return $titularisation;
+    }
+
+    public function getPourcentVictoiresJoueur(Joueur $joueur): float{
+        $n_licence = $joueur->getN_licence();
+        
+        $nbVicJoueurs = $this->jouerDAO->getNbVictoiresJoueur($n_licence);
+        $nbMatchs = $this->matchDAO->getTotalMatchs();
+        if ($nbMatchs == 0) {
+            return 0.0;
+        }
+
+        $pourcentVic = ($nbVicJoueurs / $nbMatchs) * 100;
+
+        return $pourcentVic;
     }
 
 

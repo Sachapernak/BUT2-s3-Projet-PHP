@@ -56,7 +56,7 @@ h2 {
 .recap-joueur-table td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 
 .recap-joueur-table th {

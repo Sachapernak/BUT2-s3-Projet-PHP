@@ -150,13 +150,13 @@ class JouerDAO {
         }
     }
 
-    public function moyenneNoteJoueur($n_licence): int{
+    public function moyenneNoteJoueur($n_licence): float{
         try {
             $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE n_licence = :n_licence');
             $requete->execute([ ':n_licence' => $n_licence]);
             $result = $requete->fetch();
             if ($result) {
-                return (int) $result['moyenne_note'];
+                return round($result['moyenne_note'], 1);
             }
             return -1;  
         } catch (Exception $e) {
@@ -171,7 +171,7 @@ class JouerDAO {
             $requete->execute([':n_licence' => $n_licence]);
             $result = $requete->fetch();
             if ($result) {
-                return (int) $result['position'];
+                return $result['position'];
             }
             return "";  
         } catch (Exception $e) {
@@ -214,11 +214,26 @@ class JouerDAO {
         try  {
             $requete = $this->pdo->prepare("SELECT j1.n_licence, COUNT(*) AS nb_matchs_consecutifs FROM jouer j1, jouer j2, match_basket m1, match_basket m2
                                         WHERE j1.n_licence = j2.n_licence AND j1.id_match = m1.id_match AND j2.id_match = m2.id_match AND m1.id_match = m2.id_match - 1  
-                                        AND j1.n_licence = :n_licence GROUP BY j1.n_licence;");
+                                        AND j1.n_licence = :n_licence GROUP BY j1.n_licence");
             $requete->execute([ ':n_licence' => $n_licence]);
             $result = $requete->fetch();
             if ($result) {
                 return (int) $result['nb_matchs_consecutifs'];
+            }
+            return 0;  
+        } catch (Exception $e) {
+            echo 'Erreur lors de la récupération de tous les joueurs : ' . $e->getMessage();
+            return -1;
+        }
+    }
+
+    public function getNbVictoiresJoueur($n_licence){
+        try  {
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS nb_victoires FROM jouer j, match_basket m WHERE  j.id_match = m.id_match AND j.n_licence = :n_licence AND m.resultat = 'V';");
+            $requete->execute([':n_licence' => $n_licence]);
+            $result = $requete->fetch();
+            if ($result) {
+                return (int) $result['nb_victoires'];
             }
             return 0;  
         } catch (Exception $e) {

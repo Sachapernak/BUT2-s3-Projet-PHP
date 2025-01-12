@@ -87,7 +87,7 @@ $pourcentNuls = $controleurStats->getPourcentNuls();
                                 <td><?php echo htmlspecialchars($joueur->getIntituleStatut()); ?></td>
                                 <td><?php 
                                     $posteFav = $controleurStats->getPosteFavoris($joueur);                              
-                                    echo $posteFav; ?>
+                                    echo htmlspecialchars($posteFav); ?>
                                 </td>
                                 <td><?php 
                                     $titularisations = $controleurStats->getTitularisations($joueur);                              
@@ -99,11 +99,15 @@ $pourcentNuls = $controleurStats->getPourcentNuls();
                                 </td>
                                 <td><?php 
                                     $moyenneEval = $controleurStats->getMoyenneEval($joueur);                              
-                                    echo $titularisations; ?>
+                                    echo $moyenneEval; ?>
                                 </td>
                                 <td><?php 
                                     $nbMatchsConscutifs = $controleurStats->getMatchsConsecutifs($joueur);                              
                                     echo $nbMatchsConscutifs; ?>
+                                </td>
+                                <td><?php 
+                                    $pourcentVic = $controleurStats->getPourcentVictoiresJoueur($joueur);                              
+                                    echo $pourcentVic; ?>
                                 </td>
                                       
                             </tr>
