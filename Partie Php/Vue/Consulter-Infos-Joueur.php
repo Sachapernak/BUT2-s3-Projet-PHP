@@ -1,5 +1,6 @@
 <?php
 require_once 'autoload.php';
+require 'Verif-Auth.php';
 use Controleur\ControleurPageConsulterInfosJoueur;
 
 $controleur = new ControleurPageConsulterInfosJoueur();
@@ -62,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
     <div id="retour">
         <a href="Joueurs.php"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i></a>

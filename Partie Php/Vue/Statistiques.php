@@ -1,6 +1,7 @@
 <?php
 
 require_once 'autoload.php';
+require 'Verif-Auth.php';
 use Controleur\ControleurPageStatistiques;
 use Controleur\ControleurPageJoueurs;
 
@@ -29,7 +30,7 @@ $pourcentNuls = $controleurStats->getPourcentNuls();
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
     <div class="main">
         <h2>Récapitulatif des matchs</h2>

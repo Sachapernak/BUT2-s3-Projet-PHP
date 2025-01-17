@@ -81,7 +81,7 @@ class MatchDAO {
         return $res;
     }
 
-    public function findById($id_match) {
+    public function findById($id_match): MatchBasket|null {
         $match = null;
         try {
             $requete = $this->pdo->prepare('SELECT * FROM Match_basket WHERE id_match = :id_match');
@@ -96,7 +96,7 @@ class MatchDAO {
         return $match;
     }
 
-    public function findComingMatch($dateMatch) {
+    public function findComingMatch($dateMatch): array {
         $matchs = [];
         try {
             $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) > :dateMatch');

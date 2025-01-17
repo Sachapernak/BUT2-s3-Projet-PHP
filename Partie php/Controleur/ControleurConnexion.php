@@ -50,7 +50,6 @@ class ControleurConnexion
 
     public function getMessageErreur(): string
     {
-
         return $_SESSION['messageErreur'] ?? " ";
     }
 }

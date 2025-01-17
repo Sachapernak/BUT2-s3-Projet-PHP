@@ -1,6 +1,7 @@
 <?php
 
 require_once 'autoload.php';
+require 'Verif-Auth.php';
 use Controleur\ControleurPageJoueurs;
 
 $controleur = new ControleurPageJoueurs();
@@ -47,7 +48,7 @@ foreach ($listeJoueurs as $joueur) {
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
     <div class="main">
         <h2>Vos joueurs</h2>

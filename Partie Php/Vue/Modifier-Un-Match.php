@@ -1,5 +1,6 @@
 <?php
 require_once 'autoload.php';
+require 'Verif-Auth.php';
 use Controleur\ControleurPageModifierMatch;
 
 $controleur = new ControleurPageModifierMatch();
@@ -32,7 +33,7 @@ $lieu = $match->getlieu();
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
   
     <div class="main">
 

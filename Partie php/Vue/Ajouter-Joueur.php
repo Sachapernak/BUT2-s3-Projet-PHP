@@ -1,6 +1,8 @@
 <?php
 
 require_once 'autoload.php';
+require 'Verif-Auth.php';
+
 use Controleur\ControleurPageAjouterJoueur;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
     <div class="main">
 

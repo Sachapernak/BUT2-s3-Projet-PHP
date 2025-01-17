@@ -2,14 +2,14 @@
 
 namespace Controleur;
 
-use DateTime;
+use Modele\Jouer;
 
 use DAO\JoueurDAO;
 use DAO\MatchDAO;
 use DAO\JouerDAO;
-use Modele\MatchBasket;
-use Modele\Jouer;
+use DAO\CommentaireDAO;
 use Controleur\RechercherJoueursActifs;
+use Controleur\ObtenirTousLesCommentaires;
 
 
 class ControleurPageFeuilleDeMatch
@@ -18,12 +18,17 @@ class ControleurPageFeuilleDeMatch
     private $joueurDAO;
     private $jouerDAO;
     private $matchDAO;
+    private $commentaireDAO;
+    private $controleurJoueursParticipants;
 
     public function __construct()
     {
         $this->joueurDAO = new JoueurDAO();
         $this->jouerDAO = new JouerDAO();
         $this->matchDAO = new MatchDAO();
+        $this->commentaireDAO = new CommentaireDAO();
+
+        $this->controleurJoueursParticipants = new ControleurPageMatchs();
     }
 
     public function getJoueursActifs(): array{
@@ -32,45 +37,18 @@ class ControleurPageFeuilleDeMatch
 
     }
 
-    public function creerUnMatch() {
-        $date_match = $_POST['date'];
-        $heure_match = $_POST['heure'];
-
-        $dateTimeString = $date_match . ' ' . $heure_match; 
-        $dateTime = new DateTime($dateTimeString);
-
-        $adversaire = $_POST['adversaire'];
-        $lieu = $_POST['lieu'];
-
-        $match = new MatchBasket($dateTime, $adversaire, $lieu);
-
-
-        /* ajouter jouer*/
-
-        $creationMatch = new CreerUnMatch($this->matchDAO, $match);
-        $idMatch = $creationMatch->executer();
-
-        return $idMatch;
-     
-
-    }
-
+    
     public function creerParticipation(array $joueursSelectionnes, $idMatch) {
         foreach ($joueursSelectionnes as $joueurSelect) {
-            $n_licence = $joueurSelect['n_licence'];
+            $n_licence = $joueurSelect['licence'];
             $position = $joueurSelect['position'];
             $estRemplacant = $joueurSelect['role'];
 
-            $jouer = new Jouer($n_licence,$idMatch,$estRemplacant);
+            $jouer = new Jouer($n_licence,$idMatch,$estRemplacant, null, $position);
     
             $creationMatch = new CreerJouer($this->jouerDAO, $jouer);
             $creationMatch->executer();
         }
-
-        
-
-       
-     
         header('Location: Matchs.php');
     }
 
@@ -96,9 +74,29 @@ class ControleurPageFeuilleDeMatch
         return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >=2;
     }
 
-    public function verifierTailleJoueursSelec(array $joueursSelectionnes): bool{
-        return count($joueursSelectionnes) > 5;
+    public function verifierTailleJoueursSelec(array $joueurs): bool{
+        return count($joueurs) >= 5;
     }
+
+    public function getCommentairesJoueur($n_licence){
+        $obtenirTousLesCommentaires = new ObtenirTousLesCommentaires($this->commentaireDAO, $n_licence);
+        $commentaires = $obtenirTousLesCommentaires->executer();
+  
+        $tousLesCommentaires = "";
+
+        foreach ($commentaires as $commentaire){
+            $tousLesCommentaires.= "<p>". $commentaire['date']. " : ". $commentaire['commentaire']. "</p> <br>";
+        }
+        return $tousLesCommentaires;
+    }
+
+    public function getInfosParticipation($idMatch){
+        $recherche = new RechercherJouerParMatch($this->jouerDAO, $idMatch);
+        $listeJoueursParticipants= $recherche->executer();
+        return $listeJoueursParticipants;
+    }
+  
+    
 
 
 }

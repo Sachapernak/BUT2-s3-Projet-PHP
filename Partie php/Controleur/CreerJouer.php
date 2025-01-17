@@ -3,6 +3,7 @@
 namespace Controleur;
 
 use DAO\JouerDAO;
+use Modele\Jouer;
 
 class CreerJouer {
 

@@ -1,6 +1,8 @@
 <?php
 
 require_once 'autoload.php';
+require 'Verif-Auth.php';
+
 use Controleur\ControleurPageAccueil;
 use Controleur\ControleurPageJoueurs;
 
@@ -80,7 +82,7 @@ foreach ($listeJoueurs as $joueur) {
 
 
 
-        <?php include "barre-navigation.html" ?>
+        <?php include "barre-navigation.php" ?>
 
         <!-- Page content -->
         <div class="main">

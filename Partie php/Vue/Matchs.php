@@ -1,6 +1,7 @@
 <?php
 
 require_once 'autoload.php';
+require 'Verif-Auth.php';
 use Controleur\ControleurPageMatchs;
 
 $controleurMatchs = new ControleurPageMatchs();
@@ -52,11 +53,15 @@ foreach ($listeJoueurs as $joueur) {
                 <div class="en-tete-joueur">
                     <h5>' . $nom . ' ' . $prenom . '</h5> <span>' . $etoiles . ' </span>
                 </div> 
+                <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
+                    <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
+                </a>
                 <div class ="infosJoueur"> 
                     <p> Licence ' . $n_licence . ' </p> <br>
                     <p> Poste : ' . $poste . '</p> <br>
                     <p> ' . $estRemplacant . '</p> <br>
                 </div>
+
             </div>
         </div>
     ';
@@ -77,7 +82,7 @@ foreach ($listeJoueurs as $joueur) {
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
     <!-- Page content -->
     <div class="main">
@@ -102,12 +107,11 @@ foreach ($listeJoueurs as $joueur) {
                             if (isset($_POST['id_match']) && $_POST['id_match'] == $match->getIdMatch()) {
                                 $ligneSelect = 'ligneSelect';
                             }
-
                             echo '<tr class="clickable-row ' . $ligneSelect . '">';
                             echo '<td><button type="submit" name="id_match" value="' . $match->getIdMatch() . '" class="invisible-btn"></button>' . $match->getIdMatch() . '</td>';
                             echo '<td>' . $match->getDate_et_heure() . '</td>';
                             echo '<td>' . $match->getAdversaire() . '</td>';
-                            echo '<td>' . $match->getLieu() . '</td>';
+                            echo '<td>' . $controleurMatchs->afficherLieu($match->getLieu()) . '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -121,14 +125,16 @@ foreach ($listeJoueurs as $joueur) {
             <form method="POST" action="">
                 <input type="hidden" name="action" value="supprimer">
                 <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>">
-                <button type="submit" class="btn <?php if (!$matchAVenir) echo 'disabled'; ?> ">Annuler le match</button>
+                <button type="submit" class="btn" <?php if (!$matchAVenir)
+                    echo 'disabled'; ?>>Annuler le match</button>
             </form>
-            <button class="btn" <?php if (!$matchAVenir) echo 'disabled'; ?> 
+            <button class="btn" <?php if (!$matchAVenir)
+                echo 'disabled'; ?>
                 onclick="window.location.href='Modifier-Un-Match.php?idMatch=<?php echo urlencode($idMatch); ?>'">Modifier
                 le match</button>
         </div>
 
-        
+
         <h3> Ensemble des matchs passés </h3>
 
         <div class="table-container">
@@ -146,18 +152,16 @@ foreach ($listeJoueurs as $joueur) {
                     <tbody>
                         <?php
                         foreach ($listeMatchsPasses as $match) {
-
                             $ligneSelect = '';
                             if (isset($_POST['id_match']) && $_POST['id_match'] == $match->getIdMatch()) {
                                 $ligneSelect = 'ligneSelect';
                             }
-
                             echo '<tr class="clickable-row ' . $ligneSelect . '">';
                             echo '<td><button type="submit" name="id_match" value="' . $match->getIdMatch() . '" class="invisible-btn"></button>' . $match->getIdMatch() . '</td>';
                             echo '<td>' . $match->getDate_et_heure() . '</td>';
                             echo '<td>' . $match->getAdversaire() . '</td>';
-                            echo '<td>' . $match->getLieu() . '</td>';
-                            echo '<td>' . $match->getResultat() . '</td>';
+                            echo '<td>' . $controleurMatchs->afficherLieu($match->getLieu()) . '</td>';
+                            echo '<td>' . $controleurMatchs->afficherResultat($match->getResultat()) . '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -167,11 +171,22 @@ foreach ($listeJoueurs as $joueur) {
         </div>
 
         <div class="btn-container">
-            <button class="btn" <?php if ($matchAVenir) echo 'disabled'; ?> 
-                onclick="window.location.href='Modifier-Un-Match.php?idMatch=<?php echo urlencode($idMatch); ?>'">Saisir le score</button>
+            <button class="btn" <?php if ($matchAVenir)
+                echo 'disabled'; ?>
+                onclick="window.location.href='Saisie-Du-Score.php?idMatch=<?php echo urlencode($idMatch); ?>'">Saisir
+                le score</button>
         </div>
 
-        <h3>Joueurs participants au match n°<?php echo $idMatch ?> </h3>
+        <div id="selection-jouer">
+            <h3>Joueurs participants au match n°<?php echo $idMatch ?> </h3>
+            <div class="btn-container">
+                <button class="btn" <?php if (!$matchAVenir)
+                    echo 'disabled'; ?>
+                    onclick="window.location.href='Feuille-De-Match.php?idMatch=<?php echo urlencode($idMatch); ?>'"> Selectionner les joueurs </button>
+            </div>
+
+        </div>
+
 
         <div class="flexContainer">
             <?php echo $joueurs; ?>

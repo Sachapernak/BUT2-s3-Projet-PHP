@@ -13,7 +13,7 @@ html, body {
     padding: 20px;
     text-align: left;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 30px;
 }
 
@@ -136,26 +136,6 @@ h2 {
     width: 100%;
 }
 
-label {
-    margin: 0 0 3px 0; /* Réduit l'espace sous le label */
-    font-size: clamp(12px, 0.9vw, 16px); /* Police plus petite */
-    display: inline-block;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="time"],
-select {
-    padding: 5px; /* Réduit le padding des champs */
-    margin-bottom: 8px; /* Réduit l'espace sous les champs */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: clamp(12px, 0.9vw, 14px); /* Réduit la taille de la police */
-    outline: none;
-    margin-right: 15px; /* Moins d'espace entre les champs */
-    width: 40%; /* Réduit la largeur des champs */
-}
 
 form {
     width: 100%; 
@@ -189,4 +169,56 @@ button.btn-annuler {
 /* Boutons au survol */
 button:hover {
     opacity: 0.9;
+}
+
+.table-container {
+    margin-bottom: 50px;
+    width: 80%;
+    padding-left: 5%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+}
+
+th, td {
+    padding: 8px; /* Réduction des marges */
+    text-align: center;
+    border: 1px solid #DDDDDD;
+}
+
+th {
+    background-color: #506882;
+    color: #FFFFFF;
+    font-size: 0.9rem; /* Réduction de la taille */
+}
+
+td {
+    color: #000000;
+    font-size: 0.85rem; /* Réduction de la taille */
+}
+
+.ligneSelect {
+    background-color: #9eacbe; /* Couleur de fond pour la ligne sélectionnée */
+    color: white; /* Couleur du texte de la ligne sélectionnée */
+}
+
+.invisible-btn {
+    all: unset;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.clickable-row {
+    position: relative;
+}
+
+label {
+    margin-right: 12px;
+    font-size: clamp(12px, 0.9vw, 16px);
+    display: inline-block;
 }

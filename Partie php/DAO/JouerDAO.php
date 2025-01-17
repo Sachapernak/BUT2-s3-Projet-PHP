@@ -124,10 +124,9 @@ class JouerDAO {
             $requete->execute([
                 ':id_match' => $id_match
             ]);
-            $result = $requete->fetchAll();
             $jouer = [];
-            foreach ($result as $row) {
-                $jouer[] = new Jouer($row['n_licence'], $row['id_match'], $row['est_remplacant'], $row['note'], $row['position']);
+            while ($result = $requete->fetch()) {
+                $jouer[] = new Jouer($result['n_licence'], $result['id_match'], $result['est_remplacant'], $result['note'], $result['position']);
             }
             return $jouer;  
         } catch (Exception $e) {

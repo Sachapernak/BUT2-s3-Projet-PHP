@@ -70,6 +70,21 @@ td {
     background-color: #f09b62;
 }
 
+#selection-jouer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Centre verticalement le contenu */
+    margin-bottom: 20px;
+}
+
+#selection-jouer h3 {
+    margin: 0;
+}
+
+#selection-jouer .btn-container {
+    margin: 0;
+}
+
 .flexContainer {
     display: flex;
     flex-wrap: wrap; 

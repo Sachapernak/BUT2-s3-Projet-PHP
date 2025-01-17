@@ -76,8 +76,6 @@ class ControleurPageMatchs
         return $etoile;
     }
 
-    
-
     public function afficherRemplacement($estRemplacant)
     {
         $resultat = "";
@@ -96,6 +94,41 @@ class ControleurPageMatchs
     {
         $suppression = new SupprimerUnMatch($this->matchDAO, $idMatch);
         $suppression->executer();
+    }
+
+    public function afficherResultat($score){
+        $resultat = "";
+        switch ($score) {
+            case "V":
+                $resultat = "Victoire";
+                break;
+            case "D":
+                $resultat = "Défaite";
+                break;
+            case "N":
+                $resultat = "Match nul";
+                break;
+            default: 
+                $resultat = "Erreur";
+                break;
+        }
+        return $resultat;
+    }
+
+    public function afficherLieu($lieu){
+        $resultat = "";
+        switch ($lieu) {
+            case "ext":
+                $resultat = "Extérieur";
+                break;
+            case "dom":
+                $resultat = "A domicile";
+                break;
+            default: 
+                $resultat = "Erreur";
+                break;
+        }
+        return $resultat;
     }
 
 }
