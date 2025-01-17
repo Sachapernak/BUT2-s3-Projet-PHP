@@ -23,7 +23,7 @@ class MatchDAO {
     public function insert($date_et_heure, $adversaire, $lieu, $resultat) {
         try {
             $requete = $this->pdo->prepare('
-                INSERT INTO Match_basket (date_et_heure, adversaire, lieu, resultat)
+                INSERT INTO match_basket (date_et_heure, adversaire, lieu, resultat)
                 VALUES (:date_et_heure, :adversaire, :lieu, :resultat)'
             );
             $requete->execute([
@@ -44,7 +44,7 @@ class MatchDAO {
     public function update($id_match, $date_et_heure, $adversaire, $lieu, $resultat) {
         try {
             $requete = $this->pdo->prepare('
-                UPDATE Match_basket SET 
+                UPDATE match_basket SET 
                     date_et_heure = :nvdate_et_heure, 
                     adversaire = :nvadversaire, 
                     lieu = :nvlieu, 
@@ -67,10 +67,10 @@ class MatchDAO {
         $res =false;
         try {
 
-            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE id_match = :id_match');
+            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM jouer WHERE id_match = :id_match');
             $requeteSupprJouer->execute([':id_match' => $id_match]);
 
-            $requete = $this->pdo->prepare('DELETE FROM Match_basket WHERE id_match = :id_match');
+            $requete = $this->pdo->prepare('DELETE FROM match_basket WHERE id_match = :id_match');
             $requete->execute([':id_match' => $id_match]);
 
             $res = $requete->rowCount() > 0;
@@ -84,7 +84,7 @@ class MatchDAO {
     public function findById($id_match): MatchBasket|null {
         $match = null;
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM Match_basket WHERE id_match = :id_match');
+            $requete = $this->pdo->prepare('SELECT * FROM match_basket WHERE id_match = :id_match');
             $requete->execute([':id_match' => $id_match]);
             $res = $requete->fetch();
             if ($res) {
@@ -99,7 +99,7 @@ class MatchDAO {
     public function findComingMatch($dateMatch): array {
         $matchs = [];
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) > :dateMatch');
+            $requete = $this->pdo->prepare('SELECT * FROM match_basket where CAST(date_et_heure AS DATE) > :dateMatch');
             $requete->execute([':dateMatch' => $dateMatch]);
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
@@ -113,7 +113,7 @@ class MatchDAO {
     public function findOldMatch($dateMatch) {
         $matchs = [];
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM Match_basket where CAST(date_et_heure AS DATE) < :dateMatch ORDER BY date_et_heure DESC');
+            $requete = $this->pdo->prepare('SELECT * FROM match_basket where CAST(date_et_heure AS DATE) < :dateMatch ORDER BY date_et_heure DESC');
             $requete->execute([':dateMatch' => $dateMatch]);
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
@@ -128,7 +128,7 @@ class MatchDAO {
     public function findAll() : array {
         $matchs = [];
         try {
-            $requete = $this->pdo->query('SELECT * FROM Match_basket');
+            $requete = $this->pdo->query('SELECT * FROM match_basket');
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
@@ -141,7 +141,7 @@ class MatchDAO {
     public function getTotalVictoires() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_victoires FROM Match_basket WHERE resultat = 'V'");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_victoires FROM match_basket WHERE resultat = 'V'");
             $requete->execute();
             $res = $requete->fetch(); 
             
@@ -157,7 +157,7 @@ class MatchDAO {
     public function getTotalDefaites() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_defaites FROM Match_basket WHERE resultat = 'D'");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_defaites FROM match_basket WHERE resultat = 'D'");
             $requete->execute();
             $res = $requete->fetch(); 
             
@@ -173,7 +173,7 @@ class MatchDAO {
     public function getTotalNuls() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_nuls FROM Match_basket WHERE resultat = 'N'");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total_nuls FROM match_basket WHERE resultat = 'N'");
             $requete->execute();
             $res = $requete->fetch(); 
             
@@ -189,7 +189,7 @@ class MatchDAO {
     public function getTotalMatchs() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM Match_basket");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM match_basket");
             $requete->execute();
             $res = $requete->fetch(); 
             

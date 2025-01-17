@@ -76,10 +76,10 @@ class JoueurDAO
         $res = false;
         try 
         {
-            $requeteSupprCommentaires = $this->connexion->prepare('DELETE FROM Commentaire WHERE n_licence = :n_licence');
+            $requeteSupprCommentaires = $this->connexion->prepare('DELETE FROM commentaire WHERE n_licence = :n_licence');
             $requeteSupprCommentaires->execute(array('n_licence' => $n_licence));
 
-            $requeteSupprJoueur = $this->connexion->prepare('DELETE FROM Joueur WHERE n_licence = :n_licence');
+            $requeteSupprJoueur = $this->connexion->prepare('DELETE FROM joueur WHERE n_licence = :n_licence');
             $requeteSupprJoueur->execute(array('n_licence' => $n_licence));
             $res = $requeteSupprJoueur->rowCount() > 0;
         } catch (Exception $e) {

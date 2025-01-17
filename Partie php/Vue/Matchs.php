@@ -121,7 +121,7 @@ foreach ($listeJoueurs as $joueur) {
         </div>
 
         <div class="btn-container">
-            <button class="btn" onclick="window.location.href='Ajouter-Match.php?'">Ajouter un match</button>
+            <button class="btn" onclick="window.location.href='Ajouter-match.php?'">Ajouter un match</button>
             <form method="POST" action="">
                 <input type="hidden" name="action" value="supprimer">
                 <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>">

@@ -243,7 +243,7 @@ class JouerDAO {
 
     public function getMeilleurJoueurMatch($id_match){
         try  {
-            $requete = $this->pdo->prepare("SELECT * FROM Jouer WHERE id_match= :id_match ORDER BY note DESC LIMIT 1");
+            $requete = $this->pdo->prepare("SELECT * FROM jouer WHERE id_match= :id_match ORDER BY note DESC LIMIT 1");
             $requete->execute([':id_match' => $id_match]);
             $result = $requete->fetch();
             if ($result) {

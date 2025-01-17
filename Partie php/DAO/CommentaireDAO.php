@@ -22,7 +22,7 @@ class CommentaireDAO {
     public function insert($n_licence, $date_Com, $commentaire) {
         try {
             $requete = $this->pdo->prepare('
-                INSERT INTO Commentaire (n_licence, date_Com, commentaire)
+                INSERT INTO commentaire (n_licence, date_Com, commentaire)
                 VALUES (:n_licence, :date_Com, :commentaire)'
             );
             $requete->execute([
@@ -39,7 +39,7 @@ class CommentaireDAO {
     public function update($n_licence, $date_Com, $commentaire) {
         try {
             $requete = $this->pdo->prepare('
-                UPDATE Commentaire 
+                UPDATE commentaire 
                 SET commentaire = :commentaire 
                 WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
@@ -58,7 +58,7 @@ class CommentaireDAO {
         $res = false;
         try {
             $requete = $this->pdo->prepare('
-                DELETE FROM Commentaire 
+                DELETE FROM commentaire 
                 WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
             $requete->execute([
@@ -77,7 +77,7 @@ class CommentaireDAO {
         $commentaire = null;
         try {
             $requete = $this->pdo->prepare('
-                SELECT * FROM Commentaire 
+                SELECT * FROM commentaire 
                 WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
             $requete->execute([
@@ -99,7 +99,7 @@ class CommentaireDAO {
         $commentaires = [];
         try {
             $requete = $this->pdo->prepare('
-                SELECT * FROM Commentaire 
+                SELECT * FROM commentaire 
                 WHERE n_licence = :n_licence'
             );
             $requete->execute([':n_licence' => $n_licence]);
@@ -116,7 +116,7 @@ class CommentaireDAO {
     public function findAll() {
         $commentaires = [];
         try {
-            $requete = $this->pdo->query('SELECT * FROM Commentaire');
+            $requete = $this->pdo->query('SELECT * FROM commentaire');
             while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
                 $commentaires[] = new Commentaire($res['n_licence'], $res['date_Com'], $res['commentaire']);
             }

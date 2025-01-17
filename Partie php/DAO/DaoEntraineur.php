@@ -14,7 +14,7 @@ class DaoEntraineur
     public function getById($identifiant) : ? Entraineur
     {
 
-        $sql = "SELECT * FROM Entraineur WHERE identifiant = :identifiant";
+        $sql = "SELECT * FROM entraineur WHERE identifiant = :identifiant";
         $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':identifiant', $identifiant);
         $stmt->execute();
@@ -24,7 +24,7 @@ class DaoEntraineur
 
     public function getHashedpwd($identifiant) : String {
 
-        $sql = "SELECT mot_de_passe FROM Entraineur WHERE identifiant = :identifiant";
+        $sql = "SELECT mot_de_passe FROM entraineur WHERE identifiant = :identifiant";
         $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':identifiant', $identifiant);
         $stmt->execute();
