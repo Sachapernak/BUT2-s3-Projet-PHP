@@ -15,7 +15,7 @@
 		} 
 		
 		public function executer() : array {
-            $matchs = $this->matchDAO->findOldMatch($this->dateMatch);
+            $matchs = $this->matchDAO->findOldMatch();
 			return $matchs;
         }
 	} 

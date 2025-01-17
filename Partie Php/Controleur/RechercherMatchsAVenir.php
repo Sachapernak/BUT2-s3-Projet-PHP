@@ -15,7 +15,7 @@
 		} 
 		
 		public function executer() : array {
-            $matchs = $this->matchDAO->findComingMatch($this->dateMatch);
+            $matchs = $this->matchDAO->findComingMatch();
 			return $matchs;
         }
 	} 

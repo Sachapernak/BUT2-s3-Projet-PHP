@@ -1,6 +1,7 @@
 <?php
 
 namespace DAO;
+use Exception;
 use Modele\Database;
 use Modele\MatchBasket;
 use PDO;
@@ -38,7 +39,8 @@ class MatchDAO {
             return $id_match;
         } catch (Exception $e) {
             echo 'Erreur lors de l\'insertion : ' . $e->getMessage();
-        }        
+        }
+        return null;
     }
 
     public function update($id_match, $date_et_heure, $adversaire, $lieu, $resultat) {
@@ -96,11 +98,11 @@ class MatchDAO {
         return $match;
     }
 
-    public function findComingMatch($dateMatch): array {
+    public function findComingMatch(): array {
         $matchs = [];
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM match_basket where CAST(date_et_heure AS DATE) > :dateMatch');
-            $requete->execute([':dateMatch' => $dateMatch]);
+            $requete = $this->pdo->prepare('SELECT * FROM match_basket where date_et_heure >= SYSDATE() ORDER BY date_et_heure DESC');
+            $requete->execute();
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
@@ -110,11 +112,11 @@ class MatchDAO {
         return $matchs;
     }
 
-    public function findOldMatch($dateMatch) {
+    public function findOldMatch() {
         $matchs = [];
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM match_basket where CAST(date_et_heure AS DATE) < :dateMatch ORDER BY date_et_heure DESC');
-            $requete->execute([':dateMatch' => $dateMatch]);
+            $requete = $this->pdo->prepare('SELECT * FROM match_basket where date_et_heure < SYSDATE() ORDER BY date_et_heure DESC');
+            $requete->execute();
             while ($res = $requete->fetch()) {
                 $matchs[] = new MatchBasket($res['date_et_heure'], $res['adversaire'], $res['lieu'], $res['id_match'], $res['resultat']);
             }
@@ -189,7 +191,7 @@ class MatchDAO {
     public function getTotalMatchs() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM match_basket where CAST(date_et_heure AS DATE) < :dateMatch ORDER BY date_et_heure DESC");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM match_basket where date_et_heure < SYSDATE() ORDER BY date_et_heure DESC");
 
             $requete->execute();
             $res = $requete->fetch(); 
