@@ -89,7 +89,7 @@ class JoueurDAO
         return $res;
     }
 
-    public function findById($n_licence): Joueur
+    public function findById($n_licence): ?Joueur
     {
         $joueur = null;
         try {
