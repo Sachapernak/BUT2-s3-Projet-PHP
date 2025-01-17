@@ -3,14 +3,14 @@ namespace Modele;
 class Jouer {
 
     private $n_licence;
-    private $id_matchs;
+    private $id_match;
     private $est_remplacant;
     private $note;
     private $role;
 
-    public function __construct($n_licence, $id_matchs, $est_remplacant, $note, $role) {
+    public function __construct($n_licence, $id_match, $est_remplacant, $note, $role) {
         $this->n_licence = $n_licence;
-        $this->id_matchs = $id_matchs;
+        $this->id_match = $id_match;
         $this->est_remplacant = $est_remplacant;
         $this->note = $note;
         $this->role = $role;
@@ -20,8 +20,8 @@ class Jouer {
         return $this->n_licence;
     }
 
-    public function getId_matchs() {
-        return $this->id_matchs;
+    public function getId_match() {
+        return $this->id_match;
     }
 
     public function getEst_remplacant() {
@@ -40,8 +40,8 @@ class Jouer {
         $this->n_licence = $n_licence;
     }
 
-    public function setId_matchs($id_matchs) {
-        $this->id_matchs = $id_matchs;
+    public function setid_match($id_match) {
+        $this->id_match = $id_match;
     }
 
     public function setEst_remplacant($est_remplacant) {

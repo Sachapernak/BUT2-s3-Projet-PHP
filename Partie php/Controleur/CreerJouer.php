@@ -9,7 +9,7 @@ class CreerJouer {
 
     private $jouerDAO;
     private $n_licence;
-    private $id_matchs;
+    private $id_match;
     private $est_remplacant;
     private $note;
     private $role;
@@ -17,7 +17,7 @@ class CreerJouer {
     public function __construct(JouerDAO $jouerDAO, Jouer $jouer) {
         $this->jouerDAO = $jouerDAO;
         $this->n_licence = $jouer->getN_licence();
-        $this->id_matchs = $jouer->getId_matchs();
+        $this->id_match = $jouer->getId_match();
         $this->est_remplacant = $jouer->getEst_remplacant();
         $this->note = $jouer->getNote();
         $this->role = $jouer->getRole();
@@ -26,7 +26,7 @@ class CreerJouer {
     public function executer() {
         $this->jouerDAO->insert(
             $this->n_licence,
-            $this->id_matchs,
+            $this->id_match,
             $this->est_remplacant,
             $this->note,
             $this->role

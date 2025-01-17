@@ -2,14 +2,16 @@
 
 namespace Controleur;
 
-use Modele\Jouer;
-
 use DAO\JoueurDAO;
 use DAO\MatchDAO;
 use DAO\JouerDAO;
 use DAO\CommentaireDAO;
 use Controleur\RechercherJoueursActifs;
+use Controleur\RechercherJouerParMatch;
+use Controleur\SupprimerJouerParticipantsMatch;
 use Controleur\ObtenirTousLesCommentaires;
+
+use Modele\Jouer;
 
 
 class ControleurPageFeuilleDeMatch
@@ -37,30 +39,6 @@ class ControleurPageFeuilleDeMatch
         }
     }
 
-    public function actualiserJoueurs(array $joueursSelectionnes, $id_match)
-    {
-        
-        foreach ($joueursSelectionnes as $participation) {
-            $n_licence = $participation->getN_licence();
-            $rechercherJouer = new RechercherJouer($this->jouerDAO, $n_licence, $id_match);
-            if ($rechercherJouer->executer() === null) {
-
-            } else {
-                $this->creerParticipation($participation);
-            }
-            
-        }
-        header('Location: Matchs.php');
-    }
-
-
-    public function getJoueursActifs(): array
-    {
-        $recherche = new RechercherJoueursActifs($this->joueurDAO, 'act');
-        return $recherche->executer();
-
-    }
-
     public function creerParticipation($jouer)
     {
         $creationMatch = new CreerJouer($this->jouerDAO, $jouer);
@@ -73,17 +51,37 @@ class ControleurPageFeuilleDeMatch
         $creationMatch->executer();
     }
 
-    public function modifierParticipation($n_licence, $id_match, $position, $est_remplacant){
-        $rechercherJoueur = new RechercherJouer($this->jouerDAO, $n_licence, $id_match);
-        $jouer = $rechercherJoueur->executer();
-
-        $jouer->setEst_remplacant($est_remplacant);
-        $jouer->setRole($position);
-
-        $modificationMatch = new ModifierAttributsJouer($this->jouerDAO, $jouer);
-        $modificationMatch->executer();
+    public function actualiserParticipation(array $joueursSelectionnes, $id_match)
+    {
+        print_r($joueursSelectionnes);
+        $this->viderJoueurPourUnMatch($id_match);
+        for($i = 0; $i < count($joueursSelectionnes); $i++) {
+            echo $i;
+            
+            $n_licence = $joueursSelectionnes[$i]['licence'];
+            echo 'tarace';
+            echo $n_licence;
+            $position = $joueursSelectionnes[$i]['position'];
+            $role = $joueursSelectionnes[$i]['role'];
+            $jouer = new Jouer($n_licence, $id_match, $role, null, $position);
+            $this->creerParticipation($jouer);
+        }
+        header('Location: Matchs.php');
     }
 
+    public function viderJoueurPourUnMatch($id_match)
+    {
+        $suppression = new SupprimerJouerParticipantsMatch($this->jouerDAO, $id_match);
+        $suppression->executer();
+    }
+
+
+    public function getJoueursActifs(): array
+    {
+        $recherche = new RechercherJoueursActifs($this->joueurDAO, 'act');
+        return $recherche->executer();
+
+    }
 
     public function verifierPositionTitulaires(array $joueursSelectionnes): bool
     {
@@ -102,6 +100,29 @@ class ControleurPageFeuilleDeMatch
                 $countAilier++;
             }
             if ($jouer['position'] === $positionPivot && $jouer['role'] === 0) {
+                $countPivot++;
+            }
+        }
+        return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >= 2;
+    }
+
+    public function verifierPosition(array $joueursSelectionnes): bool
+    {
+        $positionMeneur = 'Meneur';
+        $positionAilier = 'Ailier';
+        $positionPivot = 'Pivot';
+        $countMeneur = 0;
+        $countAilier = 0;
+        $countPivot = 0;
+
+        foreach ($joueursSelectionnes as $jouer) {
+            if ($jouer['position'] === $positionMeneur) {
+                $countMeneur++;
+            }
+            if ($jouer['position'] === $positionAilier) {
+                $countAilier++;
+            }
+            if ($jouer['position'] === $positionPivot) {
                 $countPivot++;
             }
         }

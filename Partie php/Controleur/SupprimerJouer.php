@@ -15,7 +15,7 @@ class SupprimerJouer {
     }
 
     public function executer(): bool {
-        return $this->jouerDAO->delete($this->n_licence, $this->id_match);
+        return $this->jouerDAO->deleteById($this->n_licence, $this->id_match);
     }
 }
 ?>

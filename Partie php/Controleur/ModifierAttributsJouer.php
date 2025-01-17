@@ -14,7 +14,7 @@ class ModifierAttributsJouer {
     public function __construct(JouerDAO $jouerDAO, Jouer $jouer) {
         $this->jouerDAO = $jouerDAO;
         $this->n_licence = $jouer->getN_licence();
-        $this->id_matchs = $jouer->getId_matchs();
+        $this->id_matchs = $jouer->getId_match();
         $this->est_remplacant = $jouer->getEst_remplacant();
         $this->note = $jouer->getNote();
         $this->role = $jouer->getRole();

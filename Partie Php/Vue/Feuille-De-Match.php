@@ -2,7 +2,6 @@
 require_once 'autoload.php';
 require 'Verif-Auth.php';
 use Controleur\ControleurPageFeuilleDeMatch;
-use Controleur\ControleurPageMatchs;
 use Controleur\ControleurPageJoueurs;
 
 $controleurMatchs = new ControleurPageFeuilleDeMatch();
@@ -23,30 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $positions = $_POST['position'] ?? [];
     $roles = $_POST['role'] ?? [];
 
-    if (count($selectionJoueur) < 5) {
-        $erreur = true;
-        $messageErreur = "Vous devez sélectionner au moins 5 joueurs.";
-    } else {
-        foreach ($selectionJoueur as $licence => $valeur) {
-            $position = $positions[$licence] ?? null;
-            $role = $roles[$licence] ?? null;
-            if ($position != null && $role != null) {
-                $joueursSelectionnes[] = [
-                    'licence' => $licence,
-                    'position' => $position,
-                    'role' => $role
-                ];
-            }
+    foreach ($selectionJoueur as $licence => $valeur) {
+        $position = $positions[$licence] ?? null;
+        $role = $roles[$licence] ?? null;
+        if ($position != null && $role != null) {
+            $joueursSelectionnes[] = [
+                'licence' => $licence,
+                'position' => $position,
+                'role' => $role
+            ];
         }
 
-        // Afficher les joueurs sélectionnés et leurs informations
-        echo count($joueursSelectionnes);
-        // Si au moins 5 joueurs sont sélectionnés, rediriger
         if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPosition($joueursSelectionnes)) {
-            $controleurMatchs->creerParticipation($joueursSelectionnes, $idMatch);
+            $controleurMatchs->actualiserParticipation($joueursSelectionnes, $idMatch);
             header("Location: Matchs.php");
             exit;
-        }else {
+        } else {
             $messageErreur = "Vous devez séléctionner au moins 5 titulaires dont 1 meneur, 2 ailiers, 2 pivots";
             $erreur = true;
         }
@@ -72,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="main">
         <div class="message-erreur">
-            <?php 
-                $controleurMatchs->afficherErreurs($erreur,$messageErreur)
-            ?>
+            <?php
+            $controleurMatchs->afficherErreurs($erreur, $messageErreur)
+                ?>
         </div>
         <div class="table-container">
             <form action="" method="POST">
@@ -100,9 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $n_licence = $joueur->getN_licence();
                             $estPresent = false;
                             $key;
-                            
-                            for ($i = 0; $i < count($joueursDejaSelectionnes); $i++){
-                                if($joueursDejaSelectionnes[$i]->getN_licence() == $n_licence){
+
+                            for ($i = 0; $i < count($joueursDejaSelectionnes); $i++) {
+                                if ($joueursDejaSelectionnes[$i]->getN_licence() == $n_licence) {
                                     $estPresent = true;
                                     $key = $i;
                                 }
