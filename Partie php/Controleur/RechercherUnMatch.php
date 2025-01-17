@@ -16,7 +16,7 @@
 			$this->id_match = $id_match; 
 		} 
 		
-		public function executer(): MatchBasket{
+		public function executer(): MatchBasket|null{
             return $this->matchDAO->findById($this->id_match);
         }
 	} 
