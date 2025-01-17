@@ -10,13 +10,22 @@ class ControleurPageAjouterJoueur
 {
     private $joueurDAO;
 
+
+    /**
+     * Constructeur de la classe. Initialise le DAO pour les joueurs.
+     */
     public function __construct()
     {
         $this->joueurDAO = new JoueurDAO();
 
     }
 
-    public function ajouterJoueur()
+    /**
+     * Ajoute un nouveau joueur à la base de données en récupérant les données depuis une requête POST.
+     * 
+     * @return void Cette méthode ne retourne rien. Elle redirige l'utilisateur après l'ajout.
+     */
+    public function ajouterJoueur(): void
     {
         $n_licence = $_POST['licence'];
         $nom = $_POST['nom'];

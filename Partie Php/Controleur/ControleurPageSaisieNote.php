@@ -7,9 +7,6 @@ use DAO\JouerDAO;
 use DAO\JoueurDAO;
 use Controleur\RechercherJouer;
 use Controleur\RechercherUnJoueur;
-use Controleur\ModifierJouer;
-
-
 
 
 class ControleurPageSaisieNote
@@ -18,6 +15,10 @@ class ControleurPageSaisieNote
     private $jouerDAO;
     private $joueurDAO;
 
+     /**
+     * Constructeur de la classe ControleurPageSaisieNote.
+     * Initialise les objets DAO utilisés pour interagir avec les données des joueurs et des matchs.
+     */
     public function __construct()
     {
          $this->jouerDAO = new JouerDAO();
@@ -25,8 +26,14 @@ class ControleurPageSaisieNote
     }
 
 
-
-    public function modifierJouer($idMatch, $n_licence)
+    /**
+     * Modifie la note d'un joueur pour un match donné.
+     *
+     * @param int $idMatch L'identifiant du match.
+     * @param int $n_licence Le numéro de licence du joueur.
+     * @return Jouer|null Retourne l'objet Jouer mis à jour après modification.
+     */
+    public function modifierJouer($idMatch, $n_licence): ?Jouer
     {
         $note = $_POST["note"];
 
@@ -43,14 +50,27 @@ class ControleurPageSaisieNote
         return $this->jouerDAO->findById($n_licence,$idMatch);
     }
 
-    public function recupererInfosJouer($idMatch, $n_licence){
+     /**
+     * Récupère les informations d'un joueur pour un match donné.
+     *
+     * @param int $idMatch L'identifiant du match.
+     * @param int $n_licence Le numéro de licence du joueur.
+     * @return Jouer|null Retourne l'objet Jouer contenant les informations du joueur pour ce match ou null s'il n'est pas trouvé.
+     */
+    public function recupererInfosJouer($idMatch, $n_licence): ?Jouer{
         $recherche = new RechercherJouer($this->jouerDAO, $n_licence ,$idMatch);
         $jouer = $recherche->executer();
 
         return $jouer;
     }
 
-    public function recupererInfosJoueur($n_licence){
+    /**
+     * Récupère les informations d'un joueur en fonction de son numéro de licence.
+     *
+     * @param int $n_licence Le numéro de licence du joueur.
+     * @return Joueur|null Retourne l'objet Joueur correspondant à la licence donnée et null s'il n'est pas trouvé.
+     */
+    public function recupererInfosJoueur($n_licence): ?Joueur{
         $recherche = new RechercherUnJoueur($this->joueurDAO, $n_licence);	
         $joueur = $recherche->executer();
 

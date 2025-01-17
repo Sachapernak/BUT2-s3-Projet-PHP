@@ -11,6 +11,7 @@ use Modele\Entraineur;
 
 class DaoEntraineur
 {
+    //Méthode pour récupérer un entraîneur à partir de son identifiant
     public function getById($identifiant) : ? Entraineur
     {
 
@@ -22,6 +23,7 @@ class DaoEntraineur
         return $this->createInstance($stmt->fetch());
     }
 
+     // Méthode pour récupérer le mot de passe haché d'un entraîneur
     public function getHashedpwd($identifiant) : String {
 
         $sql = "SELECT mot_de_passe FROM entraineur WHERE identifiant = :identifiant";
@@ -37,6 +39,7 @@ class DaoEntraineur
         return $res['mot_de_passe'];
     }
 
+    // Méthode pour créer une instance de Entraineur à partir d'un tableau de résultats
     public function createInstance($res) : ?Entraineur
     {
         if (!$res) {

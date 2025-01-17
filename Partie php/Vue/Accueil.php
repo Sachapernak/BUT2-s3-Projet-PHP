@@ -25,7 +25,7 @@ foreach ($listeMatchs as $match) {
     $resultat = $controleur->afficherResultat($match->getResultat());
     $adversaire = $match->getAdversaire();
     $lieu = $controleur->afficherLieu($match->getLieu());
-    $date_heure = $match->getDate_et_heure();
+    $date_heure = $controleur->afficherDateHeure($match);
     $bestJoueur = $controleur->getMeilleurJoueur($id_match);
     $n_licence = $bestJoueur == null ? "" : $bestJoueur->getN_licence();
 

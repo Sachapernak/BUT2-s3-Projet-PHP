@@ -7,7 +7,7 @@ use PDO;
 class CommentaireDAO {
 
     // Définition des attributs
-    private $pdo;
+    private $pdo; // Instance de PDO pour interagir avec la base de données
 
     // Définition des méthodes
     public function __construct() {
@@ -19,7 +19,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour insérer un commentaire
-    public function insert($n_licence, $date_Com, $commentaire) {
+    public function insert($n_licence, $date_Com, $commentaire): void {
         try {
             $requete = $this->pdo->prepare('
                 INSERT INTO commentaire (n_licence, date_Com, commentaire)
@@ -36,7 +36,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour mettre à jour un commentaire
-    public function update($n_licence, $date_Com, $commentaire) {
+    public function update($n_licence, $date_Com, $commentaire): void {
         try {
             $requete = $this->pdo->prepare('
                 UPDATE commentaire 
@@ -54,7 +54,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour supprimer un commentaire
-    public function delete($n_licence, $date_Com) {
+    public function delete($n_licence, $date_Com): bool {
         $res = false;
         try {
             $requete = $this->pdo->prepare('
@@ -73,7 +73,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour récupérer un commentaire par licence et date
-    public function findById($n_licence, $date_Com) {
+    public function findById($n_licence, $date_Com): ?Commentaire {
         $commentaire = null;
         try {
             $requete = $this->pdo->prepare('
@@ -95,7 +95,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour récupérer tous les commentaires d'un joueur
-    public function findAllByJoueur($n_licence) {
+    public function findAllByJoueur($n_licence): ?array {
         $commentaires = [];
         try {
             $requete = $this->pdo->prepare('
@@ -113,7 +113,7 @@ class CommentaireDAO {
     }
 
     // Méthode pour récupérer tous les commentaires (non filtrés par joueur)
-    public function findAll() {
+    public function findAll(): ?array {
         $commentaires = [];
         try {
             $requete = $this->pdo->query('SELECT * FROM commentaire');

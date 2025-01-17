@@ -16,8 +16,8 @@ class JouerDAO {
             die('Erreur de connexion à la BD : ' . $e->getMessage());
         }
     }
-
-    public function insert($n_licence, $id_match, $est_remplacant, $note, $position) {
+    // Méthode pour insérer la participation d'un joueur à un match
+    public function insert($n_licence, $id_match, $est_remplacant, $note, $position): void {
         try {
             $requete = $this->pdo->prepare('
                 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
@@ -35,7 +35,8 @@ class JouerDAO {
         }
     }
 
-    public function update($n_licence, $id_match, $est_remplacant, $note, $position) {
+    //Méthode pour mettre à jour la participation d'un joueur à un match
+    public function update($n_licence, $id_match, $est_remplacant, $note, $position): void {
         try {
             $requete = $this->pdo->prepare('
                 UPDATE jouer
@@ -54,7 +55,8 @@ class JouerDAO {
         }
     }
 
-    public function deleteById($n_licence, $id_match) {
+    //Méthode pour supprimer une participation à partir de ses identifiants (n_licence et id_match)
+    public function deleteById($n_licence, $id_match): bool {
         try {
             $requete = $this->pdo->prepare('
                 DELETE FROM jouer WHERE n_licence = :n_licence AND id_match = :id_match
@@ -70,7 +72,8 @@ class JouerDAO {
         }
     }
 
-    public function deleteByMatch($id_match) {
+    //Méthode pour supprimer l'ensemble des participations à un match donné
+    public function deleteByMatch($id_match): bool {
         try {
             $requete = $this->pdo->prepare('
                 DELETE FROM jouer WHERE id_match = :id_match
@@ -85,7 +88,8 @@ class JouerDAO {
         }
     }
 
-    public function findById($n_licence, $id_match): Jouer|null {
+    //Méthode pour récupérer une participation par ses identifiants (n_licence et id_match)
+    public function findById($n_licence, $id_match): ?Jouer {
         try {
             $requete = $this->pdo->prepare('
                 SELECT * FROM jouer WHERE n_licence = :n_licence AND id_match = :id_match
@@ -106,7 +110,7 @@ class JouerDAO {
         }
     }
 
-    // Nouvelle méthode : findByIdJoueur
+    //Méthode pour récuperer les matchs joués par un joueur donné
     public function findByIdJoueur($n_licence): array {
         try {
             $requete = $this->pdo->prepare('
@@ -131,6 +135,7 @@ class JouerDAO {
         }
     }
     
+    //Méthpde pour récupérer les joueurs participants à un match donné
     public function findByIdMatch($id_match): array {
         try {
             $requete = $this->pdo->prepare('
@@ -150,7 +155,8 @@ class JouerDAO {
         }
     }
 
-    public function findAll() {
+    //Méthode pour récupérer toutes les participations
+    public function findAll(): array {
         try {
             $requete = $this->pdo->query('SELECT * FROM jouer');
             $jouer = [];
@@ -164,6 +170,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour calculer la note moyenne d'un joueur donné
     public function moyenneNoteJoueur($n_licence): float{
         try {
             $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE n_licence = :n_licence');
@@ -179,6 +186,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour récupérer la position favorite du joueur
     public function getPositionFavoriteJoueur($n_licence): string {
         try  {
             $requete = $this->pdo->prepare('SELECT position FROM jouer WHERE n_licence = :n_licence GROUP BY position ORDER BY COUNT(*) DESC LIMIT 1');
@@ -194,6 +202,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour récupérer le nombre de titularisation d'un joueur donné
     public function getTitularisationsJoueur($n_licence): int {
         try  {
             $requete = $this->pdo->prepare("SELECT n_licence, COUNT(*) AS nb_titularisations FROM jouer WHERE n_licence = :n_licence AND est_remplacant = 0 GROUP BY n_licence");
@@ -209,6 +218,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour récupérer le nombre de remplacements d'un joueur donné
     public function getRemplacementsJoueur($n_licence): int {
         try  {
             $requete = $this->pdo->prepare("SELECT n_licence, COUNT(*) AS nb_remplacements FROM jouer WHERE n_licence = :n_licence AND est_remplacant = 1 GROUP BY n_licence");
@@ -224,6 +234,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour récupérer le nombre de matchs consécutifs joués par un joueur
     public function getNbMatchsConsecutifsJoueur($n_licence): int {
         try  {
             $requete = $this->pdo->prepare("SELECT j1.n_licence, COUNT(*) AS nb_matchs_consecutifs FROM jouer j1, jouer j2, match_basket m1, match_basket m2
@@ -241,7 +252,8 @@ class JouerDAO {
         }
     }
 
-    public function getNbVictoiresJoueur($n_licence){
+    //Méthode pour récupérer le nombre de victoires d'un joueur donné
+    public function getNbVictoiresJoueur($n_licence): int{
         try  {
             $requete = $this->pdo->prepare("SELECT COUNT(*) AS nb_victoires FROM jouer j, match_basket m WHERE  j.id_match = m.id_match AND j.n_licence = :n_licence AND m.resultat = 'V'");
             $requete->execute([':n_licence' => $n_licence]);
@@ -256,6 +268,7 @@ class JouerDAO {
         }
     }
 
+    //Méthode pour récupérer le joueur ayant la plus haute note sur un match donné
     public function getMeilleurJoueurMatch($id_match){
         try  {
             $requete = $this->pdo->prepare("SELECT * FROM jouer WHERE id_match= :id_match ORDER BY note DESC LIMIT 1");

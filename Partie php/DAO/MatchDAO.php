@@ -13,7 +13,7 @@ class MatchDAO {
     // définition des méthodes 
     public function __construct() { 
         try {
-            $this->pdo = Database::getInstance();;
+            $this->pdo = Database::getInstance();
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (Exception $e) {
@@ -21,6 +21,7 @@ class MatchDAO {
         }
     } 
     
+    // Méthode pour insérer un match
     public function insert($date_et_heure, $adversaire, $lieu, $resultat) {
         try {
             $requete = $this->pdo->prepare('
@@ -43,6 +44,7 @@ class MatchDAO {
         return null;
     }
 
+    // Méthode pour mettre à jour un match
     public function update($id_match, $date_et_heure, $adversaire, $lieu, $resultat) {
         try {
             $requete = $this->pdo->prepare('
@@ -65,6 +67,7 @@ class MatchDAO {
         }
     }
 
+    // Méthode pour supprimer un match à partir de son identifiant 
     public function delete($id_match): bool {
         $res =false;
         try {
@@ -83,7 +86,8 @@ class MatchDAO {
         return $res;
     }
 
-    public function findById($id_match): MatchBasket|null {
+    //Méthode pour récupérer un match à partir de son identifiant
+    public function findById($id_match): ?MatchBasket {
         $match = null;
         try {
             $requete = $this->pdo->prepare('SELECT * FROM match_basket WHERE id_match = :id_match');
@@ -98,6 +102,7 @@ class MatchDAO {
         return $match;
     }
 
+    //Méthode pour trouver les matchs à venir
     public function findComingMatch(): array {
         $matchs = [];
         try {
@@ -112,7 +117,8 @@ class MatchDAO {
         return $matchs;
     }
 
-    public function findOldMatch() {
+    //Méthode pour trouver les matchs passés
+    public function findOldMatch(): array {
         $matchs = [];
         try {
             $requete = $this->pdo->prepare('SELECT * FROM match_basket where date_et_heure < SYSDATE() ORDER BY date_et_heure DESC');
@@ -126,7 +132,7 @@ class MatchDAO {
         return $matchs;
     }
     
-
+    //Méthode pour récupérer tous les matchs
     public function findAll() : array {
         $matchs = [];
         try {
@@ -140,6 +146,7 @@ class MatchDAO {
         return $matchs;
     }
 
+    //Méthode pour récupérer le nombre total de victoires
     public function getTotalVictoires() : int {
         $total = -1; 
         try {
@@ -156,6 +163,7 @@ class MatchDAO {
         return $total;
     }
 
+    //Méthode pour récupérer le nombre total de défaites
     public function getTotalDefaites() : int {
         $total = -1; 
         try {
@@ -172,6 +180,7 @@ class MatchDAO {
         return $total;
     }
 
+    //Méthode pour récupérer le nombre total de matchs nuls
     public function getTotalNuls() : int {
         $total = -1; 
         try {
@@ -188,6 +197,7 @@ class MatchDAO {
         return $total;
     }
 
+    //Méthode pour récupérer le nombre total de matchs
     public function getTotalMatchs() : int {
         $total = -1; 
         try {

@@ -13,6 +13,9 @@ class ControleurPageAjouterMatch
 {
     private $matchDAO;
 
+    /**
+     * Constructeur de la classe. Initialise le DAO pour les matchs.
+     */
     public function __construct()
     {
          $this->matchDAO = new MatchDAO();
@@ -20,6 +23,11 @@ class ControleurPageAjouterMatch
 
 
 
+    /**
+     * Crée un nouveau match et l'ajoute à la base de données en récupérant les données depuis une requête POST.
+     * 
+     * @return int L'identifiant du match créé.
+     */
     public function creerUnMatch() {
         $date_match = $_POST['date'];
         $heure_match = $_POST['heure'];
