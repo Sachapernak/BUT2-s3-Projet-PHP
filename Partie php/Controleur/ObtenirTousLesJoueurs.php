@@ -1,7 +1,10 @@
 <?php 
+
+	namespace Controleur;
+
+	use DAO\JoueurDAO;
 	class ObtenirTousLesJoueurs{ 
 
-		// définition des attributs 
 		private $joueurDAO;
 		  
 		// définition des méthodes 

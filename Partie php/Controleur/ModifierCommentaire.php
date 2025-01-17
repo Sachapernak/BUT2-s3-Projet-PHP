@@ -1,4 +1,6 @@
 <?php
+namespace Controleur;
+use DAO\CommentaireDAO;
 class ModifierCommentaire {
 
     private $commentaireDAO;

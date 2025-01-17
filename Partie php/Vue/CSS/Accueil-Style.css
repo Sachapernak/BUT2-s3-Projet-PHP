@@ -10,15 +10,10 @@ html, body {
 }
 
 
-
-
-
 /* Conteneur principal de la page d'accueil */
 .main {
-    margin: 20px auto;
-    padding: 20px;
-    width: 90%;
-    max-width: 1200px;
+    margin-left: 230px;
+    width: 80%;
     background-color: #40607c;
     color: #fdfdfd;
     box-sizing: border-box; /* S'assure que padding/border n'ajoutent pas à la largeur */

@@ -1,4 +1,5 @@
 <?php
+namespace Modele;
 class Jouer {
 
     private $n_licence;
@@ -54,9 +55,6 @@ class Jouer {
     public function setRole($role) {
         $this->role = $role;
     }
-
-    
-
 
 }
 ?>

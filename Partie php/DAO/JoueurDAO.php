@@ -1,15 +1,20 @@
 <?php
+
+namespace DAO;
+use Modele\Joueur;
+use Modele\Database;
+use PDO;
 class JoueurDAO
 {
 
     // définition des attributs 
-    private $pdo;
+    private $connexion;
 
     // définition des méthodes 
     public function __construct()
     {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=ma_base', 'user', 'password');
+            $this->connexion = Database::getInstance();;
         } catch (Exception $e) {
             die('Erreur de connexion a la BD : ' . $e->getMessage());
         }
@@ -18,9 +23,9 @@ class JoueurDAO
     public function insert($n_licence, $nom, $prenom, $date_de_naissance, $taille, $poids, $statut)
     {
         try {
-            $requete = $this->pdo->prepare('
+            $requete = $this->connexion->prepare('
                 INSERT INTO joueur (n_licence, nom, prenom, date_de_naissance, taille, poids, statut)
-                VALUES (:n_licence, :nom, :prenom, STR_TO_DATE(:date_de_naissance, "%d/%m/%Y"), :taille, :poids, :statut)'
+                VALUES (:n_licence, :nom, :prenom, :date_de_naissance, :taille, :poids, :statut)'
             );
             $requete->execute([
                 ':n_licence' => $n_licence,
@@ -41,12 +46,12 @@ class JoueurDAO
     public function update($n_licence, $nom, $prenom, $taille, $poids, $statut, $date_de_naissance)
     {
         try {
-            $requete = $this->pdo->prepare('UPDATE joueur SET nom = :nvnom , 
+            $requete = $this->connexion->prepare('UPDATE joueur SET nom = :nvnom , 
                                             prenom = :nvprenom , 
                                             taille = :nvtaille , 
                                             poids = :nvpoids , 
                                             statut = :nvstatut, 
-                                            date_de_naissance = STR_TO_DATE(:nvdate_naissance, "%d/%m/%Y")
+                                            date_de_naissance = :nvdate_naissance
                                             WHERE n_licence = :n_licence');
 
             $requete->execute(array(
@@ -55,7 +60,7 @@ class JoueurDAO
                 'nvtaille' => $taille,
                 'nvpoids' => $poids,
                 'nvstatut' => $statut,
-                'nvdate_de_naissance' => $date_de_naissance,
+                'nvdate_naissance' => $date_de_naissance,
                 'n_licence' => $n_licence
             ));
 
@@ -71,13 +76,10 @@ class JoueurDAO
         $res = false;
         try 
         {
-            $requeteSupprCommentaires = $this->pdo->prepare('DELETE FROM Commentaires WHERE n_licence = :n_licence');
+            $requeteSupprCommentaires = $this->connexion->prepare('DELETE FROM Commentaire WHERE n_licence = :n_licence');
             $requeteSupprCommentaires->execute(array('n_licence' => $n_licence));
 
-            $requeteSupprJouer = $this->pdo->prepare('DELETE FROM Jouer WHERE n_licence = :n_licence');
-            $requeteSupprJouer->execute(array('n_licence' => $n_licence));
-            
-            $requeteSupprJoueur = $this->pdo->prepare('DELETE FROM Joueur WHERE n_licence = :n_licence');
+            $requeteSupprJoueur = $this->connexion->prepare('DELETE FROM Joueur WHERE n_licence = :n_licence');
             $requeteSupprJoueur->execute(array('n_licence' => $n_licence));
             $res = $requeteSupprJoueur->rowCount() > 0;
         } catch (Exception $e) {
@@ -91,9 +93,9 @@ class JoueurDAO
     {
         $joueur = null;
         try {
-            $requete = $this->pdo->prepare('SELECT * FROM joueur WHERE n_licence = :n_licence');
+            $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE n_licence = :n_licence');
             $requete->execute(array('n_licence' => $n_licence));
-            $res = $requete->fetch(PDO::FETCH_ASSOC);
+            $res = $requete->fetch();
             if ($res) {
                 $joueur = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
             }
@@ -103,12 +105,47 @@ class JoueurDAO
         return $joueur;
     }
 
+    public function findByAttributes($recherche): array{
+        try {
+            $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE n_licence LIKE :recherche1 OR nom LIKE :recherche2 OR prenom LIKE :recherche3');
+            $requete->execute([':recherche1' => '%' . $recherche . '%', ':recherche2' => '%' . $recherche . '%', ':recherche3' => '%' . $recherche . '%']);
+            $joueurs = [];
+            while ($res = $requete->fetch()) {
+                $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
+            }
+
+        } catch (Exception $e) {
+            echo 'Erreur lors de la recherche : ' . $e->getMessage();
+        }
+        return $joueurs;
+
+    }
+
+    public function findByStatut($statut): array{
+        try {
+            $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE statut = :statut');
+            $requete->execute([':statut' => $statut]);
+            $joueurs = [];
+            while ($res = $requete->fetch()) {
+                $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
+            }
+
+        } catch (Exception $e) {
+            echo 'Erreur lors de la recherche : ' . $e->getMessage();
+        }
+        return $joueurs;
+
+    }
+    
+
+
+
     public function findAll(): array
     {
         try {
-            $requete = $this->pdo->query('SELECT * FROM joueur');
+            $requete = $this->connexion->query('SELECT * FROM joueur');
             $joueurs = [];
-            while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
+            while ($res = $requete->fetch()) {
                 $joueurs[] = new Joueur($res['n_licence'], $res['nom'], $res['prenom'], $res['date_de_naissance'], $res['taille'], $res['poids'], $res['statut']);
             }
 

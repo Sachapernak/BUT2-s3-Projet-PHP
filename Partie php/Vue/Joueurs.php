@@ -1,60 +1,39 @@
 <?php
 
-$joueursArray = array(
-    '<div class="joueur">
-<div>
-    <h5>[Nom] [Prenom]</h5>
-    <h6> N° de licence : </h6>
-    <h6> Statut : </h6>
-    <span>★★★☆☆</span>
-</div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-    '<div class="joueur">
-    <div>
-        <h5>[Nom] [Prenom]</h5>
-        <h6> N° de licence : </h6>
-        <h6> Statut : </h6>
-        <span>★★★☆☆</span>
-    </div>
-</div>',
-);
-$joueurs = "";
-foreach ($joueursArray as $joueur) {
-    $joueurs .= $joueur;
+require_once 'autoload.php';
+require 'Verif-Auth.php';
+use Controleur\ControleurPageJoueurs;
+
+$controleur = new ControleurPageJoueurs();
+
+if (isset($_POST['searchbar']) && !empty($_POST['searchbar'])) {
+    $recherche = $_POST['searchbar']; 
+    $listeJoueurs = $controleur->resultatRecherche($recherche);
+} else {
+    $listeJoueurs = $controleur->getJoueurs();
 }
 
+$joueurs = ""; 
+
+foreach ($listeJoueurs as $joueur) {
+    $nom = $joueur->getNom();
+    $prenom = $joueur->getPrenom();
+    $nLicence = $joueur->getN_licence();
+    $statut = $joueur->getIntituleStatut();
+    $noteMoyenne = $controleur->afficherEtoiles($nLicence);
+    
+    $joueurs .= '
+    <a class="divCliquable" href=".\Consulter-Infos-Joueur.php?nLicence=' . urlencode($nLicence) . '">
+        <div class="joueur">
+            <div>
+                <h5>' . $nom . ' ' . $prenom . '</h5>
+                <h6> N° de licence : ' . $nLicence . '</h6>
+                <h6> Statut : ' . $statut . '</h6>
+                <span> '. $noteMoyenne  .' </span> 
+            </div>
+        </div>
+    </a>';
+}
 ?>
 
 <!doctype html>
@@ -69,28 +48,26 @@ foreach ($joueursArray as $joueur) {
 
 <body>
 
-    <?php include "barre-navigation.html" ?>
+    <?php include "barre-navigation.php" ?>
 
-
-    <!-- Page content -->
     <div class="main">
         <h2>Vos joueurs</h2>
 
         <div class="en-tete">
-            <div class="recherche">
+            <form class="recherche" method="POST" action ="">
                 <input type="text" id="search-bar" name="searchbar" placeholder="Rechercher un joueur...">
-                <button id="search-button">🔍</button>
-            </div>
+                <button type="submit" id="search-button">🔍</button>
+            </form>
 
             <div class="boutons-ajout">
                 <button id="btn-ajouter-joueur" onclick="window.location.href='Ajouter-Joueur.php'"> Nouveau Joueur</button>
             </div>
-
-            <div class="flexContainer">
-                <?php echo $joueurs; ?>
-            </div>
-
         </div>
+
+        <div class="flexContainer">
+            <?php echo $joueurs; ?>
+        </div>
+
     </div>
 </body>
 

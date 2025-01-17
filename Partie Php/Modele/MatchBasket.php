@@ -1,5 +1,7 @@
 <?php 
-	class Match_Basket { 
+    namespace Modele;
+    use DateTime;
+	class MatchBasket { 
         
         private $id_match;
 		private $date_et_heure;
@@ -8,20 +10,30 @@
 		private $resultat;
 
 
-		public function __construct($id_match=null, $date_et_heure, $adversaire, $lieu, $resultat=null) { 
+		public function __construct($date_et_heure , $adversaire, $lieu, $id_match= null, $resultat=null) { 
             $this->id_match = $id_match;
             $this->date_et_heure = $date_et_heure;
             $this->adversaire = $adversaire;
             $this->lieu = $lieu;
             $this->resultat = $resultat;
 		} 
-
-        public function getIdMatch() {
+         public function getIdMatch(): int {
             return $this->id_match;
         }
 
-        public function getDate_et_heure(): DateTime {
+        public function getDate_et_heure(){
             return $this->date_et_heure;
+        }
+
+        public function getDate(): string {
+            $dateTime = new DateTime($this->date_et_heure);
+            return $dateTime->format('Y-m-d'); 
+        }
+    
+        // Getter pour récupérer uniquement l'heure
+        public function getHeure(): string {
+            $dateTime = new DateTime($this->date_et_heure);
+            return $dateTime->format('H:i'); 
         }
 
         public function getAdversaire(): string {
@@ -32,7 +44,7 @@
             return $this->lieu;
         }
 
-        public function getResultat(): string {
+        public function getResultat(): string|null {
             return $this->resultat;
         }
 
@@ -41,7 +53,7 @@
             $this->resultat = $resultat;
         }
 
-        public function setDate_et_heure(DateTime $date_et_heure): void {
+        public function setDate_et_heure($date_et_heure): void {
             $this->date_et_heure = $date_et_heure;
         }
         public function setAdversaire(string $adversaire): void {

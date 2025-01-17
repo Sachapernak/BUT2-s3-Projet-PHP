@@ -1,4 +1,5 @@
 <?php 
+	namespace Modele;
 	class Joueur { 
         
         private $n_licence;
@@ -46,6 +47,25 @@
 			return $this->statut;
 		}
 
+		public function getIntituleStatut(){
+			$intituleStatut = "";
+			switch($this->statut){
+				case "Act":
+					$intituleStatut = "Actif";
+				    break;
+				case "Ble":
+					$intituleStatut = "Blessé";
+                    break;
+                case "Abs":
+					$intituleStatut = "Absent";
+					break;
+				case "Sus":
+					$intituleStatut = "Suspendu";
+                    break;
+			}
+			return $intituleStatut;
+		}
+
 		public function setNom($nom) {
 			$this->nom = $nom;
         }
@@ -66,7 +86,7 @@
         }
 
 		public function setStatut($statut) {
-			$this->statut = $statut;
+			$this->statut = $statut;			
         }
 
 	} 

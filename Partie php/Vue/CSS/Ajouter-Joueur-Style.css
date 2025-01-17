@@ -53,7 +53,7 @@ select {
 }
 
 /* Inputs pour Taille et Poids */
-input[type="number"] {
+input[type="number"], input[type="date"]  {
     width: calc(50% - 10px); /* Taille plus petite */
     padding: 8px;
     margin-bottom: 15px;
@@ -63,16 +63,6 @@ input[type="number"] {
     outline: none;
 }
 
-/* Champ Statut */
-select {
-    width: calc(70% - 10px); /* Taille intermédiaire */
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: clamp(14px, 1vw, 18px);
-    outline: none;
-}
 
 /* Boutons */
 .form-buttons {

@@ -1,4 +1,7 @@
 <?php
+namespace Controleur;
+use DAO\JouerDAO;
+use Modele\Jouer;
 class ModifierAttributsJouer {
 
     private $jouerDAO;

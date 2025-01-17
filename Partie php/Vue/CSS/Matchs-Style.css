@@ -51,6 +51,9 @@ td {
 .btn-container {
     padding-left: 5%;
     margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 .btn {
     padding-left: 5%;
@@ -67,51 +70,83 @@ td {
     background-color: #f09b62;
 }
 
+#selection-jouer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Centre verticalement le contenu */
+    margin-bottom: 20px;
+}
+
+#selection-jouer h3 {
+    margin: 0;
+}
+
+#selection-jouer .btn-container {
+    margin: 0;
+}
+
 .flexContainer {
     display: flex;
-    justify-content: space-evenly; /* Distribution uniforme */
-    flex-wrap: wrap; /* Permet l'enroulement sur plusieurs lignes */
+    flex-wrap: wrap; 
     align-items: flex-start; 
-    gap: 15px; /* Ajoute un espace entre les cartes */
+    gap: 15px; 
     margin: 20px;
     padding: 7px;
-    padding-left: 2%;
+    padding-left: 3%;
 }
 
 .joueur {
     background-color: #FFFFFF;
     color: #000000;
-    width: calc(30% - 15px); /* Chaque carte occupe environ 30% de la largeur disponible */
-    height:80px;
+    width: calc(30% - 15px);
+    height: 130px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 10px;
 }
 
-
 .en-tete-joueur {
-    display: flex; /* Flexbox pour aligner les éléments sur la même ligne */
-    align-items: center; /* Aligne verticalement les éléments au centre */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; 
 }
 
 .en-tete-joueur h5 {
-    margin: 0; /* Supprime les marges */
-    font-size: 0.9rem; /* Ajuste la taille de la police */
-    flex-grow: 0.5; /* Permet à l'espace du nom de s'étendre */
+    margin: 0;
+    font-size: 0.9rem;
+    flex-grow: 0.5;
 }
 
 .en-tete-joueur span {
     font-size: 0.9rem;
-    color: #FFD700; /* Couleur or pour les étoiles */
+    color: #FFD700;
 }
 
-.joueur h6 {
+.joueur .infosJoueur {
     font-size: 0.8rem;
     color: #555555;
+    margin-top: 10px; 
+}
+
+.joueur .infosJoueur p {
+    margin: 2px 0; 
+}
+
+.joueur .infosJoueur p:first-child {
+    margin-top: 0; 
+}
+
+.joueur .infosJoueur p:last-child {
+    margin-bottom: 0; 
 }
 
 tr:hover {
-    background-color:red;
+    background-color:#9eacbe;
+}
+
+.ligneSelect {
+    background-color: #9eacbe; /* Couleur de fond pour la ligne sélectionnée */
+    color: white; /* Couleur du texte de la ligne sélectionnée */
 }
 
 .invisible-btn {
@@ -126,3 +161,31 @@ tr:hover {
     position: relative;
 }
 
+
+
+/* Confirmation Suppresion */
+.confirmation-container {
+    position: fixed;
+    top: 50%;
+    left: 56%;
+    transform: translate(-50%, -50%);
+    background-color: #2c3e51;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+    display: none; /* Masqué par défaut */
+}
+
+/* Texte dans le conteneur */
+.confirmation-container p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Boutons de confirmation */
+.confirmation-buttons {
+    display: flex;
+    justify-content: space-around;
+}

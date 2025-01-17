@@ -1,4 +1,10 @@
 <?php
+
+namespace Controleur;
+
+use DAO\CommentaireDAO;
+use Modele\Commentaire;
+
 class RechercherUnCommentaire {
 
     private $commentaireDAO;
@@ -11,7 +17,7 @@ class RechercherUnCommentaire {
         $this->date_com = $date_com;
     }
 
-    public function executer(): Commentaire {
+    public function executer(): Commentaire|null {
         return $this->commentaireDAO->findById($this->n_licence, $this->date_com);
     }
 }

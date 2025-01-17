@@ -1,4 +1,5 @@
 <?php 
+    namespace Modele;
 	class Commentaire{ 
         
         private $id_joueur;
@@ -23,7 +24,6 @@
         public function getCommentaire(): string {
             return $this->commentaire;
         }
-
 
         public function setIdJoueur($id_joueur) {
             $this->id_joueur = $id_joueur;

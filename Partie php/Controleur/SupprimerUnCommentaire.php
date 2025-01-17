@@ -1,6 +1,9 @@
 <?php
-class SupprimerUnCommentaire {
+namespace Controleur;
 
+use DAO\CommentaireDAO;
+class SupprimerUnCommentaire {
+    
     private $commentaireDAO;
     private $n_licence;
     private $date_com;

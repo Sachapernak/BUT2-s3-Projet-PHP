@@ -1,4 +1,6 @@
 <?php 
+    namespace Controleur;
+    use DAO\MatchDAO;
     class CreerUnMatch { 
 
         private $matchDAO;

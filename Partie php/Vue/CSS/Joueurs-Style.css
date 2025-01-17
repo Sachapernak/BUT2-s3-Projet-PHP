@@ -5,8 +5,7 @@ html, body {
     height: 100%;
     font-family: 'Roboto Flex', sans-serif;
     color: #f4f4f4;
-    font-size: clamp(12px, 1.2vw, 18px); 
-    background-color: #40607c; /* Couleur de fond */
+    background-color: #40607c;
 }
 
 .main {
@@ -21,6 +20,7 @@ h2 {
 /*********************************
  * DESIGN PAGE
  *********************************/
+  
  .en-tete {
     display: flex;
     justify-content: center;
@@ -62,6 +62,10 @@ h2 {
     border-left: none;
 }
 
+#cartesJoueur {
+    position: relative;
+}
+
 .flexContainer {
     margin-top: 20px;
     display: flex;
@@ -71,39 +75,44 @@ h2 {
     gap: 20px; 
 }
 
-
-.joueur {
+.divCliquable {
+    text-decoration: none; 
+    color: inherit; 
     margin : 20px;
     min-width: 150px;
     max-width: 23%;
     flex: 1 1 25%;
+}
+
+.divCliquable .joueur  {
     background-color: #fdfdfd;
     color: #111111;
     border-radius: 8px;
     overflow: hidden;
 }
 
-.joueur div {
+.divCliquable .joueur div {
     margin-left: 1vw;
     margin-top: 1vh;
     margin-bottom: 1vh;
-    overflow: hidden;
-    display: flex; /* Utilise flexbox pour le centrage */
-    flex-direction: column; /* Aligne les éléments verticalement */
+    display: flex; 
+    flex-direction: column; 
 }
-.joueur div h5{
+.divCliquable .joueur div h5{
     text-align: center;
     color:#e55c36;
     font-size: clamp(10px, 1.2vw, 35px);
-    overflow: hidden;
     display : inline;
 }
 
-.joueur div span{
+.divCliquable .joueur div h6 {
+    font-size: clamp(9px, 1.0vw, 20px); /* Ajustez la taille de la police ici */
+}
+
+.divCliquable .joueur div span{
     text-align: center;
     display: inline-block;
     font-size: clamp(10px, 1.3vw, 35px);
-    overflow: hidden;
 }
 
 #btn-ajouter-joueur{

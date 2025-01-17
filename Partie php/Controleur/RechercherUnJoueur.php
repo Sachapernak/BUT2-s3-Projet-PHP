@@ -1,4 +1,10 @@
 <?php 
+
+namespace Controleur;
+
+use DAO\JoueurDAO;
+use Modele\Joueur;
+
 	class RechercherUnJoueur { 
 
 		// définition des attributs 

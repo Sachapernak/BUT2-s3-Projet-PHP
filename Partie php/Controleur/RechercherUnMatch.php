@@ -1,18 +1,23 @@
 <?php 
+
+	namespace Controleur;
+
+	use DAO\MatchDAO;
+	use Modele\MatchBasket;
 	class RechercherUnMatch{ 
 
 		// définition des attributs 
 		private $matchDAO;
-		private $id_matchs;
+		private $id_match;
 		  
 		// définition des méthodes 
-		public function __construct(MatchDAO $matchDAO, $id_matchs) { 
+		public function __construct(MatchDAO $matchDAO, $id_match) { 
 			$this->matchDAO = $matchDAO;
-			$this->id_matchs = $id_matchs; 
+			$this->id_match = $id_match; 
 		} 
 		
-		public function executer(): Match_Basket{
-            return $this->matchDAO->findById($this->id_matchs);
+		public function executer(): MatchBasket|null{
+            return $this->matchDAO->findById($this->id_match);
         }
 	} 
 ?>

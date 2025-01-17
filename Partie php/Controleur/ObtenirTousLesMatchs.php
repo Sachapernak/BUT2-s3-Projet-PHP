@@ -1,4 +1,7 @@
 <?php 
+	namespace Controleur;
+
+	use DAO\MatchDAO;
 	class ObtenirTousLesMatchs{ 
 
 		// définition des attributs 

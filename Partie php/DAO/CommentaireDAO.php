@@ -1,4 +1,9 @@
 <?php
+
+namespace DAO;
+use Modele\Commentaire;
+use Modele\Database;
+use PDO;
 class CommentaireDAO {
 
     // Définition des attributs
@@ -7,22 +12,22 @@ class CommentaireDAO {
     // Définition des méthodes
     public function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=ma_base', 'user', 'password');
+            $this->pdo = Database::getInstance();
         } catch (Exception $e) {
             die('Erreur de connexion à la BD : ' . $e->getMessage());
         }
     }
 
     // Méthode pour insérer un commentaire
-    public function insert($n_licence, $date_com, $commentaire) {
+    public function insert($n_licence, $date_Com, $commentaire) {
         try {
             $requete = $this->pdo->prepare('
-                INSERT INTO Commentaire (N_Licence, Date_Com, Commentaire)
-                VALUES (:n_licence, STR_TO_DATE(:date_com, "%d/%m/%Y"), :commentaire)'
+                INSERT INTO Commentaire (n_licence, date_Com, commentaire)
+                VALUES (:n_licence, :date_Com, :commentaire)'
             );
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':date_com' => $date_com,
+                ':date_Com' => $date_Com,
                 ':commentaire' => $commentaire
             ]);
         } catch (Exception $e) {
@@ -31,16 +36,16 @@ class CommentaireDAO {
     }
 
     // Méthode pour mettre à jour un commentaire
-    public function update($n_licence, $date_com, $commentaire) {
+    public function update($n_licence, $date_Com, $commentaire) {
         try {
             $requete = $this->pdo->prepare('
                 UPDATE Commentaire 
-                SET Commentaire = :commentaire 
-                WHERE N_Licence = :n_licence AND Date_Com = STR_TO_DATE(:date_com, "%d/%m/%Y")'
+                SET commentaire = :commentaire 
+                WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':date_com' => $date_com,
+                ':date_Com' => $date_Com,
                 ':commentaire' => $commentaire
             ]);
         } catch (Exception $e) {
@@ -49,16 +54,16 @@ class CommentaireDAO {
     }
 
     // Méthode pour supprimer un commentaire
-    public function delete($n_licence, $date_com) {
+    public function delete($n_licence, $date_Com) {
         $res = false;
         try {
             $requete = $this->pdo->prepare('
                 DELETE FROM Commentaire 
-                WHERE N_Licence = :n_licence AND Date_Com = STR_TO_DATE(:date_com, "%d/%m/%Y")'
+                WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':date_com' => $date_com
+                ':date_Com' => $date_Com
             ]);
             $res = $requete->rowCount() > 0; // Retourne true si une ligne a été supprimée
         } catch (Exception $e) {
@@ -68,20 +73,20 @@ class CommentaireDAO {
     }
 
     // Méthode pour récupérer un commentaire par licence et date
-    public function findById($n_licence, $date_com) {
+    public function findById($n_licence, $date_Com) {
         $commentaire = null;
         try {
             $requete = $this->pdo->prepare('
                 SELECT * FROM Commentaire 
-                WHERE N_Licence = :n_licence AND Date_Com = STR_TO_DATE(:date_com, "%d/%m/%Y")'
+                WHERE n_licence = :n_licence AND date_Com = :date_Com'
             );
             $requete->execute([
                 ':n_licence' => $n_licence,
-                ':date_com' => $date_com
+                ':date_Com' => $date_Com
             ]);
             $res = $requete->fetch(PDO::FETCH_ASSOC);
             if ($res) {
-                $commentaire = new Commentaire($res['N_Licence'], $res['Date_Com'], $res['Commentaire']);
+                $commentaire = new Commentaire($res['n_licence'], $res['date_Com'], $res['commentaire']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -95,11 +100,11 @@ class CommentaireDAO {
         try {
             $requete = $this->pdo->prepare('
                 SELECT * FROM Commentaire 
-                WHERE N_Licence = :n_licence'
+                WHERE n_licence = :n_licence'
             );
             $requete->execute([':n_licence' => $n_licence]);
             while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
-                $commentaires[] = new Commentaire($res['N_Licence'], $res['Date_Com'], $res['Commentaire']);
+                $commentaires[] = new Commentaire($res['n_licence'], $res['date_Com'], $res['commentaire']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
@@ -113,7 +118,7 @@ class CommentaireDAO {
         try {
             $requete = $this->pdo->query('SELECT * FROM Commentaire');
             while ($res = $requete->fetch(PDO::FETCH_ASSOC)) {
-                $commentaires[] = new Commentaire($res['N_Licence'], $res['Date_Com'], $res['Commentaire']);
+                $commentaires[] = new Commentaire($res['n_licence'], $res['date_Com'], $res['commentaire']);
             }
         } catch (Exception $e) {
             echo 'Erreur lors de la récupération : ' . $e->getMessage();
