@@ -29,25 +29,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if (isset($_POST['id_match'])) {
         $idMatch = (int) $_POST['id_match'];
         $controleurMatchs->supprimerMatch($idMatch);
-        $listeMatchs = $controleurMatchs->getMatchsAVenir();
+        header('Location: Matchs.php');
+        exit;
     }
 }
 
 $joueurs = "";
 
 foreach ($listeJoueurs as $joueur) {
-    $n_licence = $joueur->getN_licence();
-    $jouer = $controleurMatchs->getInfosParticipants($idMatch, $n_licence);
+    if ($joueur !== null) {
+        $n_licence = $joueur->getN_licence();
+        $jouer = $controleurMatchs->getInfosParticipants($idMatch, $n_licence);
 
-    $poste = $jouer->getRole();
-    $estRemplacant = $controleurMatchs->afficherRemplacement($jouer->getEst_remplacant());
-    $note = $jouer->getNote();
+        $poste = $jouer->getRole();
+        $estRemplacant = $controleurMatchs->afficherRemplacement($jouer->getEst_remplacant());
+        $note = $jouer->getNote();
 
-    $nom = $joueur->getNom();
-    $prenom = $joueur->getPrenom();
-    $etoiles = $controleurMatchs->afficherEtoiles($note);
+        $nom = $joueur->getNom();
+        $prenom = $joueur->getPrenom();
+        $etoiles = $controleurMatchs->afficherEtoiles($note);
 
-    $joueurs .= '
+        $joueurs .= '
         <div class="joueur">
             <div>
                 <div class="en-tete-joueur">
@@ -66,8 +68,8 @@ foreach ($listeJoueurs as $joueur) {
             </div>
         </div>
     ';
+    }
 }
-
 ?>
 
 <!doctype html>
@@ -174,7 +176,8 @@ foreach ($listeJoueurs as $joueur) {
         <div class="btn-container">
             <button class="btn" <?php if ($matchAVenir)
                 echo 'disabled'; ?>
-                onclick="window.location.href='Saisie-Du-Score.php?idMatch=<?php echo urlencode($idMatch); ?>'">Saisir le score
+                onclick="window.location.href='Saisie-Du-Score.php?idMatch=<?php echo urlencode($idMatch); ?>'">Saisir
+                le score
             </button>
         </div>
 
@@ -183,7 +186,8 @@ foreach ($listeJoueurs as $joueur) {
             <div class="btn-container">
                 <button class="btn" <?php if (!$matchAVenir)
                     echo 'disabled'; ?>
-                    onclick="window.location.href='Feuille-De-Match.php?idMatch=<?php echo urlencode($idMatch); ?>'"> Selectionner les joueurs </button>
+                    onclick="window.location.href='Feuille-De-Match.php?idMatch=<?php echo urlencode($idMatch); ?>'">
+                    Selectionner les joueurs </button>
             </div>
 
         </div>
