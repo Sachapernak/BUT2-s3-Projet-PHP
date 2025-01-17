@@ -54,13 +54,28 @@ class JouerDAO {
         }
     }
 
-    public function delete($n_licence, $id_match) {
+    public function deleteById($n_licence, $id_match) {
         try {
             $requete = $this->pdo->prepare('
                 DELETE FROM jouer WHERE n_licence = :n_licence AND id_match = :id_match
             ');
             $requete->execute([
                 ':n_licence' => $n_licence,
+                ':id_match' => $id_match
+            ]);
+            return $requete->rowCount() > 0;
+        } catch (Exception $e) {
+            echo 'Erreur lors de la suppression : ' . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function deleteByMatch($id_match) {
+        try {
+            $requete = $this->pdo->prepare('
+                DELETE FROM jouer WHERE id_match = :id_match
+            ');
+            $requete->execute([
                 ':id_match' => $id_match
             ]);
             return $requete->rowCount() > 0;
