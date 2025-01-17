@@ -17,7 +17,7 @@ use DAO\JouerDAO;
 		} 
 		
 		public function executer():int{
-            return $this->jouerDAO->moyenneNoteJoueur($this->n_licence);
+            return round($this->jouerDAO->moyenneNoteJoueur($this->n_licence));
         }
 	} 
 ?>

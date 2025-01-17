@@ -1,4 +1,4 @@
-CREATE TABLE Joueur(
+CREATE TABLE joueur(
    n_licence INT,
    nom VARCHAR(50)  NOT NULL,
    prenom VARCHAR(50)  NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE Joueur(
    PRIMARY KEY(n_licence)
 );
 
-CREATE TABLE Entraineur(
+CREATE TABLE entraineur(
    identifiant VARCHAR(15) ,
    nom VARCHAR(50) ,
    prenom VARCHAR(50) ,
@@ -17,15 +17,15 @@ CREATE TABLE Entraineur(
    PRIMARY KEY(identifiant)
 );
 
-CREATE TABLE Commentaire(
+CREATE TABLE commentaire(
    n_licence INT,
    date_Com DATE,
    commentaire TEXT,
    PRIMARY KEY(n_licence, Date_Com),
-   FOREIGN KEY(n_licence) REFERENCES Joueur(n_licence)
+   FOREIGN KEY(n_licence) REFERENCES joueur(n_licence)
 );
 
-CREATE TABLE Match_basket(
+CREATE TABLE match_basket(
    id_match INT AUTO_INCREMENT,
    date_et_heure DATETIME NOT NULL,
    adversaire VARCHAR(50) ,
@@ -41,14 +41,14 @@ CREATE TABLE jouer(
    note DECIMAL(2,1),
    position VARCHAR(50) ,
    PRIMARY KEY(n_licence, id_match),
-   FOREIGN KEY(n_licence) REFERENCES Joueur(n_licence),
-   FOREIGN KEY(id_match) REFERENCES Match_basket(id_match)
+   FOREIGN KEY(n_licence) REFERENCES joueur(n_licence),
+   FOREIGN KEY(id_match) REFERENCES match_basket(id_match)
 );
 
 INSERT INTO joueur (n_licence, nom, prenom, date_de_naissance, taille, poids, statut)
-VALUES 
+VALUES
     (20241001, 'Martin', 'Lucas', '1992-03-15', 175, 70, 'Act'),
-    (20241002, 'Dupont', 'Julien', '1988-06-22', 180, 75, 'Bles'),
+    (20241002, 'Dupont', 'Julien', '1988-06-22', 180, 75, 'Ble'),
     (20241003, 'Leclerc', 'Hugo', '1995-09-08', 178, 78, 'Act'),
     (20241004, 'Garcia', 'Adrien', '1990-11-02', 170, 72, 'Abs'),
     (20241005, 'Moreau', 'Thomas', '1998-02-19', 172, 68, 'Act'),
@@ -57,14 +57,14 @@ VALUES
     (20241008, 'Rousseau', 'Maxime', '1996-05-12', 174, 73, 'Act'),
     (20241009, 'Dubois', 'Pierre', '1989-10-04', 176, 76, 'Act'),
     (20241010, 'Fournier', 'Arthur', '1994-01-20', 179, 77, 'Act');
-    
-INSERT INTO Match_basket (id_match,date_et_heure,adversaire,lieu,resultat)
+
+INSERT INTO match_basket (id_match,date_et_heure,adversaire,lieu,resultat)
 VALUES
     (1, '2024-11-01 15:00', 'Tigers Lyon', 'dom', 'V'),
     (2, '2024-11-05 18:30', 'Eagles Paris', 'ext', 'D'),
     (3, '2024-11-10 14:00', 'Sharks Marseille', 'ext', 'N');
 
-INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position) 
+INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
 VALUES
     (20241001, 1, False, 4,'Pivot'),
     (20241002, 1, False,3,'Ailier'),
@@ -84,8 +84,4 @@ VALUES
     (20241003, 3, False, 3, 'Ailier Fort'),
     (20241009, 3, True, 2, 'Pivot');
 
---Creation de l'utilisateur
-CREATE USER 'KTomatho'@'localhost' IDENTIFIED BY '$2y$10$rVjIJic0XnMSQLdvmjc1aelL2KZdFPdsi2oBz1COZZzI38GXy.kNO';
-
-
-
+commit;

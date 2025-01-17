@@ -11,9 +11,9 @@ class Database {
 
     private function __construct() {
 
-        $host = 'localhost';
-        $db = 'handi_team_bd';
-        $user = 'appliHandiTeam';
+        $host = 'mysql-handipromanager.alwaysdata.net';
+        $db = 'handipromanager_bd';
+        $user = '394731_app';
         $pass = 'TroisCacahuetesOrangesSur@UnCailloux$';
         $charset = 'utf8mb4';
 
