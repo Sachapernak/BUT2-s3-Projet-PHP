@@ -54,7 +54,7 @@ foreach ($listeJoueurs as $joueur) {
                     <h5>' . $nom . ' ' . $prenom . '</h5> <span>' . $etoiles . ' </span>
                 </div> 
                 <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
-                    <i class="fa-solid fa-ranking-star" style="color: #d87f03;"></i>
+                    <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
                 </a>
                 <div class ="infosJoueur"> 
                     <p> Licence ' . $n_licence . ' </p> <br>

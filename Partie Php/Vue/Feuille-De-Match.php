@@ -15,6 +15,8 @@ $joueursDejaSelectionnes = $controleurMatchs->getInfosParticipation($idMatch);
 
 $joueursSelectionnes = [];
 
+$erreur = false;
+$messageErreur = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $selectionJoueur = $_POST['selectionJoueur'] ?? [];
@@ -22,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $roles = $_POST['role'] ?? [];
 
     if (count($selectionJoueur) < 5) {
-        echo "Vous devez sélectionner au moins 5 joueurs.";
+        $erreur = true;
+        $messageErreur = "Vous devez sélectionner au moins 5 joueurs.";
     } else {
         foreach ($selectionJoueur as $licence => $valeur) {
             $position = $positions[$licence] ?? null;
@@ -37,17 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Afficher les joueurs sélectionnés et leurs informations
-        echo "Joueurs sélectionnés :<br>";
-        foreach ($joueursSelectionnes as $joueur) {
-            echo "Joueur avec la licence " . $joueur['licence'] . " est sélectionné.<br>";
-            echo "Position: " . $joueur['position'] . ", Rôle: " . $joueur['role'] . "<br>";
-        }
         echo count($joueursSelectionnes);
         // Si au moins 5 joueurs sont sélectionnés, rediriger
         if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPosition($joueursSelectionnes)) {
             $controleurMatchs->creerParticipation($joueursSelectionnes, $idMatch);
             header("Location: Matchs.php");
             exit;
+        }else {
+            $messageErreur = "Vous devez séléctionner au moins 5 titulaires dont 1 meneur, 2 ailiers, 2 pivots";
+            $erreur = true;
         }
     }
 }
@@ -70,6 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2> Feuille de match </h2>
 
     <div class="main">
+        <div class="message-erreur">
+            <?php 
+                $controleurMatchs->afficherErreurs($erreur,$messageErreur)
+            ?>
+        </div>
         <div class="table-container">
             <form action="" method="POST">
                 <input type="hidden" name="action" value="selectionJoueur">
@@ -92,20 +98,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Boucle pour afficher les joueurs
                         foreach ($listeJoueurs as $joueur) {
                             $n_licence = $joueur->getN_licence();
+                            $estPresent = false;
+                            $key;
+                            
+                            for ($i = 0; $i < count($joueursDejaSelectionnes); $i++){
+                                if($joueursDejaSelectionnes[$i]->getN_licence() == $n_licence){
+                                    $estPresent = true;
+                                    $key = $i;
+                                }
+                            }
 
-                            // Vérifiez si le joueur est sélectionné dans $joueursDejaSelectionnes
-                            $index = array_search($n_licence, array_column($joueursDejaSelectionnes, 'n_licence'));
-
-                            // Si le joueur est trouvé dans la liste des joueurs déjà sélectionnés
-                            if ($index !== false) {
-                                $positionPreRemplie = $joueursDejaSelectionnes[$index]['position'];
-                                echo positionPreRemplie;
-                                $rolePreRemplie = $joueursDejaSelectionnes[$index]['role'];
+                            if ($estPresent) {
+                                $positionPreRemplie = $joueursDejaSelectionnes[$key]->getRole();
+                                $rolePreRemplie = $joueursDejaSelectionnes[$key]->getEst_remplacant();
                                 $estSelectionne = true;
                             } else {
-                                // Si le joueur n'est pas trouvé, valeurs par défaut
-                                $positionPreRemplie = 'nique';
-                                $rolePreRemplie = 'tarace';
+                                $positionPreRemplie = "";
+                                $rolePreRemplie = "";
                                 $estSelectionne = false;
                             }
 

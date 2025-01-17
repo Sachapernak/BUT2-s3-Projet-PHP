@@ -14,7 +14,6 @@ use Controleur\ObtenirTousLesCommentaires;
 
 class ControleurPageFeuilleDeMatch
 {
-
     private $joueurDAO;
     private $jouerDAO;
     private $matchDAO;
@@ -29,6 +28,12 @@ class ControleurPageFeuilleDeMatch
         $this->commentaireDAO = new CommentaireDAO();
 
         $this->controleurJoueursParticipants = new ControleurPageMatchs();
+    }
+
+    public function afficherErreurs($erreurs, $messageErreurs){
+        if ($erreurs){
+            echo '<div class="message-erreur">'. $messageErreurs. '</div>';
+        }
     }
 
     public function getJoueursActifs(): array{
@@ -52,7 +57,7 @@ class ControleurPageFeuilleDeMatch
         header('Location: Matchs.php');
     }
 
-    public function verifierPosition(array $joueursSelectionnes): bool {
+    public function verifierPositionTitulaires(array $joueursSelectionnes): bool {
         $positionMeneur = 'Meneur';
         $positionAilier = 'Ailier';
         $positionPivot = 'Pivot';
@@ -61,13 +66,13 @@ class ControleurPageFeuilleDeMatch
         $countPivot = 0;
 
         foreach ($joueursSelectionnes as $jouer) {
-            if ($jouer['position'] === $positionMeneur) {
+            if ($jouer['position'] === $positionMeneur && $jouer['role']===0) {
                 $countMeneur++;
             }
-            if ($jouer['position'] === $positionAilier) {
+            if ($jouer['position'] === $positionAilier && $jouer['role']===0) {
                 $countAilier++;
             }
-            if ($jouer['position'] === $positionPivot) {
+            if ($jouer['position'] === $positionPivot && $jouer['role']===0) {
                 $countPivot++;
             }
         }
@@ -93,6 +98,8 @@ class ControleurPageFeuilleDeMatch
     public function getInfosParticipation($idMatch){
         $recherche = new RechercherJouerParMatch($this->jouerDAO, $idMatch);
         $listeJoueursParticipants= $recherche->executer();
+
+        /*print_r($listeJoueursParticipants);*/
         return $listeJoueursParticipants;
     }
   
