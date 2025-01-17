@@ -55,6 +55,7 @@ foreach ($listeJoueurs as $joueur) {
                 </div> 
                 <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
                     <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
+
                 </a>
                 <div class ="infosJoueur"> 
                     <p> Licence ' . $n_licence . ' </p> <br>
@@ -121,7 +122,7 @@ foreach ($listeJoueurs as $joueur) {
         </div>
 
         <div class="btn-container">
-            <button class="btn" onclick="window.location.href='Ajouter-Match.php?'">Ajouter un match</button>
+            <button class="btn" onclick="window.location.href='Ajouter-match.php?'">Ajouter un match</button>
             <form method="POST" action="">
                 <input type="hidden" name="action" value="supprimer">
                 <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>">

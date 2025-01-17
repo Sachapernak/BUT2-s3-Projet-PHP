@@ -10,15 +10,34 @@ $controleur = new ControleurConnexion();
 
 $erreurMessage = $controleur->getMessageErreur();
 
+$auth = $_SESSION['authentifie'] ?? false;
+if (!$auth) {
+    $btnDeco = "";
+    $re = "";
+} else {
+    $btnDeco = '<input type="submit" value="Se deconnecter" name="decon" id="btn-rm">';
+    $re = "re";
+
+}
+
 // Si la requête est de type POST (le formulaire a été soumis)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login    = $_POST['login']    ?? '';
-    $password = $_POST['password'] ?? '';
 
-    echo($login . " " . $password);
+    if (isset($_POST['connect'])){
+        $login    = $_POST['login']    ?? '';
+        $password = $_POST['password'] ?? '';
+        $controleur->processLogin($login, $password);
+    }
+
+    if(isset($_POST['decon'])){
+
+        session_destroy();
+        header('Location: page-connexion.php');
+    }
 
 
-    $controleur->processLogin($login, $password);
+
+
 }
 ?>
 
@@ -49,8 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" class="champs-saisi" required>
             </div>
-            <input type="submit" value="Se connecter" id="btn-submit">
+            <input type="submit" value="Se <?php echo($re)?>connecter" name="connect" id="btn-submit">
+
         </form>
+        <form method="post" action="">
+            <?php echo($btnDeco); ?>
+        </form>
+
     </div>
 </div>
 </body>

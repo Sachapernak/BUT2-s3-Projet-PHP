@@ -30,7 +30,7 @@ $stmt->execute();
 $conn->commit();
 
 
-$sql2 = "SELECT * FROM entraineur WHERE identifiant = KTomato";
+$sql2 = "SELECT * FROM entraineur WHERE identifiant = 'KTomato'";
 $stmt2 = $conn->prepare($sql2);
 $res = $stmt2->execute();
 $res->fetch();

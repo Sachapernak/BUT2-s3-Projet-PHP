@@ -47,9 +47,14 @@ class ControleurPageAccueil
     }
 
     public function getMeilleurJoueur ($idMatch){
+        $res = null;
         $n_licence = $this->jouerDAO->getMeilleurJoueurMatch($idMatch);
-        $recherche = new RechercherUnJoueur($this->joueurDAO, $n_licence);
-        $res = $recherche->executer();
+        
+        if ($n_licence != null){
+            $recherche = new RechercherUnJoueur($this->joueurDAO, $n_licence);
+            $res = $recherche->executer();
+        }
+
         return $res;  
     }
 

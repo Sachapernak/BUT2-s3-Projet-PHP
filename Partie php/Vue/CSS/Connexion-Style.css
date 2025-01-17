@@ -62,3 +62,16 @@ h2 {
     width: 100%;
     text-transform: uppercase;
 }
+
+#btn-rm {
+    background-color: #c50813;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    text-transform: uppercase;
+}

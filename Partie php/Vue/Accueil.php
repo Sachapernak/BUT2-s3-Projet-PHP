@@ -27,11 +27,11 @@ foreach ($listeMatchs as $match) {
     $lieu = $controleur->afficherLieu($match->getLieu());
     $date_heure = $match->getDate_et_heure();
     $bestJoueur = $controleur->getMeilleurJoueur($id_match);
-    $n_licence =$bestJoueur->getN_licence();
+    $n_licence = $bestJoueur == null ? "" : $bestJoueur->getN_licence();
 
     $commentaire = $controleur->getCommentaireJoueur($n_licence, $date_heure);
     $participation = $controleur->getParticipation($n_licence, $id_match);
-    $note=$participation->getNote();
+    $note= $participation == null ? 0 : $participation->getNote();
 
    
     $matchs .= '
@@ -42,7 +42,7 @@ foreach ($listeMatchs as $match) {
         <h4 class="matchTextMJ">Meilleur joueur :</h4>
         <div class="mj">
             <div>
-                <h5>' . $bestJoueur->getNom() . ' ' . $bestJoueur->getPrenom() . '</h5> 
+                <h5>' . ($bestJoueur == null ? "N/A":$bestJoueur->getNom()) . ' ' . ($bestJoueur == null ? "":$bestJoueur->getPrenom()) . '</h5> 
                 <span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span>
                 <p>' . $commentaire . '</p>
             </div>
