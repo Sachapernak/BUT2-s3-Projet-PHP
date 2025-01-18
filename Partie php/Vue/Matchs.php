@@ -6,18 +6,22 @@ use Controleur\ControleurPageMatchs;
 
 $controleurMatchs = new ControleurPageMatchs();
 
+//Récupérer les matchs à venir et passés 
 $listeMatchs = $controleurMatchs->getMatchsAVenir();
 $listeMatchsPasses = $controleurMatchs->getMatchsPasses();
 
+//Varibales pour permettre l'activation ou l désactivation des boutons en fonctions du match séléctionné
 $matchAVenir = false;
 $matchPasses = false;
 
 $listeJoueurs = [];
 $idMatch = null;
+//Si un match est sélectionne alors on récupère la liste des joueurs
 if (isset($_POST['id_match'])) {
     $idMatch = (int) $_POST['id_match'];
     $listeJoueurs = $controleurMatchs->getJoueursParticipants($idMatch);
 
+    //Renseigner si le match sélectionné est passé ou à venir.
     foreach ($listeMatchs as $match) {
         if ($match->getIdMatch() == $idMatch) {
             $matchAVenir = true;
@@ -28,6 +32,7 @@ if (isset($_POST['id_match'])) {
     }
 }
 
+// Gestion de la suppression d'un match
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'supprimer') {
     if (isset($_POST['id_match'])) {
         $idMatch = (int) $_POST['id_match'];
@@ -37,8 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-$iconeNoteClasse = $matchAVenir ? 'saisie-note-disabled' : '';  
-
+//Affichage des joueurs sélectionnés
 $joueurs = "";
 
 foreach ($listeJoueurs as $joueur) {
@@ -60,7 +64,7 @@ foreach ($listeJoueurs as $joueur) {
                 <div class="en-tete-joueur">
                     <h5>' . $nom . ' ' . $prenom . '</h5> <span>' . $etoiles . ' </span>
                 </div> 
-                <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note ' . $iconeNoteClasse . '">
+                <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
                     <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
                 </a>
                 <div class ="infosJoueur"> 
@@ -91,10 +95,9 @@ foreach ($listeJoueurs as $joueur) {
 
     <?php include "barre-navigation.php" ?>
 
-    <!-- Page content -->
     <div class="main">
         <h2> Les matchs à venir </h2>
-
+        <!-- Tableau contenant les matchs à venir -->
         <div class="table-container">
             <form action="" method="POST">
                 <table>
@@ -131,8 +134,8 @@ foreach ($listeJoueurs as $joueur) {
             <button class="btn" onclick="window.location.href='Ajouter-match.php?'">Ajouter un match</button>
             <form method="POST" action="">
                 <input type="hidden" name="action" value="supprimer">
-                <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>">
-                <button type="submit" class="btn" <?php if (!$matchAVenir)
+                <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>"> <!--permet de transmettre l'id du match pour la suppression -->
+                <button type="submit" class="btn" <?php if (!$matchAVenir) //permettre la désactivation ou non du bouton
                     echo 'disabled'; ?>>Annuler le match</button>
             </form>
             <button class="btn" <?php if (!$matchAVenir)
@@ -144,6 +147,7 @@ foreach ($listeJoueurs as $joueur) {
 
         <h3> Ensemble des matchs passés </h3>
 
+        <!-- Tableau contenant les matchs passés -->
         <div class="table-container">
             <form action="" method="POST">
                 <table>
@@ -196,7 +200,7 @@ foreach ($listeJoueurs as $joueur) {
 
         </div>
 
-
+        <!--Affichage des joueurs participants au match séléctionné-->
         <div class="flexContainer">
             <?php echo $joueurs; ?>
         </div>

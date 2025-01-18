@@ -64,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main">
         <div class="message-erreur">
             <?php
-            $controleurMatchs->afficherErreurs($erreur, $messageErreur)
-                ?>
+                $controleurMatchs->afficherErreurs($erreur, $messageErreur)
+            ?>
         </div>
         <div class="table-container">
             <form action="" method="POST">
