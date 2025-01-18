@@ -169,7 +169,7 @@ foreach ($listeJoueurs as $joueur) {
                             }
                             echo '<tr class="clickable-row ' . $ligneSelect . '">';
                             echo '<td><button type="submit" name="id_match" value="' . $match->getIdMatch() . '" class="invisible-btn"></button>' . $match->getIdMatch() . '</td>';
-                            echo '<td>' . $match->getDate_et_heure() . '</td>';
+                            echo '<td>' . $controleurMatchs->afficherDateHeure($match) . '</td>';
                             echo '<td>' . $match->getAdversaire() . '</td>';
                             echo '<td>' . $controleurMatchs->afficherLieu($match->getLieu()) . '</td>';
                             echo '<td>' . $controleurMatchs->afficherResultat($match->getResultat()) . '</td>';

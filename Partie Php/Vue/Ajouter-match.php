@@ -5,11 +5,18 @@ use Controleur\ControleurPageAjouterMatch;
 
 $controleur = new ControleurPageAjouterMatch();
 
-
+$blocErreur ="";
 
 // Si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controleur->creerUnMatch();
+    if ($controleur->verifierDate()) {
+        $controleur->creerUnMatch();
+    } else {
+        $blocErreur = 
+            '<div class="erreur">
+                Vous ne pouvez pas créer un match déjà passé.
+            </div>';
+    }
 }
 
 ?>
@@ -32,9 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
     <div class="main">
 
+        <?php echo $blocErreur?>
 
         <div class="infos-match-container">
             <h2>Le match</h2>
+
             <form action="Ajouter-match.php" method="POST">
                 <div class="match-item">
                     <label for="date-et-heure">Date et heure </label>

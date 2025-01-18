@@ -35,18 +35,7 @@ class ControleurPageFeuilleDeMatch
         $this->controleurJoueursParticipants = new ControleurPageMatchs();
     }
 
-     /**
-     * Affiche un message d'erreur si des erreurs sont présentes.
-     *
-     * @param bool $erreurs Indique s'il y a des erreurs.
-     * @param string $messageErreurs Le message d'erreur à afficher.
-     */
-    public function afficherErreurs($erreurs, $messageErreurs): void
-    {
-        if ($erreurs) {
-            echo '<div class="message-erreur">' . $messageErreurs . '</div>';
-        }
-    }
+    
 
     /**
      * Crée une participation (relation joueur-match).
@@ -147,7 +136,7 @@ class ControleurPageFeuilleDeMatch
                 $countPivot++;
             }
         }
-        return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >= 2;
+        return $countMeneur = 1 && $countAilier = 2 && $countPivot = 2;
     }
 
     
@@ -176,7 +165,7 @@ class ControleurPageFeuilleDeMatch
         $tousLesCommentaires = "";
 
         foreach ($commentaires as $commentaire) {
-            $tousLesCommentaires .= "<p>" . $commentaire['date'] . " : " . $commentaire['commentaire'] . "</p> <br>";
+            $tousLesCommentaires .= "<p>" . $commentaire->getDate(). " : " . $commentaire->getCommentaire(). "</p> <br>";
         }
         return $tousLesCommentaires;
     }

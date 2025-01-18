@@ -201,7 +201,7 @@ class MatchDAO {
     public function getTotalMatchs() : int {
         $total = -1; 
         try {
-            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM match_basket where date_et_heure < SYSDATE() ORDER BY date_et_heure DESC");
+            $requete = $this->pdo->prepare("SELECT COUNT(*) AS total FROM match_basket where date_et_heure < SYSDATE()  and resultat is not null");
 
             $requete->execute();
             $res = $requete->fetch(); 

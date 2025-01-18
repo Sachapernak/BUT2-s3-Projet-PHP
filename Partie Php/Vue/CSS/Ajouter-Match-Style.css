@@ -97,3 +97,16 @@ button.btn-annuler {
 button:hover {
     opacity: 0.9;
 }
+
+.erreur {
+    margin-left: 315px;
+    color: #BC321D;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #BC321D;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 50%;
+    font-size: clamp(18px, 2vw, 21px);
+}

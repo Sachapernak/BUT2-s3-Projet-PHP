@@ -22,8 +22,6 @@ h2 {
     padding: 20px;
 }
 
-
-
 .infos-joueur, .infos-match-container {
     background-color: #355973; 
     padding: 20px;
@@ -80,9 +78,7 @@ h2 {
     margin-top: -60px; 
     margin-right: 20px;
     align-self: flex-start;
-
 }
-
 
 .attributs {
     flex: 1;
@@ -127,7 +123,6 @@ h2 {
     flex: 1;
     gap: 10px; 
     align-items: left;
-
 }
 
 
@@ -138,21 +133,20 @@ h2 {
     width: 100%;
 }
 
-
 form {
     width: 100%; 
 }
 
 .form-buttons {
     display: flex;
-    gap: 10px; /* Moins d'espace entre les boutons */
-    margin-top: 15px; /* Réduit l'espace entre le formulaire et les boutons */
+    gap: 10px;
+    margin-top: 15px; 
     justify-content: flex-start; 
 }
 
 button {
-    padding: 8px 16px; /* Moins de padding pour les boutons */
-    font-size: clamp(12px, 0.9vw, 14px); /* Police plus petite */
+    padding: 8px 16px;
+    font-size: clamp(12px, 0.9vw, 14px); 
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -168,7 +162,7 @@ button.btn-annuler {
     color: white;
 }
 
-/* Boutons au survol */
+
 button:hover {
     opacity: 0.9;
 }
@@ -176,17 +170,17 @@ button:hover {
 .table-container {
     margin-bottom: 50px;
     width: 80%;
-    padding-left: 5%;
+
 }
 
 table {
-    width: 100%;
+    width: max-content;
     border-collapse: collapse;
     background-color: #FFFFFF;
 }
 
 th, td {
-    padding: 8px; /* Réduction des marges */
+    padding: 8px; 
     text-align: center;
     border: 1px solid #DDDDDD;
 }
@@ -194,17 +188,26 @@ th, td {
 th {
     background-color: #506882;
     color: #FFFFFF;
-    font-size: 0.9rem; /* Réduction de la taille */
+    font-size: 0.9rem;
 }
 
 td {
     color: #000000;
-    font-size: 0.85rem; /* Réduction de la taille */
+    font-size: 0.85rem; 
 }
 
+td.scrollable {
+    height: 90px;  
+    overflow-y: auto; 
+    white-space: normal; 
+    max-width: 250px;
+    display: block;  
+    text-align: left;
+}
+
+
 .ligneSelect {
-    background-color: #9eacbe; /* Couleur de fond pour la ligne sélectionnée */
-    color: white; /* Couleur du texte de la ligne sélectionnée */
+    background-color: #9eacbe; 
 }
 
 .invisible-btn {
@@ -223,4 +226,17 @@ label {
     margin-right: 12px;
     font-size: clamp(12px, 0.9vw, 16px);
     display: inline-block;
+}
+
+.erreur {
+    margin-left: 315px;
+    color: #BC321D;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #BC321D;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 50%;
+    font-size: clamp(18px, 2vw, 21px);
 }

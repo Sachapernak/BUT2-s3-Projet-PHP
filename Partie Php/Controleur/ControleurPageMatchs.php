@@ -164,7 +164,7 @@ class ControleurPageMatchs
                 $resultat = "Match nul";
                 break;
             default: 
-                $resultat = "Erreur";
+                $resultat = "N\A";
                 break;
         }
         return $resultat;
@@ -186,7 +186,7 @@ class ControleurPageMatchs
                 $resultat = "A domicile";
                 break;
             default: 
-                $resultat = "Erreur";
+                $resultat = "N\A";
                 break;
         }
         return $resultat;

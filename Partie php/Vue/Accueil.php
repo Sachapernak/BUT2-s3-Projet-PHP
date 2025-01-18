@@ -57,13 +57,14 @@ $joueurs = "";
 foreach ($listeJoueurs as $joueur) {
     $nom = $joueur->getNom();
     $prenom = $joueur->getPrenom();
+    $licence = $joueur->getN_licence();
     $note = $controleurJoueurs->getNoteMoyenneJoueur($joueur->getN_licence());
 
     $joueurs .= '
     <div class="joueur">
         <div>
-            <h5>' . $nom . ' ' . $prenom . '</h5> 
-            <span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span> 
+            <h5>' . $nom . ' ' . $prenom . '<span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span>  </h5> 
+            <h6> N° de licence : ' . $licence . '</h6>
         </div>
     </div>';
 }

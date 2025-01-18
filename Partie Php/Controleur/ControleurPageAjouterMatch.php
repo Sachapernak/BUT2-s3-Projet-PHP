@@ -48,9 +48,24 @@ class ControleurPageAjouterMatch
         $idMatch = $creationMatch->executer();
         header('Location: Matchs.php');
         return $idMatch;
-     
 
     }
+
+    /**
+     * Vérifie si la date et l'heure données sont supérieures ou égales à la date et l'heure actuelles.
+     * Si la date et l'heure données sont dans le passé, la fonction retourne 'false' et 'true' sinon.
+     * 
+     * @return bool Retourne `true` si la date et l'heure données sont supérieurs à la date et l'heure actuelles, sinon `false`.
+     */
+    public function verifierDate(): bool {
+        $dateHeureMin = new DateTime(); 
+        $date_match = $_POST['date'];
+        $heure_match = $_POST['heure'];
+        $dateTimeString = $date_match . ' ' . $heure_match;
+        $dateHeureDonnee = new DateTime($dateTimeString);
+        return $dateHeureDonnee > $dateHeureMin;
+    }
+
 
 }
 

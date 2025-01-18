@@ -89,9 +89,20 @@ html, body {
     background-color: #FFFFFF;
     color: #111111;
     width: calc(30% - 15px);
-    height: 80px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 10px;
-    border: 2px solid #FFFFFF; /* Ajout d'une bordure blanche */
+    border: 2px solid #FFFFFF; 
+
+    
+}
+
+.joueur span, .mj span {
+    color: #ebaf18;
+}
+
+.joueur h5 {
+    display: flex; 
+    align-items: center; 
+    gap: 30px; 
 }
