@@ -8,6 +8,9 @@ use DAO\JouerDAO;
 use Controleur\RechercherJouerParMatch;
 use Controleur\RechercherMatchsAVenir;
 use Controleur\SupprimerUnMatch;
+use Modele\Jouer;
+
+use DateTime;
 
 class ControleurPageMatchs
 {
@@ -56,7 +59,7 @@ class ControleurPageMatchs
      * @param string $id_joueur Le numéro de licence du joueur.
      * @return Jouer Les informations de participation du joueur au match.
      */
-    public function getInfosParticipants($id_match, $id_joueur):?Jouer
+    public function getInfosParticipants($id_match, $id_joueur): ?Jouer
     {
         $recherche = new RechercherJouer($this->jouerDAO, $id_joueur, $id_match);
         $resultat = $recherche->executer();
@@ -187,6 +190,18 @@ class ControleurPageMatchs
                 break;
         }
         return $resultat;
+    }
+
+     /**
+     * Formate la date et l'heure d'un match.
+     * 
+     * @param Match $match L'objet match contenant la date et l'heure.
+     * @return string La date et l'heure formatées (Y-m-d H:i).
+     */
+    public function afficherDateHeure($match){
+        $dateTimeObj = new DateTime($match->getDate_et_heure());
+        $date_heure = $dateTimeObj->format('Y-m-d H:i'); 
+        return $date_heure;
     }
 
 }

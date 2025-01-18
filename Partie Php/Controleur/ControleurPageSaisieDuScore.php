@@ -5,6 +5,7 @@ namespace Controleur;
 use DAO\MatchDAO;
 use Controleur\ModifierMatch;
 use Controleur\RechercherUnMatch;
+use Modele\Matchbasket;
 
 class ControleurPageSaisieDuScore {
 

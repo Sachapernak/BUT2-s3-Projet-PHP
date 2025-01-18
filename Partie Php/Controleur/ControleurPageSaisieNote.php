@@ -8,6 +8,9 @@ use DAO\JoueurDAO;
 use Controleur\RechercherJouer;
 use Controleur\RechercherUnJoueur;
 
+use Modele\Joueur;
+use Modele\Jouer;
+
 
 class ControleurPageSaisieNote
 {

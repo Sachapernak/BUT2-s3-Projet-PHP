@@ -11,6 +11,10 @@ use Controleur\RechercherMatchsPasses;
 use Controleur\RechercherUnJoueur;
 use Controleur\RechercherJouer;
 use Controleur\RechercherUnCommentaire;
+
+use Modele\Joueur;
+use Modele\Jouer;
+
 use DateTime;
 
 
@@ -147,15 +151,13 @@ class ControleurPageAccueil
     /**
      * Formate la date et l'heure d'un match.
      * 
-     * @param object $match L'objet match contenant la date et l'heure.
+     * @param  Match $match L'objet match contenant la date et l'heure.
      * @return string La date et l'heure formatées (Y-m-d H:i).
      */
     public function afficherDateHeure($match){
         $dateTimeObj = new DateTime($match->getDate_et_heure());
         $date_heure = $dateTimeObj->format('Y-m-d H:i'); 
         return $date_heure;
-        
-
     }
 
     /**

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="" method="POST">
                 <div class="match-item">
                     <label for="note">Note</label>
-                    <input type="number" name="note" min="0" max="5" step="1" placeholder="la note sur 5"">
+                    <input type="number" name="note" min="0" max="5" step="1" placeholder="la note sur 5" value="<?php echo $note?>">
                 </div>
 
 

@@ -136,48 +136,21 @@ class ControleurPageFeuilleDeMatch
         $countPivot = 0;
 
         foreach ($joueursSelectionnes as $jouer) {
-            if ($jouer['position'] === $positionMeneur && $jouer['role'] === 0) {
+            echo $jouer['role'];
+            if ($jouer['position'] === $positionMeneur && $jouer['role'] === '0') {
                 $countMeneur++;
             }
-            if ($jouer['position'] === $positionAilier && $jouer['role'] === 0) {
+            if ($jouer['position'] === $positionAilier && $jouer['role'] === '0') {
                 $countAilier++;
             }
-            if ($jouer['position'] === $positionPivot && $jouer['role'] === 0) {
+            if ($jouer['position'] === $positionPivot && $jouer['role'] === '0') {
                 $countPivot++;
             }
         }
         return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >= 2;
     }
 
-    /**
-     * Vérifie si l'équipe respecte les positions nécessaires.
-     *
-     * @param array $joueursSelectionnes Tableau des joueurs sélectionnés.
-     * @return bool True si les positions sont respectées, False sinon.
-     */
-    public function verifierPosition(array $joueursSelectionnes): bool
-    {
-        $positionMeneur = 'Meneur';
-        $positionAilier = 'Ailier';
-        $positionPivot = 'Pivot';
-        $countMeneur = 0;
-        $countAilier = 0;
-        $countPivot = 0;
-
-        foreach ($joueursSelectionnes as $jouer) {
-            if ($jouer['position'] === $positionMeneur) {
-                $countMeneur++;
-            }
-            if ($jouer['position'] === $positionAilier) {
-                $countAilier++;
-            }
-            if ($jouer['position'] === $positionPivot) {
-                $countPivot++;
-            }
-        }
-        return $countMeneur >= 1 && $countAilier >= 2 && $countPivot >= 2;
-    }
-
+    
      /**
      * Vérifie si au moins 5 joueurs sont sélectionnés.
      *
@@ -222,9 +195,6 @@ class ControleurPageFeuilleDeMatch
         /*print_r($listeJoueursParticipants);*/
         return $listeJoueursParticipants;
     }
-
-
-
 
 }
 

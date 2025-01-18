@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
         }
 
-        if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPosition($joueursSelectionnes)) {
+        if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPositionTitulaires($joueursSelectionnes)) {
             $controleurMatchs->actualiserParticipation($joueursSelectionnes, $idMatch);
             header("Location: Matchs.php");
             exit;

@@ -1,6 +1,7 @@
 <?php 
     namespace Controleur;
     use DAO\MatchDAO;
+    use Modele\MatchBasket;
     class CreerUnMatch { 
 
         private $matchDAO;            // Objet MatchDAO utilisé pour interagir avec la base de données des matchs
@@ -16,7 +17,7 @@
          * @param MatchDAO $matchDAO L'objet MatchDAO utilisé pour effectuer des opérations sur la base de données des matchs
          * @param Match $match L'objet Match contenant les informations nécessaires à la création du match
          */
-        public function __construct(MatchDAO $matchDAO, $match) { 
+        public function __construct(MatchDAO $matchDAO, MatchBasket $match) { 
             $this->matchDAO = $matchDAO;
             $this->date_et_heure = $match->getDate_et_heure();
             $this->adversaire = $match->getAdversaire();
