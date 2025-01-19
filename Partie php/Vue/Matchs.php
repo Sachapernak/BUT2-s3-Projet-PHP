@@ -25,9 +25,11 @@ if (isset($_POST['id_match'])) {
     foreach ($listeMatchs as $match) {
         if ($match->getIdMatch() == $idMatch) {
             $matchAVenir = true;
+            $matchPasses = false;
             break;
         } else {
             $matchPasses = true;
+            $matchAVenir = false;
         }
     }
 }
@@ -59,22 +61,33 @@ foreach ($listeJoueurs as $joueur) {
         $etoiles = $controleurMatchs->afficherEtoiles($note);
 
         $joueurs .= '
-        <div class="joueur">
-            <div>
-                <div class="en-tete-joueur">
-                    <h5>' . $nom . ' ' . $prenom . '</h5> <span>' . $etoiles . ' </span>
-                </div> 
-                <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
-                    <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
-                </a>
-                <div class ="infosJoueur"> 
-                    <p> Licence ' . $n_licence . ' </p> <br>
-                    <p> Poste : ' . $poste . '</p> <br>
-                    <p> ' . $estRemplacant . '</p> <br>
-                </div>
+            <div class="joueur">
+                <div>
+                    <div class="en-tete-joueur">
+                        <h5>' . $nom . ' ' . $prenom . '</h5> <span>' . $etoiles . ' </span>';
 
+        if (!$matchAVenir) { // Match passé : lien activé
+            $joueurs .= '
+                        <a href="Saisie-Note.php?idJoueur=' . urlencode($n_licence) . '&idMatch=' . urlencode($idMatch) . '" class="saisie-note">
+                            <i class="fa-solid fa-notes-medical" style="color: #f3ad35;"></i>
+                        </a>';
+        } else { // Match à venir : lien désactivé
+            $joueurs .= '
+                        <span class="saisie-note-disabled" title="Non disponible pour les matchs à venir">
+                            <i class="fa-solid fa-notes-medical" style="color: gray;"></i>
+                        </span>';
+        }
+
+        $joueurs .= '
+                    </div> 
+                    
+                    <div class ="infosJoueur"> 
+                        <p> Licence ' . $n_licence . ' </p> <br>
+                        <p> Poste : ' . $poste . '</p> <br>
+                        <p> ' . $estRemplacant . '</p> <br>
+                    </div>
+                </div>
             </div>
-        </div>
     ';
     }
 }

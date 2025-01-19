@@ -99,7 +99,7 @@ td {
     background-color: #FFFFFF;
     color: #000000;
     width: calc(30% - 15px);
-    height: 130px;
+    height: min-content;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 10px;
@@ -109,6 +109,7 @@ td {
     display: flex;
     align-items: center;
     margin-bottom: 10px; 
+    gap : 45px;
 }
 
 .en-tete-joueur h5 {
