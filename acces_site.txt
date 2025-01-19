@@ -1,4 +1,8 @@
-L'URL : https://handipromanager.alwaysdata.net/Vue/Accueil.php
+L'URL : 
+https://handipromanager.alwaysdata.net
+
+ou (accès direct au site) :
+https://handipromanager.alwaysdata.net/Vue/Accueil.php
 
 Accéder au site : 
 
