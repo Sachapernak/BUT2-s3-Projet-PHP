@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             // Pré-remplissage de la case à cocher (si le joueur est sélectionné)
                             echo '<td> 
-                                    <input type="checkbox" name="selectionJoueur[' . $n_licence . ']" value="1" ' . ($estSelectionne ? 'checked' : '') . '> 
+                                    <input type="checkbox" class="checkbox" name="selectionJoueur[' . $n_licence . ']" value="1" ' . ($estSelectionne ? 'checked' : '') . '> 
                                   </td>';
                             echo '</tr>';
                         }

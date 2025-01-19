@@ -5,20 +5,23 @@ use Controleur\ControleurPageSaisieNote;
 
 $controleur = new ControleurPageSaisieNote();
 
+//Recuperer l'identifiant du match et du joueur 
 $n_licence = $_GET['idJoueur'];
 $idMatch = $_GET['idMatch'];
 
+//Récupérer les informations du joueur
 $joueur = $controleur->recupererInfosJoueur($n_licence);
 $nom = $joueur->getNom();
 $prenom = $joueur->getPrenom();	
 
+//Récupérer les informations concernant la participation du joueur au match
 $jouer = $controleur->recupererInfosJouer($idMatch, $n_licence);	
 $note = $jouer->getNote();	
 
+//Soumission du formulaire de  modification de la note du joueur
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controleur->modifierJouer($idMatch, $n_licence);
 }
-
 
 ?>
 
@@ -40,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
     <div class="main">
 
-
+        <!-- Formulaire de saisi de la note -->
         <div class="saisieNote">
             <h2> <?php echo  $nom ." ". $prenom ?></h2>
             <h3> Licence : <?php echo  $n_licence ?></h3>

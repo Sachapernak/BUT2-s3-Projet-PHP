@@ -125,7 +125,6 @@ class ControleurPageFeuilleDeMatch
         $countPivot = 0;
 
         foreach ($joueursSelectionnes as $jouer) {
-            echo $jouer['role'];
             if ($jouer['position'] === $positionMeneur && $jouer['role'] === '0') {
                 $countMeneur++;
             }
@@ -136,7 +135,7 @@ class ControleurPageFeuilleDeMatch
                 $countPivot++;
             }
         }
-        return $countMeneur = 1 && $countAilier = 2 && $countPivot = 2;
+        return $countMeneur == 1 && $countAilier == 2 && $countPivot == 2;
     }
 
     

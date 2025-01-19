@@ -26,7 +26,7 @@ if (isset($_POST['id_match'])) {
         if ($match->getIdMatch() == $idMatch) {
             $matchAVenir = true;
             break;
-        } else  {
+        } else {
             $matchPasses = true;
         }
     }
@@ -119,7 +119,7 @@ foreach ($listeJoueurs as $joueur) {
                             }
                             echo '<tr class="clickable-row ' . $ligneSelect . '">';
                             echo '<td><button type="submit" name="id_match" value="' . $match->getIdMatch() . '" class="invisible-btn"></button>' . $match->getIdMatch() . '</td>';
-                            echo '<td>' . $controleurMatchs->afficherDateHeure($match). '</td>';
+                            echo '<td>' . $controleurMatchs->afficherDateHeure($match) . '</td>';
                             echo '<td>' . $match->getAdversaire() . '</td>';
                             echo '<td>' . $controleurMatchs->afficherLieu($match->getLieu()) . '</td>';
                             echo '</tr>';
@@ -134,9 +134,10 @@ foreach ($listeJoueurs as $joueur) {
             <button class="btn" onclick="window.location.href='Ajouter-match.php?'">Ajouter un match</button>
             <form method="POST" action="">
                 <input type="hidden" name="action" value="supprimer">
-                <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>"> <!--permet de transmettre l'id du match pour la suppression -->
+                <input type="hidden" name="id_match" value="<?php echo $idMatch; ?>">
+                <!--permet de transmettre l'id du match pour la suppression -->
                 <button type="submit" class="btn" <?php if (!$matchAVenir) //permettre la désactivation ou non du bouton
-                    echo 'disabled'; ?>>Annuler le match</button>
+                        echo 'disabled'; ?>>Annuler le match</button>
             </form>
             <button class="btn" <?php if (!$matchAVenir)
                 echo 'disabled'; ?>

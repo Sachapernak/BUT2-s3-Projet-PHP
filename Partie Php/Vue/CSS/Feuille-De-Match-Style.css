@@ -70,14 +70,9 @@ h2 {
     align-items: center; 
 }
 
-.checkbox {
-    margin-left: auto; 
-    transform: scale(2); 
+td .checkbox {
+    transform: scale(1.7); 
     cursor: pointer;
-    width: 20px;
-    margin-top: -60px; 
-    margin-right: 20px;
-    align-self: flex-start;
 }
 
 .attributs {
@@ -87,9 +82,6 @@ h2 {
     gap: 5px;
 }
 
-#formulaireParticipation {
-    height: 70px;
-}
 
 .joueur h5,
 .joueur h6,
@@ -105,11 +97,11 @@ h2 {
     margin-top: 10px;
 }
 
-.infos-participation select {
-    padding: 5px;
+form select {
+    font-size: 14px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -238,5 +230,5 @@ label {
     margin-bottom: 20px;
     text-align: center;
     width: 50%;
-    font-size: clamp(18px, 2vw, 21px);
+    font-size: clamp(15px, 2vw, 20px);
 }

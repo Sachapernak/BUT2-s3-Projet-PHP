@@ -10,6 +10,7 @@ use Modele\Commentaire;
 use Modele\Joueur;
 use DAO\JouerDAO;
 use Controleur\RechercherJouerParJoueur;
+use COntroleur\RechercherUnCommentaire;
 use Controleur\SupprimerUnJoueur;
 
 class ControleurPageConsulterInfosJoueur 
@@ -127,6 +128,17 @@ class ControleurPageConsulterInfosJoueur
         $suppression->executer();
         header('Location: Joueurs.php');
     }
+
+    public function estCommentaireExistant(): bool {
+        $n_licence = $_GET['nLicence'];
+        $date = date('Y-m-d'); 
+
+        $rechercherUnCommentaire = new RechercherUnCommentaire($this->commentaireDAO, $n_licence, $date);
+        $res = $rechercherUnCommentaire->executer();
+        
+        return $res!=null; 
+    }
+
 }
 
 

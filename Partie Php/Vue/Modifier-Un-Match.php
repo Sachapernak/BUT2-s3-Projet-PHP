@@ -5,12 +5,15 @@ use Controleur\ControleurPageModifierMatch;
 
 $controleur = new ControleurPageModifierMatch();
 
+//Recuperer l'identifiant du match 
 $idMatch = $_GET['idMatch'];
 
+//Si le formulaire est soumis on modifie le match
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controleur->modifierMatch($idMatch);
 }
 
+//Vaiables permettant le pré-remplissage des champs du formulaire
 $match = $controleur->recupererInfosMatch($idMatch);
 $date = $match->getDate();
 $heure = $match->getHeure();
@@ -40,6 +43,7 @@ $lieu = $match->getlieu();
 
         <div class="infos-match-container">
             <h2>Le match</h2>
+            <!-- Formulaire d'ajout d'un match -->
             <form action="Modifier-Un-Match.php?idMatch=<?php echo urlencode($idMatch); ?>" method="POST">
                 <div class="match-item">
                     <label for="date-et-heure">Date et heure </label>

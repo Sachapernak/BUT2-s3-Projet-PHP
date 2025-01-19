@@ -5,6 +5,7 @@ require 'Verif-Auth.php';
 
 use Controleur\ControleurPageAjouterJoueur;
 
+//Permet l'ajout du joueur lorsque le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $controleur = new ControleurPageAjouterJoueur();
     $controleur->ajouterJoueur();
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="main">
 
-
+        <!-- Formulaire d'ajout d'un locataire-->
         <div class="form-container">
             <h2>Nouveau Joueur</h2>
             <form action="Ajouter-Joueur.php" method="POST">

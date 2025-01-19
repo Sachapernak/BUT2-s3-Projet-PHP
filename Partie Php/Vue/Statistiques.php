@@ -6,11 +6,12 @@ use Controleur\ControleurPageStatistiques;
 use Controleur\ControleurPageJoueurs;
 
 $controleurStats = new ControleurPageStatistiques();
-
+//Récupérer le nombre de victoires, défaites, et matchs nuls
 $nbVictoires = $controleurStats->getTotalVictoires();
 $nbDefaites = $controleurStats->getTotalDefaites();
 $nbNuls = $controleurStats->getTotalNuls();
 
+//Récupérer le pourcentage de victoires, défaites, et matchs nuls
 $pourcentVictoires = $controleurStats->getPourcentVictoires();
 $pourcentDefaites = $controleurStats->getPourcentDefaites();
 $pourcentNuls = $controleurStats->getPourcentNuls();
@@ -33,9 +34,9 @@ $pourcentNuls = $controleurStats->getPourcentNuls();
     <?php include "barre-navigation.php" ?>
 
     <div class="main">
+        <!-- Statistiques des matchs -->
         <h2>Récapitulatif des matchs</h2>
         <div class="stats-match-container">
-
 
             <div class="recapitulatifMatch">
                 <h3 style="color: #4CAF50;">Victoires</h3>
@@ -57,6 +58,7 @@ $pourcentNuls = $controleurStats->getPourcentNuls();
 
         </div>
 
+        <!--Affichage des statistiques des joueurs dans un tableau-->
         <h2> Récapitulatif des joueurs </h2>
 
         <div class="stats-joueur-container">

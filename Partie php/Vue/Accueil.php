@@ -16,12 +16,13 @@ $controleurJoueurs = new ControleurPageJoueurs();
 
 $infoManager = $controleur->infoPageAccueil($idManager);
 
-
+//Afficher les deux derniers matchs passés
 $listeMatchs = $controleur->getMatchsRecents();
 $matchs ="";
 foreach ($listeMatchs as $match) {
     $id_match =$match->getIdMatch();
 
+    //Enregistrer dans les variables les informations nécessaires
     $resultat = $controleur->afficherResultat($match->getResultat());
     $adversaire = $match->getAdversaire();
     $lieu = $controleur->afficherLieu($match->getLieu());
@@ -50,7 +51,7 @@ foreach ($listeMatchs as $match) {
     </div>';
 }
 
-
+//Afficher la liste des joueurs actifs
 $listeJoueurs = $controleur->getJoueursActifs();
 $joueurs = "";
 
@@ -93,11 +94,9 @@ foreach ($listeJoueurs as $joueur) {
             <!-- Matchs -->
             <div class="MatchRecentTitre"><h3>Matchs récents :</h3></div>
             <div class="flexContainer">
-
                 <?php echo($matchs); ?>
-
-
             </div>
+            
             <!-- Joueurs Disponibles -->
             <div class="MatchRecentTitre"><h3>Joueurs disponibles :</h3></div>
             <div class="flexContainer">
