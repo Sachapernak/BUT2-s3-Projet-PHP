@@ -64,7 +64,7 @@ foreach ($listeJoueurs as $joueur) {
     $joueurs .= '
     <div class="joueur">
         <div>
-            <h5>' . $nom . ' ' . $prenom . '<span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span>  </h5> 
+            <h5>' . $nom . ' ' . $prenom . '<span>' . str_repeat('★', $note == "" ? 0 : $note) . str_repeat('☆', 5 - ($note == "" ? 0 : $note)) . '</span>  </h5> 
             <h6> N° de licence : ' . $licence . '</h6>
         </div>
     </div>';

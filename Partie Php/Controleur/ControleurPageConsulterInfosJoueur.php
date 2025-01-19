@@ -10,7 +10,7 @@ use Modele\Commentaire;
 use Modele\Joueur;
 use DAO\JouerDAO;
 use Controleur\RechercherJouerParJoueur;
-use COntroleur\RechercherUnCommentaire;
+use Controleur\RechercherUnCommentaire;
 use Controleur\SupprimerUnJoueur;
 
 class ControleurPageConsulterInfosJoueur 
