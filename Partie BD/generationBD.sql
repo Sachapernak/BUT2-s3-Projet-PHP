@@ -81,7 +81,8 @@ VALUES
     (20241001, 1, False, 4, 'Pivot'),   
     (20241002, 1, False, 3, 'Ailier'),  
     (20241003, 1, False, 4, 'Meneur'),  
-    (20241009, 1, False, 4, 'Pivot'),    
+    (20241009, 1, False, 4, 'Pivot'),
+    (20241010, 1, True, 1, 'Meneur'),
     (20241007, 1, False, 3, 'Ailier');   
 
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
@@ -89,7 +90,8 @@ VALUES
     (20241001, 2, False, 2, 'Pivot'),    
     (20241004, 2, False, 4, 'Ailier'),  
     (20241005, 2, False, 3, 'Pivot'),    
-    (20241010, 2, False, 4, 'Meneur'),   
+    (20241010, 2, False, 4, 'Meneur'), 
+    (20241009, 2, True, 3, 'Ailier'),
     (20241008, 2, False, 3, 'Ailier');
 
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
@@ -113,7 +115,8 @@ VALUES
     (20241003, 5, False, 4, 'Pivot'),    
     (20241009, 5, False, 3, 'Ailier'),   
     (20241002, 5, False, 4, 'Meneur'),   
-    (20241010, 5, False, 2, 'Ailier'), 
+    (20241010, 5, False, 2, 'Ailier'),
+    (20241001, 5, True, 3, 'Meneur'),
     (20241004, 5, False, 5, 'Pivot');   
 
 
@@ -122,7 +125,8 @@ VALUES
     (20241001, 6, False, 3, 'Pivot'),   
     (20241006, 6, False, 4, 'Ailier'), 
     (20241004, 6, False, 4, 'Meneur'),  
-    (20241005, 6, False, 2, 'Ailier'),  
+    (20241005, 6, False, 2, 'Ailier'), 
+    (20241003, 6, true, 3, 'Pivot'),
     (20241009, 6, False, 4, 'Pivot');    
 
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
@@ -138,82 +142,94 @@ VALUES
     (20241003, 8, False, 4, 'Pivot'),  
     (20241010, 8, False, 4, 'Ailier'),   
     (20241001, 8, False, 5, 'Meneur'),  
-    (20241005, 8, False, 3, 'Ailier'),   
+    (20241005, 8, False, 3, 'Ailier'),  
+    (20241009, 8, True, 3, 'Ailier'),
+    (20241002, 8, True, 3, 'Pivot'),
     (20241006, 8, False, 2, 'Pivot');   
 
     
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
 VALUES
-    (20241001, 9, False, 4, 'Pivot'),   
-    (20241002, 9, False, 3, 'Ailier'),
-    (20241003, 9, False, 4, 'Meneur'),  
-    (20241004, 9, False, 5, 'Pivot'),   
-    (20241006, 9, False, 4, 'Ailier');  
+    (20241001, 9, False, null, 'Pivot'),   
+    (20241005, 9, False, null, 'Ailier'),
+    (20241003, 9, False, null, 'Meneur'),  
+    (20241007, 9, False, null, 'Pivot'),   
+    (20241009, 9, False, null, 'Ailier');  
     
 
 INSERT INTO jouer (n_licence, id_match, est_remplacant, note, position)
 VALUES
-    (20241001, 10, False, 3, 'Pivot'),  
-    (20241002, 10, False, 4, 'Ailier'),  
-    (20241003, 10, False, 5, 'Meneur'),  
-    (20241004, 10, False, 4, 'Pivot'),   
-    (20241007, 10, False, 3, 'Ailier');   
+    (20241001, 10, False, null, 'Pivot'),  
+    (20241005, 10, False, null, 'Ailier'),  
+    (20241003, 10, False, null, 'Meneur'),  
+    (20241009, 10, False, null, 'Pivot'), 
+    (20241010, 10, True, null, 'Meneur'),
+    (20241007, 10, False, null, 'Ailier');   
     
 
 INSERT INTO commentaire (n_licence, date_com, commentaire)
 VALUES
     -- Match 1 : 2023-11-01, Tigers Lyon
-    (20241001, '2023-11-01', 'Bon effort lors du match contre Tigers Lyon.'),
-    (20241002, '2023-11-01', 'Bonne prestation contre Tigers Lyon.'),
-    (20241003, '2023-11-01', 'Très bon match contre Tigers Lyon.'),
-    (20241009, '2023-11-01', 'Solide performance contre Tigers Lyon.'),
-    (20241007, '2023-11-01', 'Bonne participation contre Tigers Lyon.'),
+    (20241001, '2023-11-01', 'Bon effort lors du match contre Tigers Lyon en tant que Pivot.'),
+    (20241002, '2023-11-01', 'Bonne prestation contre Tigers Lyon, mais peut mieux faire.'),
+    (20241003, '2023-11-01', 'Très bon match contre Tigers Lyon, excellente performance en tant que Meneur.'),
+    (20241009, '2023-11-01', 'Solide performance contre Tigers Lyon en tant que Pivot, mais encore perfectible.'),
+    (20241007, '2023-11-01', 'Bonne participation contre Tigers Lyon, a bien joué en Ailier.'),
 
     -- Match 2 : 2024-01-05, Eagles Paris
-    (20241001, '2024-01-05', 'Participation correcte contre Eagles Paris.'),
-    (20241004, '2024-01-05', 'Très bonne performance contre Eagles Paris.'),
-    (20241005, '2024-01-05', 'Bonne prestation contre Eagles Paris.'),
-    (20241010, '2024-01-05', 'Bon match contre Eagles Paris.'),
-    (20241008, '2024-01-05', 'Bonne contribution contre Eagles Paris.'),
+    (20241001, '2024-01-05', 'Participation correcte contre Eagles Paris, rôle de Pivot bien joué.'),
+    (20241004, '2024-01-05', 'Très bonne performance contre Eagles Paris en tant qu Ailier.'),
+    (20241005, '2024-01-05', 'Bonne prestation contre Eagles Paris, solide au Pivot.'),
+    (20241010, '2024-01-05', 'Bon match contre Eagles Paris, mais quelques erreurs en tant que Meneur.'),
+    (20241008, '2024-01-05', 'Bonne contribution contre Eagles Paris, a montré une belle énergie en Ailier.'),
 
     -- Match 3 : 2024-05-10, Sharks Marseille
-    (20241001, '2024-05-10', 'Bonne prestation contre Sharks Marseille.'),
-    (20241006, '2024-05-10', 'Excellente performance contre Sharks Marseille.'),
-    (20241004, '2024-05-10', 'Participation correcte contre Sharks Marseille.'),
-    (20241002, '2024-05-10', 'Bonne contribution contre Sharks Marseille.'),
-    (20241003, '2024-05-10', 'Performance impressionnante contre Sharks Marseille.'),
+    (20241001, '2024-05-10', 'Bonne prestation contre Sharks Marseille en tant que Pivot.'),
+    (20241006, '2024-05-10', 'Excellente performance contre Sharks Marseille, a dominé en Ailier.'),
+    (20241004, '2024-05-10', 'Participation correcte contre Sharks Marseille, rôle de Meneur bien géré.'),
+    (20241002, '2024-05-10', 'Bonne contribution contre Sharks Marseille, a bien soutenu l équipe en Ailier.'),
+    (20241003, '2024-05-10', 'Performance impressionnante contre Sharks Marseille, en tant que Pivot, très solide.'),
 
     -- Match 4 : 2024-07-20, Lions Bordeaux
-    (20241001, '2024-07-20', 'Solide prestation contre Lions Bordeaux.'),
-    (20241004, '2024-07-20', 'Bonne participation contre Lions Bordeaux.'),
-    (20241008, '2024-07-20', 'Excellente contribution contre Lions Bordeaux.'),
-    (20241007, '2024-07-20', 'Performance correcte contre Lions Bordeaux.'),
-    (20241006, '2024-07-20', 'Bonne prestation contre Lions Bordeaux.'),
+    (20241001, '2024-07-20', 'Solide prestation contre Lions Bordeaux, a bien joué en Pivot.'),
+    (20241004, '2024-07-20', 'Bonne participation contre Lions Bordeaux en Ailier, a montré de bonnes actions.'),
+    (20241008, '2024-07-20', 'Excellente contribution contre Lions Bordeaux, très bon en Meneur.'),
+    (20241007, '2024-07-20', 'Performance correcte contre Lions Bordeaux en Ailier, mais des erreurs à corriger.'),
+    (20241006, '2024-07-20', 'Bonne prestation contre Lions Bordeaux, a été un excellent Pivot.'),
 
     -- Match 5 : 2024-10-10, Panthers Toulouse
-    (20241003, '2024-10-10', 'Bonne performance contre Panthers Toulouse.'),
-    (20241009, '2024-10-10', 'Participation correcte contre Panthers Toulouse.'),
-    (20241002, '2024-10-10', 'Excellente prestation contre Panthers Toulouse.'),
-    (20241010, '2024-10-10', 'Performance moyenne contre Panthers Toulouse.'),
-    (20241004, '2024-10-10', 'Excellente prestation contre Panthers Toulouse.'),
+    (20241003, '2024-10-10', 'Bonne performance contre Panthers Toulouse, solide en Pivot.'),
+    (20241009, '2024-10-10', 'Participation correcte contre Panthers Toulouse, en tant qu Ailier.'),
+    (20241002, '2024-10-10', 'Excellente prestation contre Panthers Toulouse en Ailier.'),
+    (20241010, '2024-10-10', 'Performance moyenne contre Panthers Toulouse, a dû mieux gérer le rôle de Meneur.'),
+    (20241004, '2024-10-10', 'Excellente prestation contre Panthers Toulouse en Pivot.'),
 
     -- Match 6 : 2024-11-15, Dragons Nice
-    (20241001, '2024-11-15', 'Bonne prestation contre Dragons Nice.'),
-    (20241006, '2024-11-15', 'Très bonne performance contre Dragons Nice.'),
-    (20241004, '2024-11-15', 'Excellente contribution contre Dragons Nice.'),
-    (20241005, '2024-11-15', 'Participation correcte contre Dragons Nice.'),
-    (20241009, '2024-11-15', 'Bonne prestation contre Dragons Nice.'),
+    (20241001, '2024-11-15', 'Bonne prestation contre Dragons Nice en Pivot, mais quelques manques.'),
+    (20241006, '2024-11-15', 'Très bonne performance contre Dragons Nice, une très bonne partie en Ailier.'),
+    (20241004, '2024-11-15', 'Excellente contribution contre Dragons Nice en Pivot.'),
+    (20241005, '2024-11-15', 'Participation correcte contre Dragons Nice en Ailier, mais un peu moins actif.'),
+    (20241009, '2024-11-15', 'Bonne prestation contre Dragons Nice, solide en Ailier.'),
 
     -- Match 7 : 2024-12-12, Wolves Lille
-    (20241007, '2024-12-12', 'Bonne performance contre Wolves Lille.'),
-    (20241008, '2024-12-12', 'Participation correcte contre Wolves Lille.'),
-    (20241006, '2024-12-12', 'Bonne prestation contre Wolves Lille.'),
-    (20241002, '2024-12-12', 'Excellente prestation contre Wolves Lille.'),
-    (20241004, '2024-12-12', 'Participation moyenne contre Wolves Lille.'),
+    (20241007, '2024-12-12', 'Bonne performance contre Wolves Lille en Pivot.'),
+    (20241008, '2024-12-12', 'Participation correcte contre Wolves Lille, en Ailier.'),
+    (20241006, '2024-12-12', 'Bonne prestation contre Wolves Lille, solide en Meneur.'),
+    (20241002, '2024-12-12', 'Excellente prestation contre Wolves Lille en Ailier.'),
+    (20241004, '2024-12-12', 'Participation moyenne contre Wolves Lille en Pivot.'),
 
     -- Match 8 : 2025-01-10, Knights Montpellier
-    (20241003, '2025-01-10', 'Bonne performance contre Knights Montpellier.'),
-    (20241010, '2025-01-10', 'Excellente prestation contre Knights Montpellier.'),
-    (20241001, '2025-01-10', 'Superbe performance contre Knights Montpellier.'),
-    (20241005, '2025-01-10', 'Participation correcte contre Knights Montpellier.'),
-    (20241006, '2025-01-10', 'Performance moyenne contre Knights Montpellier.');
+    (20241003, '2025-01-10', 'Bonne performance contre Knights Montpellier, en Pivot.'),
+    (20241010, '2025-01-10', 'Excellente prestation contre Knights Montpellier, a fait une superbe partie en Meneur.'),
+    (20241001, '2025-01-10', 'Superbe performance contre Knights Montpellier, avec un excellent rôle de Meneur.'),
+    (20241005, '2025-01-10', 'Participation correcte contre Knights Montpellier, bien joué en Ailier.'),
+    (20241006, '2025-01-10', 'Performance moyenne contre Knights Montpellier, a besoin d améliorer son jeu en Pivot.');
+
+
+
+
+
+
+
+
+
