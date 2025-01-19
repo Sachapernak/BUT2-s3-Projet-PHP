@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
 
         case 'ajouterCommentaire':
-            if(!$controleur->estCommentaireExistant()){
+            if (!$controleur->estCommentaireExistant()) {
                 $controleur->ajouterCommentaire();
             } else {
                 $messageErreurAjout = "<p>Erreur : Impossible, vous avez déjà ajouté un commentaire aujourd'hui</p>";
@@ -89,7 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p>Êtes-vous sûr de vouloir supprimer ce joueur ?</p>
                 <div class="confirmation-buttons">
                     <button type="submit" class="btn-confirmer">Confirmer</button>
-                    <button type="button" class="btn-annuler" onclick="document.getElementById('confirm-delete').checked = false;">Annuler</button>
+                    <button type="button" class="btn-annuler"
+                        onclick="document.getElementById('confirm-delete').checked = false;">Annuler</button>
                 </div>
             </form>
         </div>
@@ -109,11 +110,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="text" id="prenom" name="prenom" value="<?php echo $joueur->getPrenom() ?>">
 
                 <label for="statut" class="labelModif">Statut :</label>
-                <select id="statut" name="statut" value="<?php echo $joueur->getStatut() ?>">
-                    <option value="Act">Actif</option>
-                    <option value="Abs">Absent</option>
-                    <option value="Ble">Blessé</option>
-                    <option value="Sus">Suspendu</option>
+                <select id="statut" name="statut">
+                    <option value="Act" <?php echo $joueur->getStatut() === 'Act' ? 'selected' : ''; ?>>Actif</option>
+                    <option value="Abs" <?php echo $joueur->getStatut() === 'Abs' ? 'selected' : ''; ?>>Absent</option>
+                    <option value="Ble" <?php echo $joueur->getStatut() === 'Ble' ? 'selected' : ''; ?>>Blessé</option>
+                    <option value="Sus" <?php echo $joueur->getStatut() === 'Sus' ? 'selected' : ''; ?>>Suspendu</option>
                 </select>
 
                 <label for="date_naissance" class="labelModif">Date de naissance :</label>
@@ -128,14 +129,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-valider">Valider</button>
-                    <button type="button" class="btn-annuler" onclick="document.getElementById('confirm-delete').checked = false;">Annuler</button>
+                    <button type="button" class="btn-annuler"
+                        onclick="document.getElementById('toggle-checkbox').checked = false;">Annuler</button>
                 </div>
             </form>
         </div>
 
         <div class="infos-container">
             <!-- Afficher message d'erreur si supprimer le joueur est impossible -->
-            <div id="messageErreur"> <?php if (isset($messageErreurSuppression)) echo $messageErreurSuppression; ?> </div> 
+            <div id="messageErreur"> <?php if (isset($messageErreurSuppression))
+                echo $messageErreurSuppression; ?>
+            </div>
 
             <!-- Informations du joueur -->
             <div>
@@ -211,7 +215,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
 
-            <div id="messageErreur"> <?php if (isset($messageErreurAjout)) echo $messageErreurAjout; ?> </div> 
+            <div id="messageErreur"> <?php if (isset($messageErreurAjout))
+                echo $messageErreurAjout; ?> </div>
 
         </div>
 
