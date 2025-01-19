@@ -45,7 +45,6 @@ CREATE TABLE jouer(
    FOREIGN KEY(id_match) REFERENCES match_basket(id_match)
 );
 
-
 INSERT INTO joueur (n_licence, nom, prenom, date_de_naissance, taille, poids, statut)
 VALUES 
     (20241001, 'Martin', 'Lucas', '1992-03-15', 175, 70, 'Act'),
@@ -225,3 +224,12 @@ VALUES
     (20241001, '2025-01-10', 'Superbe performance contre Knights Montpellier, avec un excellent rôle de Meneur.'),
     (20241005, '2025-01-10', 'Participation correcte contre Knights Montpellier, bien joué en Ailier.'),
     (20241006, '2025-01-10', 'Performance moyenne contre Knights Montpellier, a besoin d améliorer son jeu en Pivot.');
+
+commit;
+
+
+
+
+
+
+

@@ -176,7 +176,8 @@ class JouerDAO {
             $requete = $this->pdo->prepare('SELECT AVG(note) as moyenne_note FROM jouer WHERE n_licence = :n_licence');
             $requete->execute([ ':n_licence' => $n_licence]);
             $result = $requete->fetch();
-            if ($result) {
+            if ($result && $result['moyenne_note'] != null) {
+
                 return round($result['moyenne_note'], 1);
             }
             return -1;  

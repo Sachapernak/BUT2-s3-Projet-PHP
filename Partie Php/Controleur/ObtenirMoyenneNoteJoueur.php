@@ -32,7 +32,13 @@ class ObtenirMoyenneNoteJoueur
      */
 	public function executer(): int
 	{
-		return round($this->jouerDAO->moyenneNoteJoueur($this->n_licence));
-	}
+		$moyenne = round($this->jouerDAO->moyenneNoteJoueur($this->n_licence));
+
+        if ($moyenne == null || $moyenne < 0 || $moyenne > 5 ) {
+            return 0;
+        }
+        return $moyenne;
+
+    }
 }
 ?>

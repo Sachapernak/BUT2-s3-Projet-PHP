@@ -162,7 +162,14 @@ class ControleurPageStatistiques
     public function getMoyenneEval(Joueur $joueur): float {
         $n_licence = $joueur->getN_licence();
         $moyenne = $this->jouerDAO->moyenneNoteJoueur($n_licence);
-        return round($moyenne, 2);
+
+        $moyenne = round($moyenne, 2);
+
+        if ($moyenne < 0 || $moyenne > 5) {
+            return 0;
+        }
+
+        return $moyenne;
     }
 
     /**
