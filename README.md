@@ -42,8 +42,8 @@ Ce projet aide un entraîneur à gérer les joueurs et les matchs de son équipe
 L'application est hébergée sur **Always Data**. Pour y accéder, suivez ces étapes :
 
 1. Ouvrez un navigateur web récent (par exemple : Chrome, Firefox, Edge).
-2. Rendez-vous à l'adresse suivante : https://handipromanager.alwaysdata.net/Vue/Accueil.php
-3. Connectez-vous avec les identifiants de l'entraîneur :
+2. Rendez-vous à l'adresse suivante : https://handipromanager.alwaysdata.net/
+3. Connectez vous avec les identifiants de l'entraîneur :
 - **Nom d'utilisateur** : `KTomato`
 - **Mot de passe** : `azerty`
 
