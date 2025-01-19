@@ -5,18 +5,22 @@ use Controleur\ControleurPageSaisieDuScore;
 
 $controleur = new ControleurPageSaisieDuScore();
 
+//recuperer l'identifiant du match 
 $idMatch = $_GET['idMatch'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controleur->saisirScore($idMatch);
 }
 
+//Recuperer les informations du match qui seront affichées
 $match = $controleur->recupererInfosMatch($idMatch);
 $date = $match->getDate();
 $heure = $match->getHeure();
 $adversaire = $match->getAdversaire();
 $lieu = $match->getlieu();
-$valeurDefaut = $match->getResultat(); 
+
+
+$valeurDefaut = $match->getResultat();  //S'il a déjà été saisi, il permet le pré-remplissage du champs de formulaire
 
 ?>
 
@@ -38,6 +42,7 @@ $valeurDefaut = $match->getResultat();
 
     <div class="main">
 
+        <!-- Informations relatives au match--> 
         <div class="infos-match">
             <h2>Rappel du match</h2>
 
@@ -61,6 +66,7 @@ $valeurDefaut = $match->getResultat();
 
             </div>
 
+            <!-- Formulaire de saisie du score-->
             <div class="score-form">
                 <h2>Saisir le score</h2>
                 <form action="Saisie-Du-Score.php?idMatch=<?php echo urlencode($idMatch); ?>" method="POST">

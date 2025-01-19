@@ -5,6 +5,7 @@ use Controleur\ControleurPageConsulterInfosJoueur;
 
 $controleur = new ControleurPageConsulterInfosJoueur();
 
+//Récuperer le joueur selectionné
 if (isset($_GET['nLicence'])) {
     $n_licence = $_GET['nLicence'];
 
@@ -19,9 +20,11 @@ if (isset($_GET['nLicence'])) {
     exit;
 }
 
+//Lorsqu'un formulaire est soumis 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $n_licence = $_GET['nLicence'];
 
+    //On récupère l'action effectuée
     $action = $_POST['action'] ?? '';
 
     switch ($action) {
@@ -30,12 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
 
         case 'ajouterCommentaire':
-            $controleur->ajouterCommentaire();
+            if(!$controleur->estCommentaireExistant()){
+                $controleur->ajouterCommentaire();
+            } else {
+                $messageErreurAjout = "<p>Erreur : Impossible, vous avez déjà ajouté un commentaire aujourd'hui</p>";
+            }
             break;
 
         case 'supprimer':
             $peutSuppr = $controleur->peutEtreSupprime($n_licence);
-            echo $peutSuppr;
             if ($peutSuppr) {
                 $controleur->supprimerJoueur($n_licence);
             } else {
@@ -71,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="main">
 
+        <!-- Ouvrir le formulaire de suppression d'un joueur -->
         <label for="confirm-delete" id="toggle-supp">
             <i class="fa-solid fa-trash" style="color: #d80e0e;"></i>
         </label>
@@ -87,10 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
 
+        <!-- Ouvrir le formulaire de modification d'un joueur -->
         <label for="toggle-checkbox" id="toggle-modif"><i class="fa-solid fa-pen-to-square"
                 style="color: #ffffff;"></i></label>
         <input type="checkbox" id="toggle-checkbox">
-
+        <!-- Formulaire de modification d'un joueur -->
         <div id="extra-fields">
             <form action="" method="POST">
                 <input type="hidden" name="action" value="mettreAJourJoueur">
@@ -126,8 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="infos-container">
+            <!-- Afficher message d'erreur si supprimer le joueur est impossible -->
             <div id="messageErreur"> <?php if (isset($messageErreurSuppression)) echo $messageErreurSuppression; ?> </div> 
 
+            <!-- Informations du joueur -->
             <div>
                 <h2 class="licence">N° de licence : <?php echo $joueur->getN_licence() ?></h2>
             </div>
@@ -162,6 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span class="poids"><?php echo $joueur->getPoids() . " kg"; ?></span>
             </div>
 
+            <!-- Afficher les commentaires -->
             <div class="commentaires-section">
                 <h3>Commentaires</h3>
                 <table class="commentaires-table">
@@ -173,6 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </thead>
                     <tbody>
                         <?php
+                        //On récupère les commentaires à l'aide du controleur et on affiche les dates des commentaires et les commentaires
                         $controleur = new ControleurPageConsulterInfosJoueur();
                         $commentaires = $controleur->recupererCommentaires();
                         if ($commentaires):
@@ -199,8 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
 
-
-
+            <div id="messageErreur"> <?php if (isset($messageErreurAjout)) echo $messageErreurAjout; ?> </div> 
 
         </div>
 

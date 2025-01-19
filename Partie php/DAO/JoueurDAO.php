@@ -20,7 +20,8 @@ class JoueurDAO
         }
     }
 
-    public function insert($n_licence, $nom, $prenom, $date_de_naissance, $taille, $poids, $statut)
+    //Méthode pour insérer un joueur dans la base de données
+    public function insert($n_licence, $nom, $prenom, $date_de_naissance, $taille, $poids, $statut): void
     {
         try {
             $requete = $this->connexion->prepare('
@@ -43,7 +44,8 @@ class JoueurDAO
 
     }
 
-    public function update($n_licence, $nom, $prenom, $taille, $poids, $statut, $date_de_naissance)
+    //Méthode pour mettre à jour un joueur
+    public function update($n_licence, $nom, $prenom, $taille, $poids, $statut, $date_de_naissance): void
     {
         try {
             $requete = $this->connexion->prepare('UPDATE joueur SET nom = :nvnom , 
@@ -71,6 +73,7 @@ class JoueurDAO
 
     }
 
+    //Méthode pour supprimer un joueur à partir de son numéro de licence (identifiant)
     public function delete($n_licence): bool
     {
         $res = false;
@@ -89,6 +92,7 @@ class JoueurDAO
         return $res;
     }
 
+    //Méthode pour récuperer un joueur à partir de son identifiant
     public function findById($n_licence): ?Joueur
     {
         $joueur = null;
@@ -105,6 +109,7 @@ class JoueurDAO
         return $joueur;
     }
 
+    //Méthode pour effectuer une recherche de joueur selon son nom, prenom ou numéro de licence
     public function findByAttributes($recherche): array{
         try {
             $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE n_licence LIKE :recherche1 OR nom LIKE :recherche2 OR prenom LIKE :recherche3');
@@ -121,6 +126,7 @@ class JoueurDAO
 
     }
 
+    //Méthode pour récupérer les joueurs possèdant le statut passé en argument
     public function findByStatut($statut): array{
         try {
             $requete = $this->connexion->prepare('SELECT * FROM joueur WHERE statut = :statut');

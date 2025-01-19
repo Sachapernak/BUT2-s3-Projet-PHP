@@ -6,6 +6,7 @@ use Controleur\ControleurPageJoueurs;
 
 $controleur = new ControleurPageJoueurs();
 
+//Permet la recherche d'un joueurà partir de la barre de recherche
 if (isset($_POST['searchbar']) && !empty($_POST['searchbar'])) {
     $recherche = $_POST['searchbar']; 
     $listeJoueurs = $controleur->resultatRecherche($recherche);
@@ -13,6 +14,7 @@ if (isset($_POST['searchbar']) && !empty($_POST['searchbar'])) {
     $listeJoueurs = $controleur->getJoueurs();
 }
 
+//récupérer l'ensemble des joueurs
 $joueurs = ""; 
 
 foreach ($listeJoueurs as $joueur) {
@@ -54,11 +56,13 @@ foreach ($listeJoueurs as $joueur) {
         <h2>Vos joueurs</h2>
 
         <div class="en-tete">
+            <!-- Formulaire de recherche d'un joueur selon son nom, prenom ou numéro de licence-->
             <form class="recherche" method="POST" action ="">
                 <input type="text" id="search-bar" name="searchbar" placeholder="Rechercher un joueur...">
                 <button type="submit" id="search-button">🔍</button>
             </form>
 
+            <!-- Bouton permettant de rediriger vers la fenetre d'ajout d'un joueur-->
             <div class="boutons-ajout">
                 <button id="btn-ajouter-joueur" onclick="window.location.href='Ajouter-Joueur.php'"> Nouveau Joueur</button>
             </div>

@@ -16,16 +16,17 @@ $controleurJoueurs = new ControleurPageJoueurs();
 
 $infoManager = $controleur->infoPageAccueil($idManager);
 
-
+//Afficher les deux derniers matchs passés
 $listeMatchs = $controleur->getMatchsRecents();
 $matchs ="";
 foreach ($listeMatchs as $match) {
     $id_match =$match->getIdMatch();
 
+    //Enregistrer dans les variables les informations nécessaires
     $resultat = $controleur->afficherResultat($match->getResultat());
     $adversaire = $match->getAdversaire();
     $lieu = $controleur->afficherLieu($match->getLieu());
-    $date_heure = $match->getDate_et_heure();
+    $date_heure = $controleur->afficherDateHeure($match);
     $bestJoueur = $controleur->getMeilleurJoueur($id_match);
     $n_licence = $bestJoueur == null ? "" : $bestJoueur->getN_licence();
 
@@ -50,20 +51,21 @@ foreach ($listeMatchs as $match) {
     </div>';
 }
 
-
+//Afficher la liste des joueurs actifs
 $listeJoueurs = $controleur->getJoueursActifs();
 $joueurs = "";
 
 foreach ($listeJoueurs as $joueur) {
     $nom = $joueur->getNom();
     $prenom = $joueur->getPrenom();
+    $licence = $joueur->getN_licence();
     $note = $controleurJoueurs->getNoteMoyenneJoueur($joueur->getN_licence());
 
     $joueurs .= '
     <div class="joueur">
         <div>
-            <h5>' . $nom . ' ' . $prenom . '</h5> 
-            <span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span> 
+            <h5>' . $nom . ' ' . $prenom . '<span>' . str_repeat('★', $note) . str_repeat('☆', 5 - $note) . '</span>  </h5> 
+            <h6> N° de licence : ' . $licence . '</h6>
         </div>
     </div>';
 }
@@ -92,11 +94,9 @@ foreach ($listeJoueurs as $joueur) {
             <!-- Matchs -->
             <div class="MatchRecentTitre"><h3>Matchs récents :</h3></div>
             <div class="flexContainer">
-
                 <?php echo($matchs); ?>
-
-
             </div>
+            
             <!-- Joueurs Disponibles -->
             <div class="MatchRecentTitre"><h3>Joueurs disponibles :</h3></div>
             <div class="flexContainer">

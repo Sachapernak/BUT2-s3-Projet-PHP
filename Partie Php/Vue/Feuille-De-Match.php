@@ -14,8 +14,7 @@ $joueursDejaSelectionnes = $controleurMatchs->getInfosParticipation($idMatch);
 
 $joueursSelectionnes = [];
 
-$erreur = false;
-$messageErreur = "";
+$blocErreur = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $selectionJoueur = $_POST['selectionJoueur'] ?? [];
@@ -33,13 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
         }
 
-        if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPosition($joueursSelectionnes)) {
+        if ($controleurMatchs->verifierTailleJoueursSelec($joueursSelectionnes) && $controleurMatchs->verifierPositionTitulaires($joueursSelectionnes)) {
             $controleurMatchs->actualiserParticipation($joueursSelectionnes, $idMatch);
             header("Location: Matchs.php");
             exit;
         } else {
-            $messageErreur = "Vous devez séléctionner au moins 5 titulaires dont 1 meneur, 2 ailiers, 2 pivots";
-            $erreur = true;
+            $blocErreur = 
+                '<div class="erreur">
+                    Vous devez séléctionner 5 titulaires dont 1 meneur, 2 ailiers, 2 pivots
+                </div>';
         }
     }
 }
@@ -62,11 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2> Feuille de match </h2>
 
     <div class="main">
-        <div class="message-erreur">
-            <?php
-            $controleurMatchs->afficherErreurs($erreur, $messageErreur)
-                ?>
-        </div>
+        <?php echo $blocErreur ?>
         <div class="table-container">
             <form action="" method="POST">
                 <input type="hidden" name="action" value="selectionJoueur">
@@ -92,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $estPresent = false;
                             $key;
 
+                            //Permet le pré-remplissage des champs role et position lorsque c'est une modification de séléction
                             for ($i = 0; $i < count($joueursDejaSelectionnes); $i++) {
                                 if ($joueursDejaSelectionnes[$i]->getN_licence() == $n_licence) {
                                     $estPresent = true;
@@ -115,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             echo '<td>' . $joueur->getNom() . " " . $joueur->getPrenom() . '</td>';
                             echo '<td>' . $joueur->getTaille() . ' cm </td>';
                             echo '<td>' . $joueur->getPoids() . ' kg </td>';
-                            echo '<td>' . $controleurMatchs->getCommentairesJoueur($n_licence) . '</td>';
+                            echo '<td class="scrollable">' . $controleurMatchs->getCommentairesJoueur($n_licence) . '</td>';
                             echo '<td>' . $controleurJoueurs->getNoteMoyenneJoueur($n_licence) . '</td>';
 
                             // Pré-remplissage du champ Position
@@ -138,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             // Pré-remplissage de la case à cocher (si le joueur est sélectionné)
                             echo '<td> 
-                                    <input type="checkbox" name="selectionJoueur[' . $n_licence . ']" value="1" ' . ($estSelectionne ? 'checked' : '') . '> 
+                                    <input type="checkbox" class="checkbox" name="selectionJoueur[' . $n_licence . ']" value="1" ' . ($estSelectionne ? 'checked' : '') . '> 
                                   </td>';
                             echo '</tr>';
                         }
