@@ -14,7 +14,7 @@ class Database {
         $host = 'mysql-handipromanager.alwaysdata.net';
         $db = 'handipromanager_bd';
         $user = '394731_app';
-        $pass = 'TroisCacahuetesOrangesSur@UnCailloux$';
+        $pass = 'nouveauMdpDuSite';
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
