@@ -225,7 +225,7 @@ VALUES
     (20241005, '2025-01-10', 'Participation correcte contre Knights Montpellier, bien joué en Ailier.'),
     (20241006, '2025-01-10', 'Performance moyenne contre Knights Montpellier, a besoin d améliorer son jeu en Pivot.');
 
-
+commit;
 
 
 
