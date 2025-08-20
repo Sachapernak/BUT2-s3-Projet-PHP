@@ -39,6 +39,8 @@ Ce projet aide un entraîneur à gérer les joueurs et les matchs de son équipe
 
 ## Accéder au site
 
+Mise à jour : l'application n'est plus hebergée.
+
 L'application est hébergée sur **Always Data**. Pour y accéder, suivez ces étapes :
 
 1. Ouvrez un navigateur web récent (par exemple : Chrome, Firefox, Edge).
